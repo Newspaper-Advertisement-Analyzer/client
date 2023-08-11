@@ -70,7 +70,7 @@ function App() {
 
           {message && (
             <>
-              {message.location && <h2>Location: {message.location}</h2>}
+              {message.location && <h2>Location: {message.location.join(", ")}</h2>}
               {message.category && <h2>Category: {message.category}</h2>}
               {message.phone_numbers && <h2>Phone Numbers: {message.phone_numbers.join(", ")}</h2>}
               {message.prices && <h2>Prices: {message.prices.join(", ")}</h2>}
