@@ -120,8 +120,8 @@ function Basic() {
               </MDButton>
             </MDBox>
             <div>
-              <p>or login with Google </p>
-              <GoogleButton onClick={handleClick} />                    
+              <p>or sign in with Google</p>
+              <GoogleButton onClick={handleClick} />
             </div>
             <MDBox mt={3} mb={1} textAlign="center">
               <MDTypography variant="button" color="text">
