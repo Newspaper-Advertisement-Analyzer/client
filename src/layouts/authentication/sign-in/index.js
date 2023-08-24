@@ -41,10 +41,23 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
+import GoogleButton from "react-google-button";
+import { auth, provider } from "layouts/authentication/sign-in/config";
+import { signInWithPopup } from "firebase/auth";
+
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+  const [value, setValue] = useState("");
+
+  const handleClick = () => {
+    signInWithPopup(auth, provider).then((data) => {
+      setValue(data.user.email);
+      console.log(value);
+      // navigate("/");
+    });
+  };
 
   return (
     <BasicLayout image={bgImage}>
@@ -106,6 +119,10 @@ function Basic() {
                 sign in
               </MDButton>
             </MDBox>
+            <div>
+              <p>or login with Google </p>
+              <GoogleButton onClick={handleClick} />                    
+            </div>
             <MDBox mt={3} mb={1} textAlign="center">
               <MDTypography variant="button" color="text">
                 Don&apos;t have an account?{" "}
