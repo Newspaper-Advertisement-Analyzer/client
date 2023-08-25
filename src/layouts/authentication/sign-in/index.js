@@ -46,6 +46,9 @@ import { auth, provider } from "layouts/authentication/sign-in/config";
 import { signInWithPopup } from "firebase/auth";
 
 function Basic() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
@@ -57,6 +60,51 @@ function Basic() {
       console.log(value);
       // navigate("/");
     });
+  };
+
+  const handleLogin = () => {
+    if (!email || !password) {
+      alert("Please enter both email and password");
+      return;
+    }
+    fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw response.status;
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        // Display a success message if applicable
+        if (data.message) {
+          alert(data.message);
+          // Perform any necessary actions after successful login
+          // For example, set the email value and redirect to the home page
+          // setValue(email);
+          // localStorage.setItem("email", email);
+          // window.location.href = "/";
+        }
+      })
+      .catch((status) => {
+        console.log(status, "error");
+        if (status === 400) {
+          alert("Email and password are required.");
+        } else if (status === 401) {
+          alert("Invalid User Name or Incorrect Password.");
+        } else {
+          alert("An error occurred during login.");
+        }
+      });
   };
 
   return (
@@ -97,10 +145,20 @@ function Basic() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" fullWidth />
+              <MDInput
+                type="email"
+                label="Email"
+                fullWidth
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" fullWidth />
+              <MDInput
+                type="password"
+                label="Password"
+                fullWidth
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -115,7 +173,7 @@ function Basic() {
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton variant="gradient" color="info" fullWidth onClick={handleLogin}>
                 sign in
               </MDButton>
             </MDBox>

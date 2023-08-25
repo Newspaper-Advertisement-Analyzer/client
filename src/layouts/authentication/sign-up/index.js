@@ -59,17 +59,24 @@ function Cover() {
         password: password,
         name: name,
       }),
-    }).then((response) => {
-      if (response.status === 409) {
-        return response.json().then((data) => {
-          alert(data.error);
-        });
-      } else {
-        return response.json().then((data) => {
-          console.log(data);
-        });
-      }
-    });
+    })
+      .then((response) => {
+        if (response.status === 409 || response.status === 500) {
+          return response.json().then((data) => {
+            alert(data.error);
+          });
+        } else {
+          return response.json().then((data) => {
+            console.log(data);
+            // Handle success, e.g., show a success message to the user
+            alert(data.message);
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error, "error");
+        alert("An error occurred during registration.");
+      });
   };
 
   return (
