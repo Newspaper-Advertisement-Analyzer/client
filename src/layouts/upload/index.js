@@ -13,7 +13,7 @@ function Upload() {
       <div>
         {/* <Urlanalyzer />
         <ImageUploader /> */}
-        <CenteredTabs/>
+        <CenteredTabs />
       </div>
     </DashboardLayout>
   );

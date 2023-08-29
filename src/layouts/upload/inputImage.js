@@ -82,11 +82,7 @@ const ImageUploader = () => {
           onChange={handleFileChange}
         />
         <label htmlFor="image-input">
-          <Button
-            variant="outlined"
-            component="span"
-            style={{ marginTop: "10px" }}
-          >
+          <Button variant="outlined" component="span" style={{ marginTop: "10px" }}>
             Upload Image
           </Button>
         </label>
