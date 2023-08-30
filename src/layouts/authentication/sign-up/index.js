@@ -28,6 +28,7 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
+import MDAlert from "components/MDAlert";
 
 // Authentication layout components
 import CoverLayout from "layouts/authentication/components/CoverLayout";
@@ -35,10 +36,14 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 // Images
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 
+import { useNavigate } from "react-router-dom";
+
 function Cover() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const navigate = useNavigate();
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
   const handleRegister = () => {
     console.log("email: ", email);
@@ -69,7 +74,13 @@ function Cover() {
           return response.json().then((data) => {
             console.log(data);
             // Handle success, e.g., show a success message to the user
-            alert(data.message);
+            // alert(data.message);
+            setShowSuccessAlert(true);
+            setTimeout(() => {
+              setShowSuccessAlert(false);
+              navigate("/dashboard");
+            }, 1000);
+            // navigate("/dashboard");
           });
         }
       })
@@ -81,6 +92,11 @@ function Cover() {
 
   return (
     <CoverLayout image={bgImage}>
+      {showSuccessAlert && (
+        <MDAlert color="success" dismissible>
+          Registration Successful!
+        </MDAlert>
+      )}
       <Card>
         <MDBox
           variant="gradient"

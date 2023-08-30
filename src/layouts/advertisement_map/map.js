@@ -75,7 +75,7 @@ const MapComponent = () => {
       <MapContainer center={mapCenter} zoom={8} style={{ height: "400px", width: "100%" }}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {markers.map((marker, index) => {
-          const categoryIcon = categoryToIcon[marker.category];
+          const categoryIcon = categoryToIcon[marker.catergory];
           return (
             <Marker key={index} position={marker.position} icon={categoryIcon}>
               <Popup>
