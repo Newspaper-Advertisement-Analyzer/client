@@ -48,7 +48,6 @@ function Cover() {
 
   const [verificationOpen, setVerificationOpen] = useState(false); // State to manage the dialog
 
-
   const handleRegister = () => {
     console.log("email: ", email);
     console.log("password: ", password);
@@ -80,12 +79,7 @@ function Cover() {
             // Handle success, e.g., show a success message to the user
             // alert(data.message);
             setVerificationOpen(true);
-            
-            setShowSuccessAlert(true);
-            setTimeout(() => {
-              setShowSuccessAlert(false);
-              navigate("/dashboard");
-            }, 1000);
+
             // navigate("/dashboard");
           });
         }
@@ -205,6 +199,11 @@ function Cover() {
           email={email} // Pass the email to the dialog
           onSuccess={() => {
             // Handle successful verification if needed
+            setShowSuccessAlert(true);
+            setTimeout(() => {
+              setShowSuccessAlert(false);
+              navigate("/dashboard");
+            }, 1000);
           }}
         />
       )}

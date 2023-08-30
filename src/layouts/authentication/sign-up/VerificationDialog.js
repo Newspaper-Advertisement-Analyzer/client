@@ -11,16 +11,10 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Alert from "@mui/material/Alert";
 
-export default function VerificationDialog({
-  open,
-  onClose,
-  email,
-  onSuccess,
-}) {
+export default function VerificationDialog({ open, onClose, email, onSuccess }) {
   const [verificationCode, setVerificationCode] = useState("");
   const [timeRemaining, setTimeRemaining] = useState(60);
   const [alertType, setAlertType] = useState(null);
-
 
   useEffect(() => {
     let interval = null;
@@ -50,12 +44,11 @@ export default function VerificationDialog({
         .then(function (response) {
           console.log(response);
           if (response.data.success) {
-
-            alert("Registration successful!");
+            // alert("Registration successful!");
             setAlertType("success");
             onSuccess();
           } else {
-          setAlertType("error");
+            setAlertType("error");
             alert("Verification code is incorrect or expired.");
           }
           onClose();
@@ -105,7 +98,7 @@ export default function VerificationDialog({
             Verification code is incorrect or expired.
           </Alert>
         )} */}
-        
+
         <TextField
           autoFocus
           margin="dense"
@@ -120,11 +113,7 @@ export default function VerificationDialog({
         <Button onClick={handleCancel} color="primary">
           Cancel
         </Button>
-        <Button
-          onClick={handleVerificationSubmit}
-          color="primary"
-          disabled={timeRemaining === 0}
-        >
+        <Button onClick={handleVerificationSubmit} color="primary" disabled={timeRemaining === 0}>
           Submit
         </Button>
       </DialogActions>
