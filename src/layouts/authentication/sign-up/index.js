@@ -35,10 +35,15 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 // Images
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 
+import VerificationDialog from "./VerificationDialog";
+
 function Cover() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+
+  const [verificationOpen, setVerificationOpen] = useState(false); // State to manage the dialog
+
 
   const handleRegister = () => {
     console.log("email: ", email);
@@ -69,7 +74,8 @@ function Cover() {
           return response.json().then((data) => {
             console.log(data);
             // Handle success, e.g., show a success message to the user
-            alert(data.message);
+            // alert(data.message);
+            setVerificationOpen(true);
           });
         }
       })
@@ -176,6 +182,16 @@ function Cover() {
           </MDBox>
         </MDBox>
       </Card>
+      {verificationOpen && (
+        <VerificationDialog
+          open={verificationOpen}
+          onClose={() => setVerificationOpen(false)}
+          email={email} // Pass the email to the dialog
+          onSuccess={() => {
+            // Handle successful verification if needed
+          }}
+        />
+      )}
     </CoverLayout>
   );
 }
