@@ -13,6 +13,7 @@ This free MUI & React Dashboard is coming with prebuilt design blocks, so the de
 switching from our pages to the real website is very easy to be done.
 
 Special thanks go to:
+
 - [Nepcha Analytics](https://nepcha.com?ref=readme) for the analytics tool. Nepcha is already integrated with Material Dashboard React. You can use it to gain insights into your sources of traffic.
 
 **Documentation built by Developers**
@@ -218,14 +219,13 @@ Google+: <https://plus.google.com/+CreativetimPage>
 
 Instagram: <https://instagram.com/creativetimofficial>
 
-
 This is the anoiyng prettierrc.json
 {
-  "printWidth": 100,
-  "trailingComma": "es5",
-  "tabWidth": 2,
-  "semi": true,
-  "singleQuote": false,
-  "endOfLine": "auto"
+"printWidth": 100,
+"trailingComma": "es5",
+"tabWidth": 2,
+"semi": true,
+"singleQuote": false,
+"endOfLine": "auto"
 
 }

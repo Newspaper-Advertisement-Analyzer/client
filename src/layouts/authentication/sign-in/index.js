@@ -52,6 +52,7 @@ function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+  const handleForgetPassword = () => {};
   const [value, setValue] = useState("");
 
   const handleClick = () => {
@@ -110,7 +111,7 @@ function Basic() {
   return (
     <BasicLayout image={bgImage}>
       <Card>
-        <MDBox
+        {/* <MDBox
           variant="gradient"
           bgColor="info"
           borderRadius="lg"
@@ -141,8 +142,18 @@ function Basic() {
               </MDTypography>
             </Grid>
           </Grid>
-        </MDBox>
+        </MDBox> */}
         <MDBox pt={4} pb={3} px={3}>
+          <MDTypography
+            textAlign="center"
+            variant="h4"
+            fontWeight="medium"
+            color="black"
+            mt={1}
+            mb={5}
+          >
+            Hi Welcome Back!
+          </MDTypography>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
               <MDInput
@@ -160,7 +171,7 @@ function Basic() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </MDBox>
-            <MDBox display="flex" alignItems="center" ml={-1}>
+            <MDBox display="flex" flexDirection="row" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />
               <MDTypography
                 variant="button"
@@ -171,16 +182,50 @@ function Basic() {
               >
                 &nbsp;&nbsp;Remember me
               </MDTypography>
+              <MDTypography
+                variant="button"
+                fontWeight="regular"
+                color="text"
+                onClick={handleForgetPassword}
+                sx={{ cursor: "pointer", userSelect: "none", mr: 1, flex: 1, textAlign: "right" }}
+              >
+                &nbsp;&nbsp;Forget Password ?
+              </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth onClick={handleLogin}>
-                sign in
+              <MDButton color="primary" fullWidth onClick={handleLogin}>
+                Log in
               </MDButton>
             </MDBox>
-            <div>
-              <p>or sign in with Google</p>
-              <GoogleButton onClick={handleClick} />
-            </div>
+
+            <MDBox
+              mt={4}
+              mb={1}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <MDTypography
+                variant="button"
+                fontWeight="regular"
+                color="text"
+                sx={{ cursor: "pointer", userSelect: "none", textAlign: "center" }}
+              >
+                &nbsp;&nbsp;Or
+              </MDTypography>
+              <div class="g-signin2" data-width="300" data-height="200" data-longtitle="true">
+                <GoogleButton
+                  class="g-signin2"
+                  data-width="300"
+                  data-height="200"
+                  data-longtitle="true"
+                  onClick={handleClick}
+                />
+              </div>
+            </MDBox>
             <MDBox mt={3} mb={1} textAlign="center">
               <MDTypography variant="button" color="text">
                 Don&apos;t have an account?{" "}
