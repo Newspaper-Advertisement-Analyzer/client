@@ -60,7 +60,7 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Upload Advertisement",
+    name: "Advertisement Extractor",
     key: "upload",
     icon: <Icon fontSize="small">newspaper</Icon>,
     route: "/upload",
