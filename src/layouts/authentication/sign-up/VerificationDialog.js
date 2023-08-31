@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Dialog from "@mui/material/Dialog";
@@ -7,9 +8,6 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-
-import Stack from "@mui/material/Stack";
-import Alert from "@mui/material/Alert";
 
 export default function VerificationDialog({ open, onClose, email, onSuccess }) {
   const [verificationCode, setVerificationCode] = useState("");
@@ -46,6 +44,7 @@ export default function VerificationDialog({ open, onClose, email, onSuccess }) 
           if (response.data.success) {
             // alert("Registration successful!");
             setAlertType("success");
+            console.log(alertType);
             onSuccess();
           } else {
             setAlertType("error");

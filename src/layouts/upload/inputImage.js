@@ -82,17 +82,12 @@ const ImageUploader = () => {
           onChange={handleFileChange}
         />
         <label htmlFor="image-input">
-          <Button variant="outlined" component="span" style={{ marginTop: "10px" }}>
+          <Button color="primary" component="span" style={{ marginTop: "10px" }}>
             Upload Image
           </Button>
         </label>
       </Paper>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleSubmit}
-        style={{ marginTop: "10px" }}
-      >
+      <Button color="primary" onClick={handleSubmit} style={{ marginTop: "10px" }}>
         Submit
       </Button>
     </Container>
