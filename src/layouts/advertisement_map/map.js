@@ -3,6 +3,9 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet"; // Import L to access the Leaflet library
 import "leaflet/dist/leaflet.css";
 
+import MDBox from "components/MDBox";
+import Card from "@mui/material/Card";
+
 import customMarkerIcon1 from "../../assets/images/map_markers/n.png"; // Path to your custom marker icon
 import customMarkerIcon2 from "../../assets/images/map_markers/m.png";
 import customMarkerIcon3 from "../../assets/images/map_markers/p.jpg";
@@ -71,30 +74,32 @@ const MapComponent = () => {
   };
 
   return (
-    <div>
-      <MapContainer center={mapCenter} zoom={8} style={{ height: "400px", width: "100%" }}>
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        {markers.map((marker, index) => {
-          const categoryIcon = categoryToIcon[marker.catergory];
-          return (
-            <Marker key={index} position={marker.position} icon={categoryIcon}>
-              <Popup>
-                <div>
-                  <h3>{marker.name}</h3>
-                  <p>{marker.location}</p>
-                  <p>Price: {marker.price}</p>
-                  <p>Phone: {marker.phoneNumber}</p>
-                  <p>Email: {marker.email}</p>
-                </div>
-              </Popup>
-            </Marker>
-          );
-        })}
-      </MapContainer>
-      <div>
-        <button onClick={handleRefreshMap}>Refresh Map</button>
-      </div>
-    </div>
+    <MDBox>
+      <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+        <MapContainer center={mapCenter} zoom={8} style={{ height: "80vh", width: "100%" }}>
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          {markers.map((marker, index) => {
+            const categoryIcon = categoryToIcon[marker.catergory];
+            return (
+              <Marker key={index} position={marker.position} icon={categoryIcon}>
+                <Popup>
+                  <div>
+                    <h3>{marker.name}</h3>
+                    <p>{marker.location}</p>
+                    <p>Price: {marker.price}</p>
+                    <p>Phone: {marker.phoneNumber}</p>
+                    <p>Email: {marker.email}</p>
+                  </div>
+                </Popup>
+              </Marker>
+            );
+          })}
+        </MapContainer>
+        <div>
+          <button onClick={handleRefreshMap}>Refresh Map</button>
+        </div>
+      </Card>
+    </MDBox>
   );
 };
 

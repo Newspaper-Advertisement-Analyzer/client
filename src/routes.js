@@ -48,6 +48,7 @@ import Ad_map from "layouts/advertisement_map";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
+import GraphViewer from "layouts/graph";
 
 const routes = [
   {
@@ -65,6 +66,14 @@ const routes = [
     icon: <Icon fontSize="small">newspaper</Icon>,
     route: "/upload",
     component: <Upload />,
+  },
+  {
+    type: "collapse",
+    name: "Graph Viewer",
+    key: "graph",
+    icon: <Icon fontSize="small">equalizer</Icon>,
+    route: "/graphs",
+    component: <GraphViewer />,
   },
   {
     type: "collapse",

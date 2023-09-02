@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 // porp-types is a library for typechecking of props
 import PropTypes from "prop-types";
@@ -33,6 +33,8 @@ import {
 // @mui material components
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -47,6 +49,31 @@ import colors from "assets/theme/base/colors";
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 function VerticalBarChart({ icon, title, description, height, chart }) {
+  const [menu, setMenu] = useState(null);
+
+  const openMenu = ({ currentTarget }) => setMenu(currentTarget);
+  const closeMenu = () => setMenu(null);
+
+  const renderMenu = (
+    <Menu
+      id="simple-menu"
+      anchorEl={menu}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "left",
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={Boolean(menu)}
+      onClose={closeMenu}
+    >
+      <MenuItem onClick={closeMenu}>Weekly</MenuItem>
+      <MenuItem onClick={closeMenu}>Monthly</MenuItem>
+      <MenuItem onClick={closeMenu}>Yearly</MenuItem>
+    </Menu>
+  );
   const chartDatasets = chart.datasets
     ? chart.datasets.map((dataset) => ({
         ...dataset,
@@ -66,33 +93,51 @@ function VerticalBarChart({ icon, title, description, height, chart }) {
   const renderChart = (
     <MDBox py={2} pr={2} pl={icon.component ? 1 : 2}>
       {title || description ? (
-        <MDBox display="flex" px={description ? 1 : 0} pt={description ? 1 : 0}>
-          {icon.component && (
-            <MDBox
-              width="4rem"
-              height="4rem"
-              bgColor={icon.color || "dark"}
-              variant="gradient"
-              coloredShadow={icon.color || "dark"}
-              borderRadius="xl"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              color="white"
-              mt={-5}
-              mr={2}
-            >
-              <Icon fontSize="medium">{icon.component}</Icon>
-            </MDBox>
-          )}
-          <MDBox mt={icon.component ? -2 : 0}>
-            {title && <MDTypography variant="h6">{title}</MDTypography>}
-            <MDBox mb={2}>
-              <MDTypography component="div" variant="button" color="text">
-                {description}
-              </MDTypography>
+        <MDBox
+          display="flex"
+          px={description ? 1 : 0}
+          pt={description ? 1 : 0}
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <MDBox display="flex">
+            {icon.component && (
+              <MDBox
+                width="4rem"
+                height="4rem"
+                bgColor={icon.color || "dark"}
+                variant="gradient"
+                coloredShadow={icon.color || "dark"}
+                borderRadius="xl"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                color="white"
+                mt={-5}
+                mr={2}
+              >
+                <Icon fontSize="medium">{icon.component}</Icon>
+              </MDBox>
+            )}
+            <MDBox mt={icon.component ? -2 : 0}>
+              {title && <MDTypography variant="h6">{title}</MDTypography>}
+              <MDBox mb={2}>
+                <MDTypography component="div" variant="button" color="text">
+                  {description}
+                </MDTypography>
+              </MDBox>
             </MDBox>
           </MDBox>
+          <MDBox color="text" px={2}>
+            <Icon
+              sx={{ cursor: "pointer", fontWeight: "bold" }}
+              fontSize="small"
+              onClick={openMenu}
+            >
+              more_vert
+            </Icon>
+          </MDBox>
+          {renderMenu}
         </MDBox>
       ) : null}
       {useMemo(
