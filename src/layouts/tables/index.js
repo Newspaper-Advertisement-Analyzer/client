@@ -51,12 +51,12 @@ function Tables() {
                 py={3}
                 px={2}
                 variant="gradient"
-                bgColor="info"
+                bgColor="primary"
                 borderRadius="lg"
                 coloredShadow="info"
               >
                 <MDTypography variant="h6" color="white">
-                  Recent Advertisements
+                  Professional Users
                 </MDTypography>
                 <MDInput></MDInput>
                 <MDInput></MDInput>
@@ -80,7 +80,7 @@ function Tables() {
                 py={3}
                 px={2}
                 variant="gradient"
-                bgColor="info"
+                bgColor="primary"
                 borderRadius="lg"
                 coloredShadow="info"
               >
