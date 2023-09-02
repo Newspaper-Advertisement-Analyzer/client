@@ -1,10 +1,12 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Icon from "@mui/material/Icon";
 import { useState, useEffect } from "react";
 import breakpoints from "assets/theme/base/breakpoints";
+import MDBox from "components/MDBox";
+import MDTypography from "components/MDTypography";
+
 // import InputURL from "../pages/inputURL";
 // import Input_Image_URL from "../pages/inputIMGURL";
 // import LineChartExample from "../pages/charts";
@@ -41,7 +43,7 @@ export default function CenteredTabs() {
   };
 
   return (
-    <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+    <MDBox sx={{ width: "100%" }}>
       <Tabs orientation={tabsOrientation} value={value} onChange={handleChange}>
         <Tab
           label="Input URL"
@@ -71,17 +73,19 @@ export default function CenteredTabs() {
 
       {/* Add the content for each tab */}
       {value === 1 && (
-        <Box p={3}>
+        <MDBox p={3}>
           <h2>Analyze advertisement by uploaded image</h2>
           <ImageUploader />
-        </Box>
+        </MDBox>
       )}
       {value === 0 && (
-        <Box p={3}>
-          <h2>Analyze advertisement by URL</h2>
+        <MDBox p={3}>
+          <MDTypography textAlign="center" variant="h4" fontWeight="medium" mt={1} mb={5}>
+            Analyze Advertisements by URL
+          </MDTypography>
           <InputURL />
-        </Box>
+        </MDBox>
       )}
-    </Box>
+    </MDBox>
   );
 }

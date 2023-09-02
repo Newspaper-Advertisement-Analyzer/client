@@ -4,7 +4,9 @@ import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
-import { Paper } from "@mui/material";
+import Card from "@mui/material/Card";
+
+import { sendUrlToBackend } from "api/sendUrl";
 
 function InputURL() {
   const [inputUrl, setInputUrl] = useState("");
@@ -30,14 +32,7 @@ function InputURL() {
     setBackendResponse([]); // Clear previous results
 
     // Send URL to backend
-    fetch("/sendurl", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ url: inputUrl }),
-    })
-      .then((response) => response.json())
+    sendUrlToBackend(inputUrl)
       .then((responseData) => {
         console.log("Response from backend:", responseData);
         setBackendResponse(responseData.results); // Assuming 'results' is the key holding the array
@@ -51,7 +46,7 @@ function InputURL() {
   };
 
   return (
-    <div>
+    <MDBox>
       <MDBox
         mt={5}
         mb={3}
@@ -66,14 +61,7 @@ function InputURL() {
       >
         <form onSubmit={handleUrlSubmit}>
           <label>
-            <MDTypography
-              textAlign="center"
-              variant="h4"
-              fontWeight="medium"
-              color="black"
-              mt={1}
-              mb={5}
-            >
+            <MDTypography textAlign="center" variant="h4" fontWeight="medium" mt={1} mb={5}>
               Enter URL to be analyzed
             </MDTypography>
             <MDBox
@@ -126,32 +114,32 @@ function InputURL() {
           //   </div>
           // </div>
           <MDBox mt={5} mb={3} alignItems="center" fullWidth>
-            <Paper elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+            <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
               <MDTypography variant="body1">Title: {backendResponse[0]}</MDTypography>
-            </Paper>
-            <Paper elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+            </Card>
+            <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
               <MDTypography variant="body1">Text: {backendResponse[1]}</MDTypography>
-            </Paper>
-            <Paper elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+            </Card>
+            <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
               <MDTypography variant="body1">Summary: {backendResponse[2]}</MDTypography>
-            </Paper>
-            <Paper elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+            </Card>
+            <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
               <MDTypography variant="body1">Keywords: {backendResponse[3].join(", ")}</MDTypography>
-            </Paper>
-            <Paper elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+            </Card>
+            <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
               <MDTypography variant="body1">Category: {backendResponse[4]}</MDTypography>
-            </Paper>
-            <Paper elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+            </Card>
+            <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
               <MDTypography variant="body1">Price: {backendResponse[5]}</MDTypography>
-            </Paper>
-            <Paper elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+            </Card>
+            <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
               <MDTypography variant="body1">Contact: {backendResponse[6]}</MDTypography>
-            </Paper>
-            <Paper elevation={3} style={{ padding: "16px" }}>
+            </Card>
+            <Card elevation={3} style={{ padding: "16px" }}>
               <MDTypography variant="body1">
                 Locations: {backendResponse[7].join(", ")}
               </MDTypography>
-            </Paper>
+            </Card>
             {/* {backendResponse.slice(0, currentIndex + 1).map((item, index) => (
               <Paper
                 elevation={3}
@@ -169,7 +157,7 @@ function InputURL() {
           </MDBox>
         )}
       </MDBox>
-    </div>
+    </MDBox>
   );
 }
 
