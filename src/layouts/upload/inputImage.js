@@ -1,19 +1,30 @@
 import React, { useState } from "react";
-import { Container, Paper, Typography, Button } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import axios from "axios";
+import Card from "@mui/material/Card";
+import MDButton from "components/MDButton";
 
 const ImageUploader = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState([]);
 
   const handleFileChange = (event) => {
-    const file = event.target.files[0];
+    const files = event.target.files;
 
-    // Check if the selected file is of an allowed type
-    if (file && isAllowedFileType(file)) {
-      setSelectedFile(file);
-    } else {
-      setSelectedFile(null);
-    }
+    // Check if the selected files are of allowed types
+    const validFiles = Array.from(files).filter((file) => isAllowedFileType(file));
+
+    setSelectedFiles(validFiles);
+
+    // Generate image previews for the selected files
+    const previews = validFiles.map((file) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setImagePreviews((prevPreviews) => [...prevPreviews, reader.result]);
+      };
+      return reader;
+    });
   };
 
   const isAllowedFileType = (file) => {
@@ -23,11 +34,22 @@ const ImageUploader = () => {
 
   const handleDrop = (event) => {
     event.preventDefault();
-    const file = event.dataTransfer.files[0];
+    const files = event.dataTransfer.files;
 
-    if (file && isAllowedFileType(file)) {
-      setSelectedFile(file);
-    }
+    // Check if the dropped files are of allowed types
+    const validFiles = Array.from(files).filter((file) => isAllowedFileType(file));
+
+    setSelectedFiles(validFiles);
+
+    // Generate image previews for the dropped files
+    const previews = validFiles.map((file) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setImagePreviews((prevPreviews) => [...prevPreviews, reader.result]);
+      };
+      return reader;
+    });
   };
 
   const handleDragOver = (event) => {
@@ -35,9 +57,12 @@ const ImageUploader = () => {
   };
 
   const handleSubmit = async () => {
-    if (selectedFile) {
+    if (selectedFiles.length > 0) {
       const formData = new FormData();
-      formData.append("image", selectedFile);
+
+      selectedFiles.forEach((file) => {
+        formData.append("images", file);
+      });
 
       try {
         const response = await axios.post("/upload", formData, {
@@ -48,14 +73,14 @@ const ImageUploader = () => {
 
         console.log("Image upload response:", response.data);
       } catch (error) {
-        console.error("Error uploading image:", error);
+        console.error("Error uploading images:", error);
       }
     }
   };
 
   return (
     <Container maxWidth="sm">
-      <Paper
+      <Card
         elevation={3}
         style={{
           padding: "20px",
@@ -65,11 +90,22 @@ const ImageUploader = () => {
         onDrop={handleDrop}
         onDragOver={handleDragOver}
       >
-        {selectedFile ? (
-          <Typography variant="h6">{selectedFile.name}</Typography>
+        {imagePreviews.length > 0 ? (
+          <div>
+            {imagePreviews.map((preview, index) => (
+              <img
+                key={index}
+                src={preview}
+                alt={`Image Preview ${index}`}
+                style={{ maxWidth: "20%", maxHeight: "200px", marginBottom: "10px" }}
+              />
+            ))}
+          </div>
+        ) : selectedFiles.length > 0 ? (
+          <Typography variant="h6">{`${selectedFiles.length} files selected`}</Typography>
         ) : (
           <div>
-            <Typography variant="h6">Drag and drop an image</Typography>
+            <Typography variant="h6">Drag and drop images here</Typography>
             <Typography variant="subtitle1">or</Typography>
           </div>
         )}
@@ -80,16 +116,17 @@ const ImageUploader = () => {
           type="file"
           style={{ display: "none" }}
           onChange={handleFileChange}
+          multiple // Allow multiple file selection
         />
         <label htmlFor="image-input">
-          <Button color="primary" component="span" style={{ marginTop: "10px" }}>
-            Upload Image
-          </Button>
+          <MDButton color="primary" component="span" style={{ marginTop: "10px" }}>
+            Upload Images
+          </MDButton>
         </label>
-      </Paper>
-      <Button color="primary" onClick={handleSubmit} style={{ marginTop: "10px" }}>
+      </Card>
+      <MDButton color="primary" onClick={handleSubmit} style={{ marginTop: "10px" }}>
         Submit
-      </Button>
+      </MDButton>
     </Container>
   );
 };

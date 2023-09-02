@@ -74,13 +74,15 @@ export default function CenteredTabs() {
       {/* Add the content for each tab */}
       {value === 1 && (
         <MDBox p={3}>
-          <h2>Analyze advertisement by uploaded image</h2>
+          <MDTypography variant="h4" fontWeight="medium" mt={1} mb={5}>
+            Analyze advertisement by uploaded image
+          </MDTypography>
           <ImageUploader />
         </MDBox>
       )}
       {value === 0 && (
         <MDBox p={3}>
-          <MDTypography textAlign="center" variant="h4" fontWeight="medium" mt={1} mb={5}>
+          <MDTypography variant="h4" fontWeight="medium" mt={1} mb={5}>
             Analyze Advertisements by URL
           </MDTypography>
           <InputURL />
