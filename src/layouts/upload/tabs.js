@@ -14,7 +14,7 @@ import MDTypography from "components/MDTypography";
 
 import ImageUploader from "./inputImage";
 import InputURL from "./inputURL";
-
+import PDFUploader from "./inputPDF";
 export default function CenteredTabs() {
   const [value, setValue] = React.useState(0);
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
@@ -62,10 +62,10 @@ export default function CenteredTabs() {
           }
         />
         <Tab
-          label="Input Image URL"
+          label="Upload PDF"
           icon={
             <Icon fontSize="small" sx={{ mt: -0.25 }}>
-              image
+              upload
             </Icon>
           }
         />
@@ -86,6 +86,15 @@ export default function CenteredTabs() {
             Analyze Advertisements by URL
           </MDTypography>
           <InputURL />
+        </MDBox>
+      )}
+
+      {value === 2 && (
+        <MDBox p={3}>
+          <MDTypography variant="h4" fontWeight="medium" mt={1} mb={5}>
+            Analyze Advertisements by PDF
+          </MDTypography>
+          <PDFUploader />
         </MDBox>
       )}
     </MDBox>

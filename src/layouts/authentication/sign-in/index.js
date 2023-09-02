@@ -37,6 +37,7 @@ import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 import GoogleButton from "react-google-button";
 import { auth, provider } from "layouts/authentication/sign-in/config";
 import { signInWithPopup } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 function Basic() {
   const [email, setEmail] = useState("");
@@ -47,6 +48,7 @@ function Basic() {
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
   const handleForgetPassword = () => {};
   const [value, setValue] = useState("");
+  const navigate = useNavigate();
 
   const handleClick = () => {
     signInWithPopup(auth, provider).then((data) => {
@@ -80,14 +82,7 @@ function Basic() {
       .then((data) => {
         console.log(data);
         // Display a success message if applicable
-        if (data.message) {
-          alert(data.message);
-          // Perform any necessary actions after successful login
-          // For example, set the email value and redirect to the home page
-          // setValue(email);
-          // localStorage.setItem("email", email);
-          // window.location.href = "/";
-        }
+        navigate("/dashboard");
       })
       .catch((status) => {
         console.log(status, "error");

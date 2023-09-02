@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { Container, Typography } from "@mui/material";
-import axios from "axios";
 import Card from "@mui/material/Card";
 import MDButton from "components/MDButton";
+
+import { uploadImages } from "api/sendImg";
+import MDBox from "components/MDBox";
+import MDTypography from "components/MDTypography";
 
 const ImageUploader = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
+  const [backendResponse, setBackendResponse] = useState([]);
 
   const handleFileChange = (event) => {
     const files = event.target.files;
@@ -56,20 +60,10 @@ const ImageUploader = () => {
 
   const handleSubmit = async () => {
     if (selectedFiles.length > 0) {
-      const formData = new FormData();
-
-      selectedFiles.forEach((file) => {
-        formData.append("images", file);
-      });
-
       try {
-        const response = await axios.post("/upload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-
-        console.log("Image upload response:", response.data);
+        const response = await uploadImages(selectedFiles);
+        console.log("Image upload response:", response);
+        setBackendResponse(response.message);
       } catch (error) {
         console.error("Error uploading images:", error);
       }
@@ -125,6 +119,45 @@ const ImageUploader = () => {
       <MDButton color="primary" onClick={handleSubmit} style={{ marginTop: "10px" }}>
         Submit
       </MDButton>
+      {backendResponse.length > 0 && (
+        <MDBox mt={5} mb={3} alignItems="center" fullWidth>
+          {backendResponse.map((responseItem, index) => (
+            <div key={index}>
+              <MDTypography color="primary" mb={3}>
+                Advertisement {index + 1}
+              </MDTypography>
+              <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+                <MDTypography variant="body1">Locations: {responseItem[0].join(", ")}</MDTypography>
+              </Card>
+              <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+                <MDTypography variant="body1">Category: {responseItem[1]}</MDTypography>
+              </Card>
+              <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+                <MDTypography variant="body1">
+                  Phone Numbers: {responseItem[2].join(", ")}
+                </MDTypography>
+              </Card>
+              <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+                <MDTypography variant="body1">Price: {responseItem[3]}</MDTypography>
+              </Card>
+            </div>
+          ))}
+          {/* <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+            <MDTypography variant="body1">
+              Locations: {backendResponse[0][0].join(", ")}
+            </MDTypography>
+          </Card>
+          <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+            <MDTypography variant="body1">Phone Numbers: {backendResponse[0][1]}</MDTypography>
+          </Card>
+          <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+            <MDTypography variant="body1">Category: {backendResponse[0][2]}</MDTypography>
+          </Card>
+          <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+            <MDTypography variant="body1">Price: {backendResponse[0][3]}</MDTypography>
+          </Card> */}
+        </MDBox>
+      )}
     </Container>
   );
 };

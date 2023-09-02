@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ImageUploader = () => {
+const PDFUploader = () => {
   const [file, setFile] = useState(null);
   const [text, setText] = useState("");
 
@@ -43,4 +43,4 @@ const ImageUploader = () => {
   );
 };
 
-export default ImageUploader;
+export default PDFUploader;
