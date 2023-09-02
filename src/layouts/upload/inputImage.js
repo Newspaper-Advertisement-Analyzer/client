@@ -17,13 +17,12 @@ const ImageUploader = () => {
     setSelectedFiles(validFiles);
 
     // Generate image previews for the selected files
-    const previews = validFiles.map((file) => {
+    validFiles.forEach((file) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
         setImagePreviews((prevPreviews) => [...prevPreviews, reader.result]);
       };
-      return reader;
     });
   };
 
@@ -42,13 +41,12 @@ const ImageUploader = () => {
     setSelectedFiles(validFiles);
 
     // Generate image previews for the dropped files
-    const previews = validFiles.map((file) => {
+    validFiles.forEach((file) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
         setImagePreviews((prevPreviews) => [...prevPreviews, reader.result]);
       };
-      return reader;
     });
   };
 
