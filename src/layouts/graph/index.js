@@ -2,7 +2,7 @@ import React from "react";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Icon from "@mui/material/Icon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -10,71 +10,17 @@ import Grid from "@mui/material/Grid";
 
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import VerticalBarChart from "examples/Charts/BarCharts/VerticalBarChart";
-import PieChart from "examples/Charts/PieChart";
-import HorizontalBarChart from "examples/Charts/BarCharts/HorizontalBarChart";
-import DefaultDoughnutChart from "examples/Charts/DoughnutCharts/DefaultDoughnutChart";
 
-import { getAverageLandPrice } from "api/graphViewer/landsaleAveragePrice";
-import { getAdDistribution } from "api/graphViewer/adDistribution";
-import { getAgeDistribution } from "api/graphViewer/catergorizebyAge";
-import { getHouseSalebyCity } from "api/graphViewer/houseSalebyCity";
+import LandsaleAveragePrice from "./components/barCharts/landSaleChart";
+import CategoryDistribution from "./components/barCharts/categoryDist";
+import MarriageDistribution from "./components/pieCharts/marriageDist";
+import HouseSaleDistribution from "./components/pieCharts/houseSaleDDist";
 
 function GraphViewer() {
   const [menu, setMenu] = useState(null);
 
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
   const closeMenu = () => setMenu(null);
-  const [averageLandPrice, setAverageLandPrice] = useState([]);
-  const [adDistribution, setadDistribution] = useState([]);
-  const [ageDistribution, setageDistribution] = useState([]);
-  const [housesalebyCity, sethousesalebyCity] = useState([]);
-
-  useEffect(() => {
-    // Fetch average price data from the Flask API endpoint
-    getAverageLandPrice()
-      .then((data) => {
-        setAverageLandPrice(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
-
-  useEffect(() => {
-    // Fetch average price data from the Flask API endpoint
-    getAdDistribution()
-      .then((data) => {
-        setadDistribution(data);
-        //console.log(adDistribution);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
-
-  useEffect(() => {
-    // Fetch average price data from the Flask API endpoint
-    getAgeDistribution()
-      .then((data) => {
-        setageDistribution(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
-
-  useEffect(() => {
-    // Fetch average price data from the Flask API endpoint
-    getHouseSalebyCity()
-      .then((data) => {
-        sethousesalebyCity(data);
-        console.log(housesalebyCity);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
 
   const renderMenu = (
     <Menu
@@ -128,75 +74,14 @@ function GraphViewer() {
       </MDBox>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6} lg={6}>
-          <MDBox mt={4}>
-            <VerticalBarChart
-              icon={{ color: "info", component: "leaderboard" }}
-              title="Land Sales"
-              description="Weekly Reach"
-              chart={{
-                labels: averageLandPrice.map((data) => data._id), // Use the data from the API
-                datasets: [
-                  {
-                    label: "Price Per Perch by Week",
-                    color: "primary",
-                    data: averageLandPrice.map((data) => data.average_price), // Use the data from the API
-                  },
-                ],
-              }}
-            />
-          </MDBox>
+          <LandsaleAveragePrice />
         </Grid>
         <Grid item xs={12} md={6} lg={6}>
-          <MDBox mt={4}>
-            <HorizontalBarChart
-              icon={{ color: "info", component: "leaderboard" }}
-              title="Distribution by Category"
-              description="Overall category distribution in the database"
-              chart={{
-                labels: adDistribution.map((data) => data.label),
-                datasets: [
-                  {
-                    label: "Distribution Count",
-                    color: "primary",
-                    data: adDistribution.map((data) => data.count), // Use the data from the API
-                  },
-                ],
-              }}
-            />
-          </MDBox>
+          <CategoryDistribution />
         </Grid>
       </Grid>
-      <MDBox mt={4}>
-        <PieChart
-          icon={{ color: "info", component: "leaderboard" }}
-          title="Distribution Marriage Proposal"
-          description=" According to Age"
-          chart={{
-            labels: ageDistribution.map((data) => data._id),
-            datasets: {
-              label: "Age Group",
-              backgroundColors: ["info", "primary", "dark", "secondary", "primary"],
-              data: ageDistribution.map((data) => data.count),
-            },
-          }}
-        />
-      </MDBox>
-
-      <MDBox mt={4}>
-        <DefaultDoughnutChart
-          icon={{ color: "info", component: "leaderboard" }}
-          title="Distribution House Sales"
-          description="According to City"
-          chart={{
-            labels: housesalebyCity.map((data) => data._id),
-            datasets: {
-              label: "City",
-              backgroundColors: ["info", "dark", "error", "secondary", "primary", "success"],
-              data: housesalebyCity.map((data) => data.count),
-            },
-          }}
-        />
-      </MDBox>
+      <MarriageDistribution />
+      <HouseSaleDistribution />
     </DashboardLayout>
   );
 }

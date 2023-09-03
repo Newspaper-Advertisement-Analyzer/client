@@ -32,11 +32,16 @@ import DataTable from "examples/Tables/DataTable";
 import data from "layouts/dashboard/components/Projects/data";
 
 function Projects() {
-  const { columns, rows } = data();
+  const { landSale, houseSale, marriageProposals } = data();
   const [menu, setMenu] = useState(null);
+  const [selectedData, setSelectedData] = useState(landSale);
 
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
   const closeMenu = () => setMenu(null);
+  const handleMenuItemClick = (dataKey) => {
+    setSelectedData(dataKey);
+    closeMenu();
+  };
 
   const renderMenu = (
     <Menu
@@ -53,9 +58,9 @@ function Projects() {
       open={Boolean(menu)}
       onClose={closeMenu}
     >
-      <MenuItem onClick={closeMenu}>Land Sales</MenuItem>
-      <MenuItem onClick={closeMenu}>House Sales</MenuItem>
-      <MenuItem onClick={closeMenu}>Marriage Proposals</MenuItem>
+      <MenuItem onClick={() => handleMenuItemClick(landSale)}>Land Sales</MenuItem>
+      <MenuItem onClick={() => handleMenuItemClick(houseSale)}>House Sales</MenuItem>
+      <MenuItem onClick={() => handleMenuItemClick(marriageProposals)}>Marriage Proposals</MenuItem>
     </Menu>
   );
 
@@ -90,7 +95,7 @@ function Projects() {
       </MDBox>
       <MDBox>
         <DataTable
-          table={{ columns, rows }}
+          table={{ columns: selectedData.columns, rows: selectedData.rows }}
           showTotalEntries={false}
           isSorted={false}
           noEndBorder

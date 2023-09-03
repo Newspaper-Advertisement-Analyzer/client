@@ -50,37 +50,112 @@ export default function data() {
   //   ));
 
   return {
-    columns: [
-      { Header: "#", accessor: "index", width: "5%", align: "left" },
-      { Header: "Title", accessor: "title", width: "10%", align: "left" },
-      { Header: "Source", accessor: "source", align: "center" },
-      { Header: "City", accessor: "city", align: "center" },
-      { Header: "Date", accessor: "date", align: "center" },
-      { Header: "Address", accessor: "address", align: "center" },
-      { Header: "PhoneNumber", accessor: "phoneNumber", align: "center" },
-      { Header: "Price", accessor: "price", align: "center" },
-    ],
+    landSale: {
+      columns: [
+        { Header: "#", accessor: "index", width: "5%", align: "left" },
+        { Header: "Title", accessor: "title", width: "10%", align: "left" },
+        { Header: "Source", accessor: "source", align: "center" },
+        { Header: "City", accessor: "city", align: "center" },
+        { Header: "Date", accessor: "date", align: "center" },
+        { Header: "Address", accessor: "address", align: "center" },
+        { Header: "PhoneNumber", accessor: "phoneNumber", align: "center" },
+        { Header: "Price", accessor: "price", align: "center" },
+      ],
 
-    rows: [
-      {
-        index: 1,
-        title: "#8976",
-        source: "Sunday Observer",
-        city: "Badulla",
-        //date: "2023/02/14",
-        date: (
-          <MDTypography variant="caption" color="secondary">
-            2023/08/29
-          </MDTypography>
-        ),
-        address: "129 3rd, Cross Street",
-        phoneNumber: "078475891",
-        price: (
-          <MDTypography variant="caption" color="text" fontWeight="medium">
-            Rs.100,000
-          </MDTypography>
-        ),
-      },
-    ],
+      rows: [
+        {
+          index: 1,
+          title: "#8976",
+          source: "Sunday Observer",
+          city: "Badulla",
+          //date: "2023/02/14",
+          date: (
+            <MDTypography variant="caption" color="secondary">
+              2023/08/29
+            </MDTypography>
+          ),
+          address: "129 3rd, Cross Street",
+          phoneNumber: "078475891",
+          price: (
+            <MDTypography variant="caption" color="text" fontWeight="medium">
+              Rs.100,000
+            </MDTypography>
+          ),
+        },
+      ],
+    },
+
+    houseSale: {
+      columns: [
+        { Header: "#", accessor: "index", width: "5%", align: "left" },
+        { Header: "Title", accessor: "title", width: "10%", align: "left" },
+        { Header: "Source", accessor: "source", align: "center" },
+        { Header: "City", accessor: "city", align: "center" },
+        { Header: "No of Rooms", accessor: "No of Rooms", align: "center" },
+        { Header: "Date", accessor: "date", align: "center" },
+        { Header: "Address", accessor: "address", align: "center" },
+        { Header: "PhoneNumber", accessor: "phoneNumber", align: "center" },
+        { Header: "Price", accessor: "price", align: "center" },
+      ],
+
+      rows: [
+        {
+          index: 1,
+          title: "#8976",
+          source: "Sunday Observer",
+          city: "Badulla",
+          //date: "2023/02/14",
+          date: (
+            <MDTypography variant="caption" color="secondary">
+              2023/08/29
+            </MDTypography>
+          ),
+          address: "129 3rd, Cross Street",
+          phoneNumber: "078475891",
+          price: (
+            <MDTypography variant="caption" color="text" fontWeight="medium">
+              Rs.100,000
+            </MDTypography>
+          ),
+        },
+      ],
+    },
+
+    marriageProposals: {
+      columns: [
+        { Header: "#", accessor: "index", width: "5%", align: "left" },
+        { Header: "Title", accessor: "title", width: "10%", align: "left" },
+        { Header: "Source", accessor: "source", align: "center" },
+        { Header: "City", accessor: "city", align: "center" },
+        { Header: "Gender", accessor: "gender", align: "center" },
+        { Header: "Age", accessor: "age", align: "center" },
+        { Header: "Profession", accessor: "profession", align: "center" },
+        { Header: "Date", accessor: "date", align: "center" },
+        { Header: "Address", accessor: "address", align: "center" },
+        { Header: "PhoneNumber", accessor: "phoneNumber", align: "center" },
+      ],
+
+      rows: [
+        {
+          index: 1,
+          title: "#8976",
+          source: "Sunday Observer",
+          city: "Badulla",
+          //date: "2023/02/14",
+          date: (
+            <MDTypography variant="caption" color="secondary">
+              2023/08/29
+            </MDTypography>
+          ),
+          address: "129 3rd, Cross Street",
+          phoneNumber: "078475891",
+          price: (
+            <MDTypography variant="caption" color="text" fontWeight="medium">
+              Rs.100,000
+            </MDTypography>
+          ),
+        },
+      ],
+    },
   };
 }
