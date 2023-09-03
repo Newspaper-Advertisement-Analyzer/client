@@ -18,6 +18,7 @@ import DefaultDoughnutChart from "examples/Charts/DoughnutCharts/DefaultDoughnut
 import { getAverageLandPrice } from "api/graphViewer/landsaleAveragePrice";
 import { getAdDistribution } from "api/graphViewer/adDistribution";
 import { getAgeDistribution } from "api/graphViewer/catergorizebyAge";
+import { getHouseSalebyCity } from "api/graphViewer/houseSalebyCity";
 
 function GraphViewer() {
   const [menu, setMenu] = useState(null);
@@ -27,6 +28,7 @@ function GraphViewer() {
   const [averageLandPrice, setAverageLandPrice] = useState([]);
   const [adDistribution, setadDistribution] = useState([]);
   const [ageDistribution, setageDistribution] = useState([]);
+  const [housesalebyCity, sethousesalebyCity] = useState([]);
 
   useEffect(() => {
     // Fetch average price data from the Flask API endpoint
@@ -56,6 +58,18 @@ function GraphViewer() {
     getAgeDistribution()
       .then((data) => {
         setageDistribution(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    // Fetch average price data from the Flask API endpoint
+    getHouseSalebyCity()
+      .then((data) => {
+        sethousesalebyCity(data);
+        console.log(housesalebyCity);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -171,14 +185,14 @@ function GraphViewer() {
       <MDBox mt={4}>
         <DefaultDoughnutChart
           icon={{ color: "info", component: "leaderboard" }}
-          title="Default Doughnut Chart"
-          description="Affiliates program"
+          title="Distribution House Sales"
+          description="According to City"
           chart={{
-            labels: ["Creative Tim", "Github", "Bootsnipp", "Dev.to", "Codeinwp"],
+            labels: housesalebyCity.map((data) => data._id),
             datasets: {
-              label: "Projects",
-              backgroundColors: ["info", "dark", "error", "secondary", "primary"],
-              data: [15, 20, 12, 60, 20],
+              label: "City",
+              backgroundColors: ["info", "dark", "error", "secondary", "primary", "success"],
+              data: housesalebyCity.map((data) => data.count),
             },
           }}
         />
