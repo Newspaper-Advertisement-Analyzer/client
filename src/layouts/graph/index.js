@@ -16,6 +16,8 @@ import HorizontalBarChart from "examples/Charts/BarCharts/HorizontalBarChart";
 import DefaultDoughnutChart from "examples/Charts/DoughnutCharts/DefaultDoughnutChart";
 
 import { getAverageLandPrice } from "api/graphViewer/landsaleAveragePrice";
+import { getAdDistribution } from "api/graphViewer/adDistribution";
+import { getAgeDistribution } from "api/graphViewer/catergorizebyAge";
 
 function GraphViewer() {
   const [menu, setMenu] = useState(null);
@@ -23,12 +25,37 @@ function GraphViewer() {
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
   const closeMenu = () => setMenu(null);
   const [averageLandPrice, setAverageLandPrice] = useState([]);
+  const [adDistribution, setadDistribution] = useState([]);
+  const [ageDistribution, setageDistribution] = useState([]);
 
   useEffect(() => {
     // Fetch average price data from the Flask API endpoint
     getAverageLandPrice()
       .then((data) => {
         setAverageLandPrice(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    // Fetch average price data from the Flask API endpoint
+    getAdDistribution()
+      .then((data) => {
+        setadDistribution(data);
+        //console.log(adDistribution);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    // Fetch average price data from the Flask API endpoint
+    getAgeDistribution()
+      .then((data) => {
+        setageDistribution(data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -112,12 +139,12 @@ function GraphViewer() {
               title="Distribution by Category"
               description="Overall category distribution in the database"
               chart={{
-                labels: ["Land Sale", "House Sale", "House Rent", "Wedding Proposals"],
+                labels: adDistribution.map((data) => data.label),
                 datasets: [
                   {
-                    label: "Distribution percentage",
+                    label: "Distribution Count",
                     color: "primary",
-                    data: [15, 20, 12, 60],
+                    data: adDistribution.map((data) => data.count), // Use the data from the API
                   },
                 ],
               }}
@@ -128,14 +155,14 @@ function GraphViewer() {
       <MDBox mt={4}>
         <PieChart
           icon={{ color: "info", component: "leaderboard" }}
-          title="Pie Chart"
-          description="Analytics Insights"
+          title="Distribution Marriage Proposal"
+          description=" According to Age"
           chart={{
-            labels: ["Facebook", "Direct", "Organic", "Referral"],
+            labels: ageDistribution.map((data) => data._id),
             datasets: {
-              label: "Projects",
+              label: "Age Group",
               backgroundColors: ["info", "primary", "dark", "secondary", "primary"],
-              data: [15, 20, 12, 60],
+              data: ageDistribution.map((data) => data.count),
             },
           }}
         />
