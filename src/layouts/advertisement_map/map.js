@@ -6,6 +6,8 @@ import "leaflet/dist/leaflet.css";
 import MDBox from "components/MDBox";
 import Card from "@mui/material/Card";
 
+import { useLocation } from "react-router-dom";
+
 import customMarkerIcon1 from "../../assets/images/map_markers/n.png"; // Path to your custom marker icon
 import customMarkerIcon2 from "../../assets/images/map_markers/m.png";
 import customMarkerIcon3 from "../../assets/images/map_markers/p.jpg";
@@ -15,11 +17,48 @@ const MapComponent = () => {
   const [markers, setMarkers] = useState([]);
   const [refreshMap, setRefreshMap] = useState(false);
 
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const locationsParam = searchParams.get("locations");
+
   useEffect(() => {
     console.log("hi");
 
     // Function to fetch marker locations from the backend
     const fetchMarkerLocations = async () => {
+      //Get Locations from the URL parameters
+      try {
+        // Split the locationsParam into individual city names
+        const cityNames = locationsParam.split(",");
+
+        // Initialize an array to store marker locations
+        const markerLocations = [];
+
+        // Use a geocoding service (like OpenStreetMap Nominatim) to get coordinates for each city
+        for (const cityName of cityNames) {
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/search?format=json&q=${cityName}`
+          );
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const data = await response.json();
+
+          // Check if the response contains valid data
+          if (Array.isArray(data) && data.length > 0) {
+            const location = data[0]; // Take the first result
+            const position = [parseFloat(location.lat), parseFloat(location.lon)];
+            markerLocations.push({ name: cityName, position });
+          }
+        }
+
+        // Update the markers state with the retrieved locations
+        setMarkers(markerLocations);
+      } catch (error) {
+        console.error("Error fetching marker data:", error);
+      }
+
+      //Get locations from the database
       try {
         const response = await fetch("/get_marker_locations"); // Replace this with the correct backend endpoint URL
         if (!response.ok) {
@@ -43,7 +82,7 @@ const MapComponent = () => {
 
     // Call the function to fetch marker locations when the component mounts or when refreshMap changes
     fetchMarkerLocations();
-  }, [refreshMap]);
+  }, [refreshMap, locationsParam]);
 
   const handleRefreshMap = () => {
     setRefreshMap((prevState) => !prevState);
@@ -79,9 +118,9 @@ const MapComponent = () => {
         <MapContainer center={mapCenter} zoom={8} style={{ height: "80vh", width: "100%" }}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           {markers.map((marker, index) => {
-            const categoryIcon = categoryToIcon[marker.catergory];
+            // const categoryIcon = categoryToIcon[marker.catergory];
             return (
-              <Marker key={index} position={marker.position} icon={categoryIcon}>
+              <Marker key={index} position={marker.position} icon={categoryToIcon.Land}>
                 <Popup>
                   <div>
                     <h3>{marker.name}</h3>

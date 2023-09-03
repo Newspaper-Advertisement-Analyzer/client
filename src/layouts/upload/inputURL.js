@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import LinearProgress from "@mui/material/LinearProgress";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
@@ -12,6 +14,7 @@ function InputURL() {
   const [inputUrl, setInputUrl] = useState("");
   const [backendResponse, setBackendResponse] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -135,25 +138,31 @@ function InputURL() {
             <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
               <MDTypography variant="body1">Contact: {backendResponse[6]}</MDTypography>
             </Card>
-            <Card elevation={3} style={{ padding: "16px" }}>
-              <MDTypography variant="body1">
-                Locations: {backendResponse[7].join(", ")}
-              </MDTypography>
-            </Card>
-            {/* {backendResponse.slice(0, currentIndex + 1).map((item, index) => (
-              <Paper
-                elevation={3}
-                style={{
-                  padding: "16px",
-                  marginBottom: "16px",
-                  transition: "transform 0.5s ease-in-out",
-                  transform: `translateY(${index === currentIndex ? 0 : 100}%)`,
-                }}
-                key={index}
-              >
-                <MDTypography variant="body1">{item}</MDTypography>
-              </Paper>
-            ))} */}
+            {backendResponse[7].length > 0 && (
+              <Card elevation={3} style={{ padding: "16px" }}>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
+                >
+                  <MDTypography variant="body1">
+                    Locations: {backendResponse[7].join(", ")}
+                  </MDTypography>
+                  <MDButton
+                    color="primary"
+                    onClick={() => {
+                      // Define the query parameter object with the locations
+                      const queryParams = {
+                        locations: backendResponse[7].join(", "),
+                      };
+
+                      // Navigate to the '/advertisement_map' route with query parameters
+                      navigate(`/advertisement_map?locations=${queryParams.locations}`);
+                    }}
+                  >
+                    View Locations
+                  </MDButton>
+                </div>
+              </Card>
+            )}
           </MDBox>
         )}
       </MDBox>
