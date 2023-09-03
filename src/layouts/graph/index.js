@@ -2,7 +2,7 @@ import React from "react";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Icon from "@mui/material/Icon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -15,11 +15,25 @@ import PieChart from "examples/Charts/PieChart";
 import HorizontalBarChart from "examples/Charts/BarCharts/HorizontalBarChart";
 import DefaultDoughnutChart from "examples/Charts/DoughnutCharts/DefaultDoughnutChart";
 
+import { getAverageLandPrice } from "api/graphViewer/landsaleAveragePrice";
+
 function GraphViewer() {
   const [menu, setMenu] = useState(null);
 
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
   const closeMenu = () => setMenu(null);
+  const [averageLandPrice, setAverageLandPrice] = useState([]);
+
+  useEffect(() => {
+    // Fetch average price data from the Flask API endpoint
+    getAverageLandPrice()
+      .then((data) => {
+        setAverageLandPrice(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
   const renderMenu = (
     <Menu
@@ -79,12 +93,12 @@ function GraphViewer() {
               title="Land Sales"
               description="Weekly Reach"
               chart={{
-                labels: ["16-20", "21-25", "26-30", "31-36", "36-42", "42+"],
+                labels: averageLandPrice.map((data) => data._id), // Use the data from the API
                 datasets: [
                   {
-                    label: "Sales by age",
+                    label: "Price Per Perch by Week",
                     color: "primary",
-                    data: [15, 20, 12, 60, 20, 15],
+                    data: averageLandPrice.map((data) => data.average_price), // Use the data from the API
                   },
                 ],
               }}
