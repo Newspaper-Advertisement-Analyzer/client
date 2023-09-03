@@ -9,34 +9,55 @@ import { getAverageLandPrice } from "api/graphViewer/landsaleAveragePrice";
 
 function LandsaleAveragePrice() {
   const [averageLandPrice, setAverageLandPrice] = useState([]);
+  const [selectedItem, setSelectedItem] = useState("Weekly");
 
+  const handleMenuItemSelect = (item) => {
+    setSelectedItem(item);
+    // You can perform any additional actions here based on the selected item
+  };
+  console.log(selectedItem);
   useEffect(() => {
-    // Fetch average price data from the Flask API endpoint
-    getAverageLandPrice()
-      .then((data) => {
+    // Fetch average price data from the Flask API endpoint'
+    const fetchData = async () => {
+      try {
+        let data;
+
+        if (selectedItem === "Weekly") {
+          data = await getAverageLandPrice("weekly");
+        } else if (selectedItem === "Monthly") {
+          data = await getAverageLandPrice("monthly");
+        } else if (selectedItem === "Yearly") {
+          data = await getAverageLandPrice("yearly");
+        }
+
         setAverageLandPrice(data);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error fetching data:", error);
-      });
-  }, []);
+      }
+    };
+
+    // Call the fetchData function whenever selectedItem changes
+    fetchData();
+  }, [selectedItem]);
 
   return (
     <MDBox mt={4}>
       <VerticalBarChart
         icon={{ color: "info", component: "leaderboard" }}
         title="Land Sales"
-        description="Weekly Reach"
+        description={`Average Price Per Perch - ${selectedItem}`}
         chart={{
           labels: averageLandPrice.map((data) => data._id), // Use the data from the API
           datasets: [
             {
-              label: "Price Per Perch by Week",
+              label: `Price Per Perch by ${selectedItem}`,
               color: "primary",
               data: averageLandPrice.map((data) => data.average_price), // Use the data from the API
             },
           ],
         }}
+        menuItems={["Weekly", "Monthly", "Yearly"]}
+        onMenuItemSelect={handleMenuItemSelect}
       />
     </MDBox>
   );

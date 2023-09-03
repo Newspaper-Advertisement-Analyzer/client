@@ -48,11 +48,29 @@ import colors from "assets/theme/base/colors";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-function VerticalBarChart({ icon, title, description, height, chart }) {
+function VerticalBarChart({
+  icon,
+  title,
+  description,
+  height,
+  chart,
+  menuItems,
+  onMenuItemSelect,
+}) {
   const [menu, setMenu] = useState(null);
+  const [selectedData, setSelectedData] = useState(null);
+  console.log("selectedData", selectedData);
 
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
   const closeMenu = () => setMenu(null);
+
+  const handleMenuItemClick = (dataKey) => {
+    setSelectedData(dataKey);
+    closeMenu();
+    if (onMenuItemSelect) {
+      onMenuItemSelect(dataKey); // Call the callback function with the selected item
+    }
+  };
 
   const renderMenu = (
     <Menu
@@ -69,9 +87,11 @@ function VerticalBarChart({ icon, title, description, height, chart }) {
       open={Boolean(menu)}
       onClose={closeMenu}
     >
-      <MenuItem onClick={closeMenu}>Weekly</MenuItem>
-      <MenuItem onClick={closeMenu}>Monthly</MenuItem>
-      <MenuItem onClick={closeMenu}>Yearly</MenuItem>
+      {menuItems.map((item, index) => (
+        <MenuItem key={index} onClick={() => handleMenuItemClick(item)}>
+          {item}
+        </MenuItem>
+      ))}
     </Menu>
   );
   const chartDatasets = chart.datasets
@@ -160,6 +180,7 @@ VerticalBarChart.defaultProps = {
   title: "",
   description: "",
   height: "19.125rem",
+  menuItems: ["option 1", "option 2", "option 3"],
 };
 
 // Typechecking props for the VerticalBarChart
@@ -181,6 +202,8 @@ VerticalBarChart.propTypes = {
   description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   chart: PropTypes.objectOf(PropTypes.array).isRequired,
+  menuItems: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onMenuItemSelect: PropTypes.func,
 };
 
 export default VerticalBarChart;
