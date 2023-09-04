@@ -11,10 +11,10 @@ function LandsaleAveragePrice() {
   const [averageLandPrice, setAverageLandPrice] = useState([]);
   const [selectedItem, setSelectedItem] = useState("Weekly");
 
-  const handleMenuItemSelect = (item) => {
+  const handleMenuItemSelect = async (item) => {
     setSelectedItem(item);
-    // You can perform any additional actions here based on the selected item
   };
+
   console.log(selectedItem);
   useEffect(() => {
     // Fetch average price data from the Flask API endpoint'
@@ -23,11 +23,11 @@ function LandsaleAveragePrice() {
         let data;
 
         if (selectedItem === "Weekly") {
-          data = await getAverageLandPrice("weekly");
+          data = await getAverageLandPrice("Weekly");
         } else if (selectedItem === "Monthly") {
-          data = await getAverageLandPrice("monthly");
+          data = await getAverageLandPrice("Monthly");
         } else if (selectedItem === "Yearly") {
-          data = await getAverageLandPrice("yearly");
+          data = await getAverageLandPrice("Yearly");
         }
 
         setAverageLandPrice(data);
