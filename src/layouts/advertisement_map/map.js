@@ -22,7 +22,7 @@ const MapComponent = () => {
   const [markers, setMarkers] = useState([]);
 
   const [menu, setMenu] = useState(null);
-  const [selectedData, setSelectedData] = useState("Land Sale");
+  const [selectedData, setSelectedData] = useState("LandSale");
 
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
   const closeMenu = () => setMenu(null);
