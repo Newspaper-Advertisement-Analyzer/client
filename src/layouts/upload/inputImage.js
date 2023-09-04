@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Container, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import MDButton from "components/MDButton";
@@ -11,6 +12,7 @@ const ImageUploader = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
   const [backendResponse, setBackendResponse] = useState([]);
+  const navigate = useNavigate();
 
   const handleFileChange = (event) => {
     const files = event.target.files;
@@ -127,7 +129,27 @@ const ImageUploader = () => {
                 Advertisement {index + 1}
               </MDTypography>
               <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
-                <MDTypography variant="body1">Locations: {responseItem[0].join(", ")}</MDTypography>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
+                >
+                  <MDTypography variant="body1">
+                    Locations: {responseItem[0].join(", ")}
+                  </MDTypography>
+                  <MDButton
+                    color="primary"
+                    onClick={() => {
+                      // Define the query parameter object with the locations
+                      const queryParams = {
+                        locations: responseItem[0].join(", "),
+                      };
+
+                      // Navigate to the '/advertisement_map' route with query parameters
+                      navigate(`/advertisement_map?locations=${queryParams.locations}`);
+                    }}
+                  >
+                    View Locations
+                  </MDButton>
+                </div>
               </Card>
               <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
                 <MDTypography variant="body1">Category: {responseItem[1]}</MDTypography>
