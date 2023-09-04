@@ -34,6 +34,7 @@ import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatist
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import SearchBar from "./components/searchBar";
+import { AdCard } from "./components/adCard";
 // import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 
 function Dashboard() {
@@ -145,6 +146,7 @@ function Dashboard() {
             </Grid>
           </Grid>
         </MDBox> */}
+        <AdCard />
         <MDBox mt={3} mb={3}>
           <SearchBar />
         </MDBox>
