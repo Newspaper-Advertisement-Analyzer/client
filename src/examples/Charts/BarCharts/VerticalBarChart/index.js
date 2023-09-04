@@ -39,6 +39,7 @@ import MenuItem from "@mui/material/MenuItem";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
+import MDinput from "components/MDInput";
 
 // VerticalBarChart configurations
 import configs from "examples/Charts/BarCharts/VerticalBarChart/configs";
@@ -58,7 +59,7 @@ function VerticalBarChart({
   onMenuItemSelect,
 }) {
   const [menu, setMenu] = useState(null);
-  const [selectedData, setSelectedData] = useState(null);
+  const [selectedData, setSelectedData] = useState(menuItems[0]);
   console.log("selectedData", selectedData);
 
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
@@ -77,8 +78,8 @@ function VerticalBarChart({
       id="simple-menu"
       anchorEl={menu}
       anchorOrigin={{
-        vertical: "top",
-        horizontal: "left",
+        vertical: "bottom",
+        horizontal: "right",
       }}
       transformOrigin={{
         vertical: "top",
@@ -148,14 +149,27 @@ function VerticalBarChart({
               </MDBox>
             </MDBox>
           </MDBox>
-          <MDBox color="text" px={2}>
-            <Icon
+          <MDBox color="text" pr={0} display="flex" justifyContent="space-between">
+            <MDinput
+              value={selectedData}
+              readOnly // Make the input read-only to prevent typing
+              onClick={openMenu}
+              size="small"
+              sx={{ marginRight: "5%" }}
+            />
+            <MDinput
+              value={selectedData}
+              readOnly // Make the input read-only to prevent typing
+              onClick={openMenu}
+              size="small"
+            />
+            {/* <Icon
               sx={{ cursor: "pointer", fontWeight: "bold" }}
               fontSize="small"
               onClick={openMenu}
             >
               more_vert
-            </Icon>
+            </Icon> */}
           </MDBox>
           {renderMenu}
         </MDBox>
