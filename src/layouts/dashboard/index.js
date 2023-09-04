@@ -15,6 +15,7 @@ Coded by www.creative-tim.com
 
 // @mui material components
 import Grid from "@mui/material/Grid";
+import AnchorLink from "react-anchor-link-smooth-scroll";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -47,17 +48,19 @@ function Dashboard() {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="dark"
-                icon="newspaper"
-                title="Total Advertisements"
-                count={281}
-                percentage={{
-                  color: "success",
-                  amount: "+55%",
-                  label: "than lask week",
-                }}
-              />
+              <AnchorLink href="#table">
+                <ComplexStatisticsCard
+                  color="dark"
+                  icon="newspaper"
+                  title="Total Advertisements"
+                  count={281}
+                  percentage={{
+                    color: "success",
+                    amount: "+55%",
+                    label: "than lask week",
+                  }}
+                />
+              </AnchorLink>
             </MDBox>
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -146,20 +149,22 @@ function Dashboard() {
             </Grid>
           </Grid>
         </MDBox> */}
-        <AdCard />
         <MDBox mt={3} mb={3}>
           <SearchBar />
         </MDBox>
-        <MDBox>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={12}>
-              <Projects />
-            </Grid>
-            {/* <Grid item xs={12} md={6} lg={4}>
+        <AdCard />
+        <div id="table">
+          <MDBox>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={6} lg={12}>
+                <Projects />
+              </Grid>
+              {/* <Grid item xs={12} md={6} lg={4}>
               <OrdersOverview />
             </Grid> */}
-          </Grid>
-        </MDBox>
+            </Grid>
+          </MDBox>
+        </div>
       </MDBox>
 
       <Footer />

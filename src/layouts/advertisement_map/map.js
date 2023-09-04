@@ -4,7 +4,12 @@ import L from "leaflet"; // Import L to access the Leaflet library
 import "leaflet/dist/leaflet.css";
 
 import MDBox from "components/MDBox";
+import MDTypography from "components/MDTypography";
+
 import Card from "@mui/material/Card";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Icon from "@mui/material/Icon";
 
 import { useLocation } from "react-router-dom";
 
@@ -111,10 +116,60 @@ const MapComponent = () => {
       popupAnchor: [0, -32],
     }),
   };
+  const [menu, setMenu] = useState(null);
+  const [selectedData, setSelectedData] = useState("Land Sale");
+
+  const openMenu = ({ currentTarget }) => setMenu(currentTarget);
+  const closeMenu = () => setMenu(null);
+
+  const handleMenuItemClick = (dataKey) => {
+    setSelectedData(dataKey);
+    closeMenu();
+  };
+
+  const renderMenu = (
+    <Menu
+      id="simple-menu"
+      anchorEl={menu}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "left",
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={Boolean(menu)}
+      onClose={closeMenu}
+    >
+      <MenuItem onClick={() => handleMenuItemClick("Land Sale")}>Land Sale</MenuItem>
+      <MenuItem onClick={() => handleMenuItemClick("House Sale")}>House Sale</MenuItem>
+      <MenuItem onClick={() => handleMenuItemClick("Marriage Proposals")}>
+        Marriage Proposals
+      </MenuItem>
+    </Menu>
+  );
 
   return (
     <MDBox>
       <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+        <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
+          <MDBox>
+            <MDTypography variant="h6" gutterBottom>
+              Top Locations in {selectedData}
+            </MDTypography>
+          </MDBox>
+          <MDBox color="text" px={2}>
+            <Icon
+              sx={{ cursor: "pointer", fontWeight: "bold" }}
+              fontSize="small"
+              onClick={openMenu}
+            >
+              more_vert
+            </Icon>
+          </MDBox>
+          {renderMenu}
+        </MDBox>
         <MapContainer center={mapCenter} zoom={8} style={{ height: "80vh", width: "100%" }}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           {markers.map((marker, index) => {
