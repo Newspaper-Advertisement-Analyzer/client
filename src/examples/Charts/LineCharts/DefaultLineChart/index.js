@@ -61,7 +61,6 @@ function DefaultLineChart({ icon, title, description, height, chart }) {
   const chartDatasets = chart.datasets
     ? chart.datasets.map((dataset) => ({
         ...dataset,
-        tension: 0,
         pointRadius: 3,
         borderWidth: 4,
         backgroundColor: "transparent",

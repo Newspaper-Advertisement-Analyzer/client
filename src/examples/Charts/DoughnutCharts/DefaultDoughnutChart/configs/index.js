@@ -60,7 +60,26 @@ function configs(labels, datasets, cutout = 60) {
       maintainAspectRatio: false,
       plugins: {
         legend: {
-          display: false,
+          display: true,
+          position: "right",
+          labels: {
+            generateLabels: (chart) => {
+              const data = chart.data;
+              if (data.labels.length && data.datasets.length) {
+                return data.labels.map((label, i) => {
+                  const dataset = data.datasets[0];
+                  const value = dataset.data[i];
+                  return {
+                    text: `${label} : ${value}`,
+                    fillStyle: dataset.backgroundColor[i],
+                    hidden: isNaN(dataset.data[i]) || chart.getDatasetMeta(0).data[i].hidden,
+                    index: i,
+                  };
+                });
+              }
+              return [];
+            },
+          },
         },
       },
       interaction: {

@@ -7,14 +7,6 @@ const generatePDF = async (componentsToPrint, contentRef) => {
   // Create a new jsPDF instance
   const doc = new jsPDF();
 
-  // Define an array of titles corresponding to each component
-  const componentTitles = [
-    "Land Sale Average Price",
-    "Category Distribution",
-    "Marriage Distribution",
-    "House Sale Distribution",
-    "Chart Example",
-  ];
   const pageHeight = doc.internal.pageSize.height;
   let yOffset = 10;
 
@@ -35,8 +27,7 @@ const generatePDF = async (componentsToPrint, contentRef) => {
       // Convert the captured canvas to a data URL
       const contentDataURL = canvas.toDataURL("image/jpeg");
 
-      // Add the title above the component
-      doc.text(componentTitles[i], 10, yOffset + 5); // Adjust the position as needed
+      // Adjust the position as needed
 
       // Add the component content as an image to the PDF
       doc.addImage(contentDataURL, "JPEG", 10, yOffset + 15, 190, componentHeight); // Adjust the position and size as needed
