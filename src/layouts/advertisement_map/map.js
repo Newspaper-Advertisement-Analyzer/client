@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+
+import { useLocation } from "react-router-dom";
+
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -18,48 +21,95 @@ import customMarkerIcon3 from "../../assets/images/map_markers/marriage.png";
 import { getRecentAdLocation } from "api/advertisementMap/advertisementLocation";
 
 const MapComponent = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const locationsParam = searchParams.get("locations");
+
   const mapCenter = [7.8731, 80.7718];
   const [markers, setMarkers] = useState([]);
-
-  const [menu, setMenu] = useState(null);
   const [selectedData, setSelectedData] = useState("LandSale");
+  const [test, setTest] = useState(true);
+  const [menu, setMenu] = useState(null);
 
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
   const closeMenu = () => setMenu(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const data = await getRecentAdLocation(selectedData);
-        setMarkers(data);
-        console.log(markers);
-      } catch (error) {
-        console.error("Error fetching data from the backend:", error);
+      if (locationsParam && test) {
+        console.log("locationsParam", locationsParam);
+        setSelectedData("Default");
+        setTest(false);
+        try {
+          // Split the locationsParam into individual city names
+          const cityNames = locationsParam.split(",");
+          // Initialize an array to store marker locations
+          const markerLocations = [];
+          // Use a geocoding service (like OpenStreetMap Nominatim) to get coordinates for each city
+          for (const cityName of cityNames) {
+            const response = await fetch(
+              `https://nominatim.openstreetmap.org/search?format=json&q=${cityName}`
+            );
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            const data = await response.json();
+            // Check if the response contains valid data
+            if (Array.isArray(data) && data.length > 0) {
+              const location = data[0]; // Take the first result
+              // const position = [parseFloat(location.lat), parseFloat(location.lon)];
+              markerLocations.push({
+                name: cityName,
+                Location: {
+                  Latitude: parseFloat(location.lat),
+                  Longitude: parseFloat(location.lon),
+                },
+              });
+            }
+          }
+          // Update the markers state with the retrieved locations
+          setMarkers(markerLocations);
+        } catch (error) {
+          console.error("Error fetching marker data:", error);
+        }
+      } else {
+        try {
+          const data = await getRecentAdLocation(selectedData);
+          setMarkers(data);
+          console.log(markers);
+        } catch (error) {
+          console.error("Error fetching data from the backend:", error);
+        }
       }
     };
-
     fetchData();
-  }, [selectedData]);
+  }, [selectedData, test]);
 
-  const fetchData = async () => {
-    try {
-      const data = await getRecentAdLocation(selectedData);
-      setMarkers(data);
-      console.log(markers);
-    } catch (error) {
-      console.error("Error fetching data from the backend:", error);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     const data = await getRecentAdLocation(selectedData);
+  //     setMarkers(data);
+  //     console.log(markers);
+  //   } catch (error) {
+  //     console.error("Error fetching data from the backend:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchData();
-  }, [selectedData]);
+  // useEffect(() => {
+  //   fetchData();
+  // }, [selectedData]);
 
-  const handleRefreshMap = () => {
-    fetchData(); // Now you can call fetchData here
-  };
+  // const handleRefreshMap = () => {
+  //   fetchData(); // Now you can call fetchData here
+  // };
 
   const categoryToIcon = {
+    Default: L.icon({
+      iconUrl: customMarkerIcon1,
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -32],
+    }),
     HouseSale: L.icon({
       iconUrl: customMarkerIcon1,
       iconSize: [32, 32],
@@ -82,6 +132,7 @@ const MapComponent = () => {
 
   const handleMenuItemClick = (dataKey) => {
     setSelectedData(dataKey);
+
     closeMenu();
   };
 
@@ -108,6 +159,17 @@ const MapComponent = () => {
 
   const renderContent = (marker) => {
     switch (selectedData) {
+      case "Default":
+        return (
+          <>
+            <h2>{marker.Title}</h2>
+            <h3>{marker.Location.City}</h3>
+            <p>Number of Perch: {marker.Number_of_Perch}</p>
+            <p>Price per Perch: Rs.{marker.Price_per_Perch}</p>
+            {/* <p>Phone: {marker.Contact_Info.Phone_Number.join(", ")}</p> */}
+            {/* <p>Email: {marker.Contact_Info.Email}</p> */}
+          </>
+        );
       case "LandSale":
         return (
           <>
@@ -185,9 +247,9 @@ const MapComponent = () => {
           })}
         </MapContainer>
 
-        <div>
+        {/* <div>
           <button onClick={handleRefreshMap}>Refresh Map</button>
-        </div>
+        </div> */}
       </Card>
     </MDBox>
   );
