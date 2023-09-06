@@ -5,15 +5,27 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
+import DataTable from "examples/Tables/DataTable";
+
+import { getAdbyFilter } from "api/searchBar/getAdbyFilter";
 
 const AdvertisementSearch = () => {
   const [selectedOption, setSelectedOption] = useState("Date");
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedData, setSelectedData] = useState({
+    columns: [], // Define your table columns here
+    rows: [], // Define your table rows here
+  });
 
-  const handleSearch = () => {
-    // Perform the search based on the selected option and query
-    console.log(`Searching for ${selectedOption} containing "${searchQuery}"`);
-    // You can implement the search logic here
+  const handleSearch = async () => {
+    try {
+      // Implement your search logic here, fetching data based on the selected option and query
+      // For example, you can use the getRecentAd function from the API file
+      const searchData = await getAdbyFilter(selectedOption, searchQuery);
+      setSelectedData(searchData);
+    } catch (error) {
+      console.error("Error searching:", error);
+    }
   };
 
   const [menu, setMenu] = useState(null);
@@ -69,7 +81,15 @@ const AdvertisementSearch = () => {
         </MDButton>
       </MDBox>
       <div></div>
-      {/* Display search results here */}
+      <MDBox>
+        <DataTable
+          table={{ columns: selectedData.columns, rows: selectedData.rows }}
+          showTotalEntries={true}
+          noEndBorder
+          entriesPerPage={false}
+          canSearch={true}
+        />
+      </MDBox>
     </div>
   );
 };
