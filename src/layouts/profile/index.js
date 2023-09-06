@@ -36,7 +36,7 @@ import DefaultProjectCard from "examples/Cards/ProjectCards/DefaultProjectCard";
 
 // Overview page components
 import Header from "layouts/profile/components/Header";
-import PlatformSettings from "layouts/profile/components/PlatformSettings";
+// import PlatformSettings from "layouts/profile/components/PlatformSettings";
 
 // Data
 import profilesListData from "layouts/profile/data/profilesListData";
@@ -59,10 +59,10 @@ function Overview() {
       <Header>
         <MDBox mt={5} mb={3}>
           <Grid container spacing={1}>
-            <Grid item xs={12} md={6} xl={4}>
+            {/* <Grid item xs={12} md={6} xl={4}>
               <PlatformSettings />
-            </Grid>
-            <Grid item xs={12} md={6} xl={4} sx={{ display: "flex" }}>
+            </Grid> */}
+            <Grid item xs={12} md={6} xl={8} sx={{ display: "flex" }}>
               <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
               <ProfileInfoCard
                 title="profile information"

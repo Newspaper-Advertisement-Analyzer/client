@@ -129,7 +129,7 @@ export const AdCard = () => {
                 description={item.Description}
                 action={{
                   type: "internal",
-                  route: "/pages/profile/profile-overview",
+                  route: `/advertisement/${item.Advertisement_ID}`,
                   color: "info",
                   label: "view Ad",
                 }}

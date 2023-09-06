@@ -49,6 +49,7 @@ import Ad_map from "layouts/advertisement_map";
 // @mui icons
 import Icon from "@mui/material/Icon";
 import GraphViewer from "layouts/graph";
+import AdvertisementDetail from "layouts/advertisement";
 
 const routes = [
   {
@@ -98,6 +99,10 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/billing",
     component: <Billing />,
+  },
+  {
+    route: "/advertisement/:id",
+    component: <AdvertisementDetail />,
   },
   {
     type: "collapse",
