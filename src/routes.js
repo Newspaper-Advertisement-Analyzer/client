@@ -50,6 +50,7 @@ import Ad_map from "layouts/advertisement_map";
 import Icon from "@mui/material/Icon";
 import GraphViewer from "layouts/graph";
 import AdvertisementDetail from "layouts/advertisement";
+import Ad from "layouts/advertisement/ad";
 
 const routes = [
   {
@@ -59,6 +60,14 @@ const routes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
+  },
+  {
+    type: "collapse",
+    name: "Search Advertisements",
+    key: "adsearch",
+    icon: <Icon fontSize="small">search</Icon>,
+    route: "/advertisement",
+    component: <Ad />,
   },
   {
     type: "collapse",
