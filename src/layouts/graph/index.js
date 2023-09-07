@@ -18,6 +18,7 @@ import HouseSaleDistribution from "./components/pieCharts/houseSaleDDist";
 
 import createPDF from "layouts/reports/reports";
 import PriceFluctuation from "./components/lineCharts/pricefluctuation";
+import MDInput from "components/MDInput";
 
 function GraphViewer() {
   const contentRef = useRef(null);
@@ -28,6 +29,7 @@ function GraphViewer() {
   const [includeHouseSaleDist, setIncludeHouseSaleDist] = useState(false);
   const [includePriceFluct, setIncludePriceFluct] = useState(false);
   const [includeAll, setIncludeAll] = useState(false);
+  const [title, settitle] = useState("");
 
   useEffect(() => {
     const fetchData = () => {
@@ -88,7 +90,7 @@ function GraphViewer() {
     }
 
     // Pass the selected components to your PDF generator function (ChartToPDF)
-    createPDF(selectedComponents, contentRef);
+    createPDF(selectedComponents, contentRef, title);
   };
 
   return (
@@ -192,14 +194,43 @@ function GraphViewer() {
         <MDTypography variant="h3" fontWeight="medium" mt={1} mb={5}>
           Generate Reports
         </MDTypography>
-        <MDBox display="flex" alignItems="center" mt={0.5} mb={0.5} ml={2.5}>
-          <MDBox width="80%">
+        <MDBox
+          display="flex"
+          justifyContent="flex-start"
+          alignItems="center"
+          mt={0.5}
+          mb={0.5}
+          ml={2.5}
+        >
+          <MDBox>
             <MDTypography variant="button" fontWeight="regular" color="text">
               Do you want to include all the graphs in the generated PDF?
             </MDTypography>
           </MDBox>
           <MDBox mt={0.5}>
             <Switch checked={includeAll} onChange={handleAll} />
+          </MDBox>
+        </MDBox>
+        <MDBox
+          display="flex"
+          justifyContent="flex-start"
+          alignItems="center"
+          mt={0.5}
+          mb={1}
+          ml={2.5}
+        >
+          <MDBox>
+            <MDTypography variant="button" fontWeight="regular" color="text">
+              Name of the report :
+            </MDTypography>
+          </MDBox>
+          <MDBox>
+            <MDInput
+              value={title}
+              onChange={(e) => settitle(e.target.value)}
+              sx={{ width: "24vw" }}
+              placeholder="default : graph"
+            />
           </MDBox>
         </MDBox>
         <MDButton color="primary" maxWidth="20px" component="span" onClick={generatePDF}>

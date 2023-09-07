@@ -1,9 +1,27 @@
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import html2canvas from "html2canvas";
+import * as XLSX from "xlsx";
+
+export const generateCSV = (data, filename) => {
+  const csvContent = "data:text/csv;charset=utf-8," + data.map((row) => row.join(",")).join("\n");
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", `${filename}.csv`);
+  document.body.appendChild(link);
+  link.click();
+};
+
+export const generateExcel = (data, filename) => {
+  const ws = XLSX.utils.json_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+  XLSX.writeFile(wb, `${filename}.xlsx`);
+};
 
 // Function to generate PDF
-const generatePDF = async (componentsToPrint, contentRef) => {
+const generatePDF = async (componentsToPrint, contentRef, title) => {
   // Create a new jsPDF instance
   const doc = new jsPDF();
 
@@ -36,7 +54,11 @@ const generatePDF = async (componentsToPrint, contentRef) => {
   }
 
   // Save the PDF with a file name
-  doc.save("graphs.pdf");
+  if (title) {
+    doc.save(`${title}.pdf`);
+  } else {
+    doc.save("graphs.pdf");
+  }
 };
 
 export default generatePDF;

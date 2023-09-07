@@ -51,6 +51,7 @@ import Icon from "@mui/material/Icon";
 import GraphViewer from "layouts/graph";
 import AdvertisementDetail from "layouts/advertisement";
 import Ad from "layouts/advertisement/ad";
+import Report from "layouts/reports";
 
 const routes = [
   {
@@ -92,6 +93,14 @@ const routes = [
     icon: <Icon fontSize="small">map</Icon>,
     route: "/advertisement_map",
     component: <Ad_map />,
+  },
+  {
+    type: "collapse",
+    name: "Reports",
+    key: "reports",
+    icon: <Icon fontSize="small">report</Icon>,
+    route: "/reports",
+    component: <Report />,
   },
   {
     type: "collapse",
