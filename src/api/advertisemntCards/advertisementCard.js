@@ -11,3 +11,14 @@ export async function getPopularAd() {
     throw error;
   }
 }
+
+export async function getAdDetail(adID) {
+  try {
+    const response = await axios.get(`/getAdDetails?adID=${adID}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data from the backend:", error);
+    throw error;
+  }
+}
