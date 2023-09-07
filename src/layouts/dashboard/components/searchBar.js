@@ -39,16 +39,19 @@ const AdvertisementSearch = () => {
     setEndDate(newEndDate);
   };
 
-  const [selectedData, setSelectedData] = useState({
-    columns: [], // Define your table columns here
-    rows: [], // Define your table rows here
-  });
+  const [selectedData, setSelectedData] = useState([]);
 
   const handleSearch = async () => {
     try {
       // Implement your search logic here, fetching data based on the selected option and query
       // For example, you can use the getRecentAd function from the API file
-      const searchData = await getAdbyFilter(selectedOption, searchQuery);
+      const searchData = await getAdbyFilter(
+        selectedOption,
+        searchQuery,
+        startDate,
+        endDate,
+        category
+      );
       setSelectedData(searchData);
     } catch (error) {
       console.error("Error searching:", error);
@@ -116,6 +119,28 @@ const AdvertisementSearch = () => {
       <MenuItem onClick={() => handleMenuItemClick("Title")}>Title</MenuItem>
     </Menu>
   );
+
+  const advertisementData = {
+    columns: [
+      { Header: "#", accessor: "index", width: "5%", align: "left" },
+      { Header: "Title", accessor: "title", width: "10%", align: "left" },
+      { Header: "Source", accessor: "source", align: "center" },
+      { Header: "Location", accessor: "city", align: "center" },
+      { Header: "Posted Date", accessor: "date", align: "center" },
+      //{ Header: "Address", accessor: "address", align: "center" },
+      { Header: "PhoneNumber", accessor: "phoneNumber", align: "center" },
+      { Header: "Description", accessor: "description", align: "center" },
+    ],
+    rows: selectedData.map((ad, index) => ({
+      index: index + 1,
+      title: ad.Title,
+      source: ad.Source, // You can choose an appropriate field for the source
+      city: ad.Location.City,
+      date: ad.Posted_Date,
+      phoneNumber: ad.Contact_Info.Phone_Number.join(", "), // Join multiple phone numbers if available
+      description: ad.Description,
+    })), // Add your data here
+  };
 
   return (
     <MDBox p={2}>
@@ -194,7 +219,7 @@ const AdvertisementSearch = () => {
         <div></div>
         <MDBox>
           <DataTable
-            table={{ columns: selectedData.columns, rows: selectedData.rows }}
+            table={{ columns: advertisementData.columns, rows: advertisementData.rows }}
             showTotalEntries={true}
             noEndBorder
             entriesPerPage={false}
