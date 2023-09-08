@@ -10,9 +10,10 @@ import MDButton from "components/MDButton";
 import SearchResultCard from "./searchResultCard";
 import { Grid } from "@mui/material";
 import { getAdbyFilter } from "api/searchBar/getAdbyFilter";
+import MDTypography from "components/MDTypography";
 
 const AdvertisementSearch = () => {
-  const [selectedOption, setSelectedOption] = useState("Date");
+  const [selectedOption, setSelectedOption] = useState("Title");
   const [searchQuery, setSearchQuery] = useState("");
 
   const [startDate, setStartDate] = useState("");
@@ -157,6 +158,9 @@ const AdvertisementSearch = () => {
   return (
     <MDBox p={2}>
       <Card elevation={3} style={{ padding: "12px", alignItems: "center" }}>
+        <MDTypography variant="h3" fontWeight="medium" mb={4}>
+          Search for Available Advertisements
+        </MDTypography>
         <MDBox display="flex" alignItems="center" lineHeight={0}>
           <MDBox>
             {selectedOption === "Date" ? (
