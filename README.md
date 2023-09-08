@@ -1,37 +1,44 @@
-# [Material Dashboard 2 React](http://demos.creative-tim.com/material-dashboard-react/#/dashboard?ref=readme-mdr) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?url=https://www.creative-tim.com/product/material-dashboard-react&text=Check%20Material%20Dashboard%202%20react%20made%20by%20@CreativeTim%20#webdesign%20#dashboard%20#materialdesign%20#react%20https://www.creative-tim.com/product/material-dashboard-react)
+# Digital NewsPaper Advertisement Analyzer
 
-![version](https://img.shields.io/badge/version-2.2.0-blue.svg) [![GitHub issues open](https://img.shields.io/github/issues/creativetimofficial/material-dashboard-react.svg)](https://github.com/creativetimofficial/material-dashboard-react/issues?q=is%3Aopen+is%3Aissue) [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/creativetimofficial/material-dashboard-react.svg)](https://github.com/creativetimofficial/material-dashboard-react/issues?q=is%3Aissue+is%3Aclosed)
+![version](https://img.shields.io/badge/version-1.0-blue.svg) 
+
 
 ![Image](src/assets/images/bg-sign-in-basic.jpeg)
 
-Material Dashboard 2 React is our newest free MUI Admin Template based on React. If you’re a developer looking to create an admin dashboard that is developer-friendly, rich with features, and highly customisable, here is your match. Our innovative MUI & React dashboard comes with a beautiful design inspired by Google's Material Design and it will help you create stunning websites & web apps to delight your clients.
+The **Newspaper Ad Analyzer** is a powerful tool designed to simplify the process of extracting valuable information from newspaper advertisements. It uses state-of-the-art technologies including Optical Character Recognition (OCR), Natural Language Processing (NLP), and data visualization to transform unstructured newspaper ads into structured data for analysis and insight.
 
-**Fully Coded Elements**
-Material Dashboard 2 React is built with over 70 frontend individual elements, like buttons, inputs, navbars, nav tabs, cards, or alerts, giving you the freedom of choosing and combining. All components can take variations in color, which you can easily modify using MUI styled() API and sx prop. You will save a lot of time going from prototyping to full-functional code because all elements are implemented.
+## Key Features
 
-This free MUI & React Dashboard is coming with prebuilt design blocks, so the development process is seamless,
-switching from our pages to the real website is very easy to be done.
+- **Advertisement Categorization**: Automatically categorizes advertisements into various types such as land sale, house sale, wedding proposals, and more, making it easier to find relevant information.
 
-Special thanks go to:
+- **Data Extraction**: Extracts key details from advertisements, including dates, locations, contact information, and other important information, storing them in a structured database.
 
-- [Nepcha Analytics](https://nepcha.com?ref=readme) for the analytics tool. Nepcha is already integrated with Material Dashboard React. You can use it to gain insights into your sources of traffic.
+- **Geospatial Visualization**: Visualizes the geographic locations of advertisements on an interactive map, allowing users to explore ads by location and view additional details by clicking on map markers.
 
-**Documentation built by Developers**
+- **Interactive Data Analysis**: Provides powerful data analysis tools, including interactive graphs and search facilities, enabling users to gain insights from the collected data.
 
-Each element is well presented in very complex documentation.
+- **User-Friendly Interface**: A user-friendly dashboard allows easy access to all the system's functionalities, making it accessible to a wide range of users.
 
-You can read more about the [documentation here](https://www.creative-tim.com/learning-lab/react/overview/material-dashboard/).
+## Getting Started
 
-**Example Pages**
+To get started with the Newspaper Ad Analyzer, follow the installation instructions in the [documentation](link-to-documentation) and explore its capabilities. Feel free to contribute to the project and make it even more powerful!
 
-If you want to get inspiration or just show something directly to your clients, you can jump-start your development with our pre-built example pages. You will be able to quickly set up the basic structure for your web project.
+## Technologies Used
 
-View [example pages here](https://demos.creative-tim.com/material-dashboard-react/#/dashboard).
+- Frontend: React.js, Material-UI
+- Backend: Python Flask, MongoDB
+- Data Processing: OCR/Tesseract, NLP (Natural Language Processing)
+- Visualization: Leaflet.js, Chart.js
 
-**HELPFUL LINKS**
+## Contributors
 
-- View [Github Repository](https://github.com/creativetimofficial/material-dashboard-react)
-- Check [FAQ Page](https://www.creative-tim.com/faq)
+- [Your Name](link-to-your-profile) - Project Lead
+- [Contributor 1 Name](link-to-contributor1-profile) - Backend Developer
+- [Contributor 2 Name](link-to-contributor2-profile) - Frontend Developer
+
+## License
+
+This project is licensed under the [MIT License](link-to-license-file).
 
 #### Special thanks
 
