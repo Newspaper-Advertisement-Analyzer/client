@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactPaginate from "react-paginate";
 import MDBox from "components/MDBox";
 import Icon from "@mui/material/Icon";
 import Menu from "@mui/material/Menu";
@@ -6,8 +7,8 @@ import Card from "@mui/material/Card";
 import MenuItem from "@mui/material/MenuItem";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
-import DataTable from "examples/Tables/DataTable";
-
+import SearchResultCard from "./searchResultCard";
+import { Grid } from "@mui/material";
 import { getAdbyFilter } from "api/searchBar/getAdbyFilter";
 
 const AdvertisementSearch = () => {
@@ -40,6 +41,7 @@ const AdvertisementSearch = () => {
   };
 
   const [selectedData, setSelectedData] = useState([]);
+  const adsPerPage = 20;
 
   const handleSearch = async () => {
     try {
@@ -63,7 +65,7 @@ const AdvertisementSearch = () => {
 
   const openCategoryMenu = ({ currentTarget }) => setCategoryMenu(currentTarget);
   const closeCategoryMenu = () => setCategoryMenu(null);
-
+  const [currentPage, setCurrentPage] = useState(0);
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
   const closeMenu = () => setMenu(null);
   const handleMenuItemClick = (dataKey) => {
@@ -119,32 +121,42 @@ const AdvertisementSearch = () => {
       <MenuItem onClick={() => handleMenuItemClick("Title")}>Title</MenuItem>
     </Menu>
   );
-
-  const advertisementData = {
-    columns: [
-      { Header: "#", accessor: "index", width: "5%", align: "left" },
-      { Header: "Title", accessor: "title", width: "10%", align: "left" },
-      { Header: "Source", accessor: "source", align: "center" },
-      { Header: "Location", accessor: "city", align: "center" },
-      { Header: "Posted Date", accessor: "date", align: "center" },
-      //{ Header: "Address", accessor: "address", align: "center" },
-      { Header: "PhoneNumber", accessor: "phoneNumber", align: "center" },
-      { Header: "Description", accessor: "description", align: "center" },
-    ],
-    rows: selectedData.map((ad, index) => ({
-      index: index + 1,
-      title: ad.Title,
-      source: ad.Source, // You can choose an appropriate field for the source
-      city: ad.Location.City,
-      date: ad.Posted_Date,
-      phoneNumber: ad.Contact_Info.Phone_Number.join(", "), // Join multiple phone numbers if available
-      description: ad.Description,
-    })), // Add your data here
+  const handlePageChange = ({ selected }) => {
+    setCurrentPage(selected);
   };
+
+  // Calculate the start and end indexes for the current page
+  const startIndex = currentPage * adsPerPage;
+  const endIndex = startIndex + adsPerPage;
+
+  // Get ads for the current page
+  const currentAds = selectedData.slice(startIndex, endIndex);
+
+  // const advertisementData = {
+  //   columns: [
+  //     { Header: "#", accessor: "index", width: "5%", align: "left" },
+  //     { Header: "Title", accessor: "title", width: "10%", align: "left" },
+  //     { Header: "Source", accessor: "source", align: "center" },
+  //     { Header: "Location", accessor: "city", align: "center" },
+  //     { Header: "Posted Date", accessor: "date", align: "center" },
+  //     //{ Header: "Address", accessor: "address", align: "center" },
+  //     { Header: "PhoneNumber", accessor: "phoneNumber", align: "center" },
+  //     { Header: "Description", accessor: "description", align: "center" },
+  //   ],
+  //   rows: selectedData.map((ad, index) => ({
+  //     index: index + 1,
+  //     title: ad.Title,
+  //     source: ad.Source, // You can choose an appropriate field for the source
+  //     city: ad.Location.City,
+  //     date: ad.Posted_Date,
+  //     phoneNumber: ad.Contact_Info.Phone_Number.join(", "), // Join multiple phone numbers if available
+  //     description: ad.Description,
+  //   })), // Add your data here
+  // };
 
   return (
     <MDBox p={2}>
-      <Card alignItems="center" elevation={3} style={{ padding: "12px", alignItems: "center" }}>
+      <Card elevation={3} style={{ padding: "12px", alignItems: "center" }}>
         <MDBox display="flex" alignItems="center" lineHeight={0}>
           <MDBox>
             {selectedOption === "Date" ? (
@@ -217,13 +229,31 @@ const AdvertisementSearch = () => {
           </MDButton>
         </MDBox>
         <div></div>
-        <MDBox>
-          <DataTable
-            table={{ columns: advertisementData.columns, rows: advertisementData.rows }}
-            showTotalEntries={true}
-            noEndBorder
-            entriesPerPage={false}
-          />
+        <MDBox p={2}>
+          <Grid container spacing={2}>
+            {" "}
+            {/* Use Grid container */}
+            {currentAds.map((ad, index) => (
+              <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
+                {" "}
+                {/* Use Grid item */}
+                <SearchResultCard ad={ad} />
+              </Grid>
+            ))}
+          </Grid>
+          {selectedData.length > adsPerPage && (
+            <ReactPaginate
+              previousLabel={"Previous"}
+              nextLabel={"Next"}
+              breakLabel={"..."}
+              pageCount={Math.ceil(selectedData.length / adsPerPage)}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageChange}
+              containerClassName={"pagination"}
+              activeClassName={"active"}
+            />
+          )}
         </MDBox>
       </Card>
     </MDBox>

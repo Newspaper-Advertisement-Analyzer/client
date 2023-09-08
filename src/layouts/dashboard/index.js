@@ -34,7 +34,7 @@ import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatist
 
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
-import SearchBar from "./components/searchBar";
+import SearchBar from "./components/SearchBar/searchBar";
 import { AdCard } from "./components/adCard";
 // import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 

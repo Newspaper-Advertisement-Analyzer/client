@@ -6,7 +6,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import React from "react";
 import { AdCard } from "layouts/dashboard/components/adCard";
-import AdvertisementSearch from "layouts/dashboard/components/searchBar";
+import AdvertisementSearch from "layouts/dashboard/components/SearchBar/searchBar";
 
 const Ad = () => {
   return (
