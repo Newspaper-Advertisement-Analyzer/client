@@ -55,16 +55,15 @@ const generatePDF = async (componentsToPrint, contentRef, title) => {
   }
 
   // Save the PDF with a file name
-  if (title) {
-    doc.save(`${title}.pdf`);
-  } else {
-    doc.save("graphs.pdf");
+  if (!title) {
+    title = "graphs.pdf";
   }
+  doc.save(`${title}.pdf`);
   const pdfBlob = doc.output("blob");
   const userID = "pu123";
   try {
     // Send the PDF to the backend using the savePdf function
-    const response = await savePdf(pdfBlob, userID);
+    const response = await savePdf(pdfBlob, userID, title);
 
     if (response && response.message) {
       console.log("PDF uploaded successfully!");
