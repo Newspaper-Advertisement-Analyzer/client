@@ -45,7 +45,7 @@ import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import Upload from "layouts/upload";
 import Ad_map from "layouts/advertisement_map";
-import ReportView from "layouts/reportview/reportView";
+import ReportView from "layouts/reports/reportView";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
