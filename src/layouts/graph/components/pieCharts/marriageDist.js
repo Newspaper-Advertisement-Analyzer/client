@@ -9,7 +9,11 @@ import { getAgeDistribution } from "api/graphViewer/catergorizebyAge";
 
 function MarriageDistribution() {
   const [ageDistribution, setageDistribution] = useState([]);
-
+  const [selectedItem, setSelectedItem] = useState("Age");
+  const handleMenuItemSelect = async (item) => {
+    setSelectedItem(item);
+  };
+  console.log(selectedItem);
   useEffect(() => {
     // Fetch average price data from the Flask API endpoint
     getAgeDistribution()
@@ -35,6 +39,8 @@ function MarriageDistribution() {
             data: ageDistribution.map((data) => data.count),
           },
         }}
+        menuItems={["Age", "Profession", "District"]}
+        onMenuItemSelect={handleMenuItemSelect}
       />
     </MDBox>
   );

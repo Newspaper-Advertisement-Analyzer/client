@@ -14,11 +14,7 @@ Coded by www.creative-tim.com
 */
 
 import { useMemo, useState } from "react";
-
-// porp-types is a library for typechecking of props
 import PropTypes from "prop-types";
-
-// react-chartjs-2 components
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -29,23 +25,15 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-
-// @mui material components
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
-import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-
-// Material Dashboard 2 React components
+// import MenuList from "@mui/material/MenuList";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-import MDinput from "components/MDInput";
-
-// VerticalBarChart configurations
-import configs from "examples/Charts/BarCharts/VerticalBarChart/configs";
-
-// Material Dashboard 2 React base styles
+import MDInput from "components/MDInput";
 import colors from "assets/theme/base/colors";
+import configs from "examples/Charts/BarCharts/VerticalBarChart/configs";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -57,44 +45,29 @@ function VerticalBarChart({
   chart,
   menuItems,
   onMenuItemSelect,
+  districts, // New prop for districts
+  onDistrictSelect, // New prop for district selection
 }) {
-  const [menu, setMenu] = useState(null);
   const [selectedData, setSelectedData] = useState(menuItems[0]);
-  console.log("selectedData", selectedData);
+  const [selectedDistrict, setSelectedDistrict] = useState(districts[0]); // State for selected district
 
-  const openMenu = ({ currentTarget }) => setMenu(currentTarget);
-  const closeMenu = () => setMenu(null);
-
-  const handleMenuItemClick = (dataKey) => {
+  const handleMenuItemClick = (event) => {
+    const dataKey = event.target.value;
     setSelectedData(dataKey);
-    closeMenu();
+
     if (onMenuItemSelect) {
-      onMenuItemSelect(dataKey); // Call the callback function with the selected item
+      onMenuItemSelect(dataKey);
     }
   };
 
-  const renderMenu = (
-    <Menu
-      id="simple-menu"
-      anchorEl={menu}
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "right",
-      }}
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={Boolean(menu)}
-      onClose={closeMenu}
-    >
-      {menuItems.map((item, index) => (
-        <MenuItem key={index} onClick={() => handleMenuItemClick(item)}>
-          {item}
-        </MenuItem>
-      ))}
-    </Menu>
-  );
+  const handleDistrictChange = (event) => {
+    const selectedDistrict = event.target.value;
+    setSelectedDistrict(selectedDistrict);
+    if (onDistrictSelect) {
+      onDistrictSelect(selectedDistrict);
+    }
+  };
+
   const chartDatasets = chart.datasets
     ? chart.datasets.map((dataset) => ({
         ...dataset,
@@ -150,28 +123,45 @@ function VerticalBarChart({
             </MDBox>
           </MDBox>
           <MDBox color="text" pr={0} display="flex" justifyContent="space-between">
-            <MDinput
+            <MDInput
               value={selectedData}
-              readOnly // Make the input read-only to prevent typing
-              onClick={openMenu}
+              onChange={handleMenuItemClick}
               size="small"
               sx={{ marginRight: "5%" }}
-            />
-            <MDinput
-              value={selectedData}
-              readOnly // Make the input read-only to prevent typing
-              onClick={openMenu}
-              size="small"
-            />
-            {/* <Icon
-              sx={{ cursor: "pointer", fontWeight: "bold" }}
-              fontSize="small"
-              onClick={openMenu}
+              // Add options for districts
+              select
             >
-              more_vert
-            </Icon> */}
+              {menuItems.map((item, index) => (
+                <MenuItem key={index} value={item}>
+                  {item}
+                </MenuItem>
+              ))}
+            </MDInput>
+
+            <MDInput
+              value={selectedDistrict}
+              onChange={handleDistrictChange}
+              size="small"
+              sx={{
+                marginRight: "5%",
+              }}
+              // Add options for districts
+              select
+            >
+              {/* <MenuList
+                style={{
+                  maxHeight: "200px", // Adjust the maxHeight as needed
+                  overflowY: "auto",
+                }}
+              > */}
+              {districts.map((district, index) => (
+                <MenuItem key={index} value={district}>
+                  {district}
+                </MenuItem>
+              ))}
+              {/* </MenuList> */}
+            </MDInput>
           </MDBox>
-          {renderMenu}
         </MDBox>
       ) : null}
       {useMemo(
@@ -188,16 +178,16 @@ function VerticalBarChart({
   return title || description ? <Card>{renderChart}</Card> : renderChart;
 }
 
-// Setting default values for the props of VerticalBarChart
 VerticalBarChart.defaultProps = {
   icon: { color: "info", component: "" },
   title: "",
   description: "",
   height: "19.125rem",
   menuItems: ["option 1", "option 2", "option 3"],
+  districts: ["option 1", "option 2", "option 3"], // Default empty array for districts
+  onDistrictSelect: null, // Default null for onDistrictSelect
 };
 
-// Typechecking props for the VerticalBarChart
 VerticalBarChart.propTypes = {
   icon: PropTypes.shape({
     color: PropTypes.oneOf([
@@ -218,6 +208,8 @@ VerticalBarChart.propTypes = {
   chart: PropTypes.objectOf(PropTypes.array).isRequired,
   menuItems: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onMenuItemSelect: PropTypes.func,
+  districts: PropTypes.arrayOf(PropTypes.string), // Prop type for districts
+  onDistrictSelect: PropTypes.func, // Prop type for onDistrictSelect
 };
 
 export default VerticalBarChart;

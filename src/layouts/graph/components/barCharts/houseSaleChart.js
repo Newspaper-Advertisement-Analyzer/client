@@ -5,18 +5,22 @@ import { useState, useEffect } from "react";
 
 import VerticalBarChart from "examples/Charts/BarCharts/VerticalBarChart";
 
-// import { getAverageLandPrice } from "api/graphViewer/landsaleAveragePrice";
-// import { getAverageHousePrice } from "api/graphViewer/houseSaleAveragePrice";
+import { getAverageHousePrice } from "api/graphViewer/houseSaleAveragePrice";
 
 function HousesaleAveragePrice() {
   const [averageHousePrice, setAverageHousePrice] = useState([]);
   const [selectedItem, setSelectedItem] = useState("Weekly");
+  const [selectedDistrict, setSelectedDistrict] = useState("Overall");
 
   const handleMenuItemSelect = (item) => {
     setSelectedItem(item);
     // You can perform any additional actions here based on the selected item
   };
+  const handleDistrictSelect = async (item) => {
+    setSelectedDistrict(item);
+  };
   console.log(selectedItem);
+  console.log(selectedDistrict);
   useEffect(() => {
     // Fetch average price data from the Flask API endpoint'
     const fetchData = async () => {
@@ -59,6 +63,32 @@ function HousesaleAveragePrice() {
         }}
         menuItems={["Weekly", "Monthly", "Yearly"]}
         onMenuItemSelect={handleMenuItemSelect}
+        districts={[
+          "Overall",
+          "Colombo",
+          "Gampaha",
+          "Kalutara",
+          "Kandy",
+          "Matale",
+          "Nuwara Eliya",
+          "Galle",
+          "Matara",
+          "Hambantota",
+          "Jaffna",
+          "Kilinochchi",
+          "Mannar",
+          "Mullaitivu",
+          "Vavuniya",
+          "Puttalam",
+          "Kurunegala",
+          "Anuradhapura",
+          "Polonnaruwa",
+          "Badulla",
+          "Monaragala",
+          "Ratnapura",
+          "Kegalle",
+        ]}
+        onDistrictSelect={handleDistrictSelect}
       />
     </MDBox>
   );

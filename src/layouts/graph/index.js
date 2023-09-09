@@ -19,6 +19,8 @@ import HouseSaleDistribution from "./components/pieCharts/houseSaleDDist";
 import createPDF from "layouts/reports/reports";
 import PriceFluctuation from "./components/lineCharts/pricefluctuation";
 import MDInput from "components/MDInput";
+import Demographic from "./components/lineCharts/demographic";
+import HousesaleAveragePrice from "./components/barCharts/houseSaleChart";
 
 function GraphViewer() {
   const contentRef = useRef(null);
@@ -117,6 +119,24 @@ function GraphViewer() {
             </MDBox>
           </Grid>
           <Grid item xs={12} md={6} lg={6}>
+            <div>
+              <HousesaleAveragePrice />
+            </div>
+            <MDBox display="flex" alignItems="center" mt={0.5} mb={0.5} ml={2.5}>
+              <MDBox width="80%">
+                <MDTypography variant="button" fontWeight="regular" color="text">
+                  Do you want to include this graph in the generated PDF?
+                </MDTypography>
+              </MDBox>
+              <MDBox mt={0.5}>
+                <Switch
+                  checked={includeLandSale}
+                  onChange={() => setIncludeLandSale(!includeLandSale)}
+                />
+              </MDBox>
+            </MDBox>
+          </Grid>
+          <Grid item xs={12} md={6} lg={6}>
             <CategoryDistribution />
             <MDBox display="flex" alignItems="center" mt={0.5} mb={0.5} ml={2.5}>
               <MDBox width="80%">
@@ -167,6 +187,22 @@ function GraphViewer() {
           </Grid>
           <Grid item xs={12} md={6} lg={6}>
             <PriceFluctuation />
+            <MDBox display="flex" alignItems="center" mt={0.5} mb={0.5} ml={2.5}>
+              <MDBox width="80%">
+                <MDTypography variant="button" fontWeight="regular" color="text">
+                  Do you want to include this graph in the generated PDF?
+                </MDTypography>
+              </MDBox>
+              <MDBox mt={0.5}>
+                <Switch
+                  checked={includePriceFluct}
+                  onChange={() => setIncludePriceFluct(!includePriceFluct)}
+                />
+              </MDBox>
+            </MDBox>
+          </Grid>
+          <Grid item xs={12} md={6} lg={6}>
+            <Demographic />
             <MDBox display="flex" alignItems="center" mt={0.5} mb={0.5} ml={2.5}>
               <MDBox width="80%">
                 <MDTypography variant="button" fontWeight="regular" color="text">
