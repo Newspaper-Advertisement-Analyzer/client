@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { getReportPdf } from "api/report/getReports"; // Import the getReportPdf function
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import Footer from "examples/Footer";
 
 // Define a component that allows you to enter a report ID and view the report
 function ReportViewer() {
@@ -23,18 +26,22 @@ function ReportViewer() {
 
   return (
     <div>
-      <h2>View Report by ID</h2>
-      <div>
-        <label htmlFor="reportId">Report ID:</label>
-        <input
-          type="text"
-          id="reportId"
-          value={reportId}
-          onChange={(e) => setReportId(e.target.value)}
-        />
-        <button onClick={handleViewReport}>View Report</button>
-      </div>
-      {viewReportError && <p>{viewReportError}</p>}
+      <DashboardLayout>
+        <DashboardNavbar />
+        <h2>View Report by ID</h2>
+        <div>
+          <label htmlFor="reportId">Report ID:</label>
+          <input
+            type="text"
+            id="reportId"
+            value={reportId}
+            onChange={(e) => setReportId(e.target.value)}
+          />
+          <button onClick={handleViewReport}>View Report</button>
+        </div>
+        {viewReportError && <p>{viewReportError}</p>}
+        <Footer />
+      </DashboardLayout>
     </div>
   );
 }
