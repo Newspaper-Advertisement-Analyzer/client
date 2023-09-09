@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ReactPaginate from "react-paginate";
+// import ReactPaginate from "react-paginate";
 import MDBox from "components/MDBox";
 import Icon from "@mui/material/Icon";
 import Menu from "@mui/material/Menu";
@@ -8,9 +8,10 @@ import MenuItem from "@mui/material/MenuItem";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
 import SearchResultCard from "./searchResultCard";
-import { Grid } from "@mui/material";
+import { Grid, Pagination } from "@mui/material";
 import { getAdbyFilter } from "api/searchBar/getAdbyFilter";
 import MDTypography from "components/MDTypography";
+// import MDPagination from "components/MDPagination";
 
 const AdvertisementSearch = () => {
   const [selectedOption, setSelectedOption] = useState("Title");
@@ -122,8 +123,12 @@ const AdvertisementSearch = () => {
       <MenuItem onClick={() => handleMenuItemClick("Title")}>Title</MenuItem>
     </Menu>
   );
-  const handlePageChange = ({ selected }) => {
-    setCurrentPage(selected);
+  const handlePageChange = (selected) => {
+    setCurrentPage(selected - 1);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   // Calculate the start and end indexes for the current page
@@ -154,6 +159,7 @@ const AdvertisementSearch = () => {
   //     description: ad.Description,
   //   })), // Add your data here
   // };
+  // Customized page options starting from 1
 
   return (
     <MDBox p={2}>
@@ -246,17 +252,39 @@ const AdvertisementSearch = () => {
             ))}
           </Grid>
           {selectedData.length > adsPerPage && (
-            <ReactPaginate
-              previousLabel={"Previous"}
-              nextLabel={"Next"}
-              breakLabel={"..."}
-              pageCount={Math.ceil(selectedData.length / adsPerPage)}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              onPageChange={handlePageChange}
-              containerClassName={"pagination"}
-              activeClassName={"active"}
-            />
+            // <ReactPaginate
+            //   previousLabel={"Previous"}
+            //   nextLabel={"Next"}
+            //   breakLabel={"..."}
+            //   pageCount={Math.ceil(selectedData.length / adsPerPage)}
+            //   marginPagesDisplayed={2}
+            //   pageRangeDisplayed={5}
+            //   onPageChange={handlePageChange}
+            //   containerClassName={"pagination"}
+            //   activeClassName={"active"}
+            // />
+            // <MDPagination>
+            //   <MDPagination item>
+            //     <Icon>keyboard_arrow_left</Icon>
+            //   </MDPagination>
+            //   <MDPagination item active>
+            //     1
+            //   </MDPagination>
+            //   <MDPagination item>2</MDPagination>
+            //   <MDPagination item>3</MDPagination>
+            //   <MDPagination item>
+            //     <Icon>keyboard_arrow_right</Icon>
+            //   </MDPagination>
+            // </MDPagination>
+            <MDBox display="flex" justifyContent="flex-end">
+              <MDTypography color="dark">
+                <Pagination
+                  count={Math.ceil(selectedData.length / adsPerPage)}
+                  color="primary"
+                  onChange={(event, page) => handlePageChange(page)}
+                />
+              </MDTypography>
+            </MDBox>
           )}
         </MDBox>
       </Card>
