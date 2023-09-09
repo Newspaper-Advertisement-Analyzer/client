@@ -52,6 +52,12 @@ function PriceFluctuation() {
             },
           ],
         }}
+        action={{
+          type: "internal", // or "external" based on your use case
+          route: "/reports/Price Fluctuation", // Define the route
+          color: "primary",
+          label: "View Details",
+        }}
       />
     </MDBox>
   );

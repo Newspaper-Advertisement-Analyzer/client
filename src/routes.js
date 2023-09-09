@@ -52,6 +52,7 @@ import GraphViewer from "layouts/graph";
 import AdvertisementDetail from "layouts/advertisement";
 import Ad from "layouts/advertisement/ad";
 import Report from "layouts/reports";
+import GraphReport from "layouts/reports/graphs";
 
 const routes = [
   {
@@ -121,6 +122,10 @@ const routes = [
   {
     route: "/advertisement/:id",
     component: <AdvertisementDetail />,
+  },
+  {
+    route: "/reports/:title",
+    component: <GraphReport />,
   },
   {
     type: "collapse",

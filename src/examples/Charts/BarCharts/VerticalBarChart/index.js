@@ -34,6 +34,7 @@ import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import colors from "assets/theme/base/colors";
 import configs from "examples/Charts/BarCharts/VerticalBarChart/configs";
+import { Link } from "react-router-dom";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -47,10 +48,11 @@ function VerticalBarChart({
   onMenuItemSelect,
   districts, // New prop for districts
   onDistrictSelect, // New prop for district selection
+  action,
 }) {
   const [selectedData, setSelectedData] = useState(menuItems[0]);
   const [selectedDistrict, setSelectedDistrict] = useState(districts[0]); // State for selected district
-
+  // console.log("action", action.route);
   const handleMenuItemClick = (event) => {
     const dataKey = event.target.value;
     setSelectedData(dataKey);
@@ -114,7 +116,11 @@ function VerticalBarChart({
               </MDBox>
             )}
             <MDBox mt={icon.component ? -2 : 0}>
-              {title && <MDTypography variant="h6">{title}</MDTypography>}
+              {title && (
+                <MDTypography component={Link} to={action.route} variant="h6">
+                  {title}
+                </MDTypography>
+              )}
               <MDBox mb={2}>
                 <MDTypography component="div" variant="button" color="text">
                   {description}
@@ -210,6 +216,22 @@ VerticalBarChart.propTypes = {
   onMenuItemSelect: PropTypes.func,
   districts: PropTypes.arrayOf(PropTypes.string), // Prop type for districts
   onDistrictSelect: PropTypes.func, // Prop type for onDistrictSelect
+  action: PropTypes.shape({
+    type: PropTypes.oneOf(["external", "internal"]),
+    route: PropTypes.string.isRequired,
+    color: PropTypes.oneOf([
+      "primary",
+      "secondary",
+      "info",
+      "success",
+      "warning",
+      "error",
+      "light",
+      "dark",
+      "white",
+    ]).isRequired,
+    label: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default VerticalBarChart;

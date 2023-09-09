@@ -34,10 +34,20 @@ import MDTypography from "components/MDTypography";
 import configs from "examples/Charts/PieChart/configs";
 import MDInput from "components/MDInput";
 import { MenuItem } from "@mui/material";
+import { Link } from "react-router-dom";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-function PieChart({ icon, title, description, height, chart, menuItems, onMenuItemSelect }) {
+function PieChart({
+  icon,
+  title,
+  description,
+  height,
+  chart,
+  menuItems,
+  onMenuItemSelect,
+  action,
+}) {
   const { data, options } = configs(chart.labels || [], chart.datasets || {});
   const [selectedData, setSelectedData] = useState(menuItems[0]);
   const handleMenuItemClick = (event) => {
@@ -79,7 +89,11 @@ function PieChart({ icon, title, description, height, chart, menuItems, onMenuIt
               </MDBox>
             )}
             <MDBox mt={icon.component ? -2 : 0}>
-              {title && <MDTypography variant="h6">{title}</MDTypography>}
+              {title && (
+                <MDTypography variant="h6" component={Link} to={action.route}>
+                  {title}
+                </MDTypography>
+              )}
               <MDBox mb={2}>
                 <MDTypography component="div" variant="button" color="text">
                   {description}
@@ -148,6 +162,22 @@ PieChart.propTypes = {
   chart: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.object])).isRequired,
   menuItems: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onMenuItemSelect: PropTypes.func,
+  action: PropTypes.shape({
+    type: PropTypes.oneOf(["external", "internal"]),
+    route: PropTypes.string.isRequired,
+    color: PropTypes.oneOf([
+      "primary",
+      "secondary",
+      "info",
+      "success",
+      "warning",
+      "error",
+      "light",
+      "dark",
+      "white",
+    ]).isRequired,
+    label: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default PieChart;

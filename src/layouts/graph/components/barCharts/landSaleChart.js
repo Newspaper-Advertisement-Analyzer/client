@@ -89,6 +89,12 @@ function LandsaleAveragePrice() {
         ]}
         onMenuItemSelect={handleMenuItemSelect}
         onDistrictSelect={handleDistrictSelect}
+        action={{
+          type: "internal", // or "external" based on your use case
+          route: "/reports/Land Sales", // Define the route
+          color: "primary",
+          label: "View Details",
+        }}
       />
     </MDBox>
   );

@@ -38,6 +38,10 @@ function CategoryDistribution() {
             },
           ],
         }}
+        action={{
+          type: "internal", // or "external" based on your use case
+          route: "/reports/Category Distribution", // Define the route
+        }}
       />
     </MDBox>
   );

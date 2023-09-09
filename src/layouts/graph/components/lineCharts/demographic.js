@@ -65,6 +65,12 @@ function Demographic() {
             },
           ],
         }}
+        action={{
+          type: "internal", // or "external" based on your use case
+          route: "/reports/Demographic Analysis", // Define the route
+          color: "primary",
+          label: "View Details",
+        }}
       />
     </MDBox>
   );

@@ -32,10 +32,11 @@ import MDTypography from "components/MDTypography";
 
 // DefaultDoughnutChart configurations
 import configs from "examples/Charts/DoughnutCharts/DefaultDoughnutChart/configs";
+import { Link } from "react-router-dom";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-function DefaultDoughnutChart({ icon, title, description, height, chart }) {
+function DefaultDoughnutChart({ icon, title, description, height, chart, action }) {
   const { data, options } = configs(chart.labels || [], chart.datasets || {}, chart.cutout);
 
   const renderChart = (
@@ -61,7 +62,11 @@ function DefaultDoughnutChart({ icon, title, description, height, chart }) {
             </MDBox>
           )}
           <MDBox mt={icon.component ? -2 : 0}>
-            {title && <MDTypography variant="h6">{title}</MDTypography>}
+            {title && (
+              <MDTypography variant="h6" component={Link} to={action.route}>
+                {title}
+              </MDTypography>
+            )}
             <MDBox mb={2}>
               <MDTypography component="div" variant="button" color="text">
                 {description}
@@ -111,6 +116,22 @@ DefaultDoughnutChart.propTypes = {
   description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   chart: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.object])).isRequired,
+  action: PropTypes.shape({
+    type: PropTypes.oneOf(["external", "internal"]),
+    route: PropTypes.string.isRequired,
+    color: PropTypes.oneOf([
+      "primary",
+      "secondary",
+      "info",
+      "success",
+      "warning",
+      "error",
+      "light",
+      "dark",
+      "white",
+    ]).isRequired,
+    label: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default DefaultDoughnutChart;

@@ -47,6 +47,7 @@ import configs from "examples/Charts/LineCharts/DefaultLineChart/configs";
 import colors from "assets/theme/base/colors";
 import { MenuItem } from "@mui/material";
 import MDInput from "components/MDInput";
+import { Link } from "react-router-dom";
 
 ChartJS.register(
   CategoryScale,
@@ -67,6 +68,7 @@ function DefaultLineChart({
   chart,
   menuItems,
   onMenuItemSelect,
+  action,
 }) {
   const chartDatasets = chart.datasets
     ? chart.datasets.map((dataset) => ({
@@ -126,7 +128,11 @@ function DefaultLineChart({
               </MDBox>
             )}
             <MDBox mt={icon.component ? -2 : 0}>
-              {title && <MDTypography variant="h6">{title}</MDTypography>}
+              {title && (
+                <MDTypography component={Link} to={action.route} variant="h6">
+                  {title}
+                </MDTypography>
+              )}
               <MDBox mb={2}>
                 <MDTypography component="div" variant="button" color="text">
                   {description}
@@ -195,6 +201,22 @@ DefaultLineChart.propTypes = {
   chart: PropTypes.objectOf(PropTypes.array).isRequired,
   menuItems: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onMenuItemSelect: PropTypes.func,
+  action: PropTypes.shape({
+    type: PropTypes.oneOf(["external", "internal"]),
+    route: PropTypes.string.isRequired,
+    color: PropTypes.oneOf([
+      "primary",
+      "secondary",
+      "info",
+      "success",
+      "warning",
+      "error",
+      "light",
+      "dark",
+      "white",
+    ]).isRequired,
+    label: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default DefaultLineChart;

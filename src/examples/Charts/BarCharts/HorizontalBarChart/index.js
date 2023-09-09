@@ -43,10 +43,11 @@ import configs from "examples/Charts/BarCharts/HorizontalBarChart/configs";
 
 // Material Dashboard 2 React base styles
 import colors from "assets/theme/base/colors";
+import { Link } from "react-router-dom";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-function HorizontalBarChart({ icon, title, description, height, chart }) {
+function HorizontalBarChart({ icon, title, description, height, chart, action }) {
   const chartDatasets = chart.datasets
     ? chart.datasets.map((dataset) => ({
         ...dataset,
@@ -86,7 +87,11 @@ function HorizontalBarChart({ icon, title, description, height, chart }) {
             </MDBox>
           )}
           <MDBox mt={icon.component ? -2 : 0}>
-            {title && <MDTypography variant="h6">{title}</MDTypography>}
+            {title && (
+              <MDTypography component={Link} to={action.route} variant="h6">
+                {title}
+              </MDTypography>
+            )}
             <MDBox mb={2}>
               <MDTypography component="div" variant="button" color="text">
                 {description}
@@ -136,6 +141,22 @@ HorizontalBarChart.propTypes = {
   description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   chart: PropTypes.objectOf(PropTypes.array).isRequired,
+  action: PropTypes.shape({
+    type: PropTypes.oneOf(["external", "internal"]),
+    route: PropTypes.string.isRequired,
+    color: PropTypes.oneOf([
+      "primary",
+      "secondary",
+      "info",
+      "success",
+      "warning",
+      "error",
+      "light",
+      "dark",
+      "white",
+    ]).isRequired,
+    label: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default HorizontalBarChart;

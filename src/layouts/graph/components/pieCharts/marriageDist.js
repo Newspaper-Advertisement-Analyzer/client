@@ -41,6 +41,12 @@ function MarriageDistribution() {
         }}
         menuItems={["Age", "Profession", "District"]}
         onMenuItemSelect={handleMenuItemSelect}
+        action={{
+          type: "internal", // or "external" based on your use case
+          route: "/reports/Distribution of Marriage Proposal", // Define the route
+          color: "primary",
+          label: "View Details",
+        }}
       />
     </MDBox>
   );

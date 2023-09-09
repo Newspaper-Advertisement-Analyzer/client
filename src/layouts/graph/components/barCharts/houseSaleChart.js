@@ -89,6 +89,12 @@ function HousesaleAveragePrice() {
           "Kegalle",
         ]}
         onDistrictSelect={handleDistrictSelect}
+        action={{
+          type: "internal", // or "external" based on your use case
+          route: "/reports/House Sales", // Define the route
+          color: "primary",
+          label: "View Details",
+        }}
       />
     </MDBox>
   );

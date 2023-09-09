@@ -26,7 +26,7 @@ function HouseSaleDistribution() {
     <MDBox mt={4}>
       <DefaultDoughnutChart
         icon={{ color: "info", component: "leaderboard" }}
-        title="Distribution House Sales"
+        title="Distribution of House Sales"
         description="According to City"
         chart={{
           labels: housesalebyCity.map((data) => data._id),
@@ -35,6 +35,12 @@ function HouseSaleDistribution() {
             backgroundColors: ["info", "dark", "error", "secondary", "primary", "success"],
             data: housesalebyCity.map((data) => data.count),
           },
+        }}
+        action={{
+          type: "internal", // or "external" based on your use case
+          route: "/reports/Distribution of House Sales", // Define the route
+          color: "primary",
+          label: "View Details",
         }}
       />
     </MDBox>
