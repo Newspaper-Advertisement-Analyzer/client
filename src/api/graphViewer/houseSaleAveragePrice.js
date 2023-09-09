@@ -1,9 +1,11 @@
 import axios from "axios";
 
 // Function to fetch data from the backend
-export async function getAverageHousePrice(interval) {
+export async function getAverageHousePrice(interval, district) {
   try {
-    const response = await axios.get(`/getAverageHousePrice${interval}`); // Adjust the endpoint URL
+    const response = await axios.get(
+      `/getAverageHousePrice?interval=${interval}&district=${district}`
+    ); // Adjust the endpoint URL
     return response.data;
   } catch (error) {
     console.error("Error fetching data from the backend:", error);

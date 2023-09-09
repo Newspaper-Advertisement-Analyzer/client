@@ -19,22 +19,12 @@ function LandsaleAveragePrice() {
     setSelectedDistrict(item);
   };
 
-  console.log(selectedItem);
-  console.log(selectedDistrict);
   useEffect(() => {
     // Fetch average price data from the Flask API endpoint'
     const fetchData = async () => {
       try {
-        let data;
-
-        if (selectedItem === "Weekly") {
-          data = await getAverageLandPrice("Weekly");
-        } else if (selectedItem === "Monthly") {
-          data = await getAverageLandPrice("Monthly");
-        } else if (selectedItem === "Yearly") {
-          data = await getAverageLandPrice("Yearly");
-        }
-
+        console.log(selectedDistrict);
+        const data = await getAverageLandPrice(selectedItem, selectedDistrict);
         setAverageLandPrice(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -43,7 +33,7 @@ function LandsaleAveragePrice() {
 
     // Call the fetchData function whenever selectedItem changes
     fetchData();
-  }, [selectedItem]);
+  }, [selectedItem, selectedDistrict]);
 
   return (
     <MDBox mt={4}>
