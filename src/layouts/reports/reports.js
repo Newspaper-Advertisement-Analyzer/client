@@ -2,6 +2,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import html2canvas from "html2canvas";
 import * as XLSX from "xlsx";
+import { savePdf } from "api/report/saveReport";
 
 export const generateCSV = (data, filename) => {
   const csvContent = "data:text/csv;charset=utf-8," + data.map((row) => row.join(",")).join("\n");
@@ -58,6 +59,20 @@ const generatePDF = async (componentsToPrint, contentRef, title) => {
     doc.save(`${title}.pdf`);
   } else {
     doc.save("graphs.pdf");
+  }
+  const pdfBlob = doc.output("blob");
+  const userID = "pu123";
+  try {
+    // Send the PDF to the backend using the savePdf function
+    const response = await savePdf(pdfBlob, userID);
+
+    if (response && response.message) {
+      console.log("PDF uploaded successfully!");
+    } else {
+      console.error("Failed to upload PDF:", response.error);
+    }
+  } catch (error) {
+    console.error("An error occurred while uploading PDF:", error);
   }
 };
 
