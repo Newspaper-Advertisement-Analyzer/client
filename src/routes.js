@@ -45,6 +45,7 @@ import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import Upload from "layouts/upload";
 import Ad_map from "layouts/advertisement_map";
+import ReportView from "layouts/reportview/reportView";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -102,6 +103,14 @@ const routes = [
     icon: <Icon fontSize="small">report</Icon>,
     route: "/reports",
     component: <Report />,
+  },
+  {
+    type: "collapse",
+    name: "ReportsView",
+    key: "reportsview",
+    icon: <Icon fontSize="small">report</Icon>,
+    route: "/reports_view",
+    component: <ReportView />,
   },
   {
     type: "collapse",
