@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 import PieChart from "examples/Charts/PieChart";
 
-import { getAgeDistribution } from "api/graphViewer/catergorizebyAge";
+import { getAgeDistribution } from "api/graphViewer/catergorizeProposals";
 
 function MarriageDistribution() {
   const [ageDistribution, setageDistribution] = useState([]);
@@ -16,14 +16,14 @@ function MarriageDistribution() {
   console.log(selectedItem);
   useEffect(() => {
     // Fetch average price data from the Flask API endpoint
-    getAgeDistribution()
+    getAgeDistribution(selectedItem)
       .then((data) => {
         setageDistribution(data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []);
+  }, [selectedItem]);
 
   return (
     <MDBox mt={4}>
