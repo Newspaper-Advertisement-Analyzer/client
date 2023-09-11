@@ -35,7 +35,7 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
 import GoogleButton from "react-google-button";
-import { auth, provider } from "layouts/authentication/sign-in/config";
+import { auth, provider } from "../../../firebase";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "utils/userContext";
