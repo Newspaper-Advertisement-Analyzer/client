@@ -25,16 +25,8 @@ function HousesaleAveragePrice() {
     // Fetch average price data from the Flask API endpoint'
     const fetchData = async () => {
       try {
-        let data;
-
-        if (selectedItem === "Weekly") {
-          data = await getAverageHousePrice("weekly");
-        } else if (selectedItem === "Monthly") {
-          data = await getAverageHousePrice("monthly");
-        } else if (selectedItem === "Yearly") {
-          data = await getAverageHousePrice("yearly");
-        }
-
+        console.log(selectedDistrict);
+        const data = await getAverageHousePrice(selectedItem, selectedDistrict);
         setAverageHousePrice(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -43,7 +35,7 @@ function HousesaleAveragePrice() {
 
     // Call the fetchData function whenever selectedItem changes
     fetchData();
-  }, [selectedItem]);
+  }, [selectedItem, selectedDistrict]);
 
   return (
     <MDBox mt={4}>
