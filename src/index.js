@@ -17,19 +17,19 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "App";
-import { AuthProvider } from "context/auth";
 // Material Dashboard 2 React Context Provider
 import { MaterialUIControllerProvider } from "context";
+import UserProvider from "utils/userContext";
 
 const container = document.getElementById("app");
 const root = createRoot(container);
 
 root.render(
-  <AuthProvider>
-    <BrowserRouter>
-      <MaterialUIControllerProvider>
+  <BrowserRouter>
+    <MaterialUIControllerProvider>
+      <UserProvider>
         <App />
-      </MaterialUIControllerProvider>
-    </BrowserRouter>
-  </AuthProvider>
+      </UserProvider>
+    </MaterialUIControllerProvider>
+  </BrowserRouter>
 );

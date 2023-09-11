@@ -38,6 +38,7 @@ import themeDark from "assets/theme-dark";
 
 // Material Dashboard 2 React routes
 import routes from "routes";
+import adminRoutes from "adminroutes";
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
@@ -47,6 +48,7 @@ import brandWhite from "assets/images/brand-dark.png";
 import brandDark from "assets/images/brand-light.png";
 import Background from "examples/LayoutContainers/background";
 import bgImage from "layouts/landing/Assets/images/background3.png";
+import { useUser } from "utils/userContext";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -63,6 +65,7 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
 
   const { pathname } = useLocation();
+  const { user } = useUser();
 
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
@@ -137,21 +140,41 @@ export default function App() {
         <CssBaseline />
         {layout === "dashboard" && (
           <>
-            <Sidenav
-              color={sidenavColor}
-              brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-              brandName="Advizor"
-              routes={routes}
-              onMouseEnter={handleOnMouseEnter}
-              onMouseLeave={handleOnMouseLeave}
-            />
-            <Configurator />
-            {configsButton}
+            {user?.role === "user" && (
+              <>
+                <Sidenav
+                  color={sidenavColor}
+                  brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+                  brandName="Advizor"
+                  routes={routes}
+                  onMouseEnter={handleOnMouseEnter}
+                  onMouseLeave={handleOnMouseLeave}
+                />
+                <Configurator />
+                {configsButton}
+              </>
+            )}
+            {user?.role === "admin" && (
+              <>
+                <Sidenav
+                  color={sidenavColor}
+                  brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+                  brandName="Advizor"
+                  routes={adminRoutes}
+                  onMouseEnter={handleOnMouseEnter}
+                  onMouseLeave={handleOnMouseLeave}
+                />
+                <Configurator />
+                {configsButton}
+              </>
+            )}
           </>
         )}
         {layout === "vr" && <Configurator />}
+
         <Routes>
           {getRoutes(routes)}
+          {getRoutes(adminRoutes)}
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       </Background>
