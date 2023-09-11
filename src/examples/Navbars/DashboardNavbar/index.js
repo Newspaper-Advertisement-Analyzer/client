@@ -51,13 +51,17 @@ import {
   setMiniSidenav,
   setOpenConfigurator,
 } from "context";
+import { useUser } from "utils/userContext";
+import MDTypography from "components/MDTypography";
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useMaterialUIController();
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
   const [openMenu, setOpenMenu] = useState(false);
+  const { user } = useUser();
   const route = useLocation().pathname.split("/").slice(1);
+  const { logout } = useUser();
 
   useEffect(() => {
     // Setting the navbar type
@@ -87,7 +91,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
 
   const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
-  const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
+  const handleLogOut = () => logout();
   const handleCloseMenu = () => setOpenMenu(false);
 
   // Render the notifications menu
@@ -131,6 +135,9 @@ function DashboardNavbar({ absolute, light, isMini }) {
       <Toolbar sx={(theme) => navbarContainer(theme)}>
         <MDBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
           <Breadcrumbs icon="home" title={route[route.length - 1]} route={route} light={light} />
+          <MDTypography variant="h6" fontWeight="medium">
+            Welcome {user?.name}
+          </MDTypography>
         </MDBox>
         {isMini ? null : (
           <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
@@ -165,12 +172,10 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 disableRipple
                 color="inherit"
                 sx={navbarIconButton}
-                aria-controls="notification-menu"
-                aria-haspopup="true"
                 variant="contained"
-                onClick={handleOpenMenu}
+                onClick={handleLogOut}
               >
-                <Icon sx={iconsStyle}>notifications</Icon>
+                <Icon sx={iconsStyle}>logout</Icon>
               </IconButton>
               {renderMenu()}
             </MDBox>

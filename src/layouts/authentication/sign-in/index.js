@@ -38,8 +38,10 @@ import GoogleButton from "react-google-button";
 import { auth, provider } from "layouts/authentication/sign-in/config";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "utils/userContext";
 
 function Basic() {
+  const { login } = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -82,6 +84,7 @@ function Basic() {
       .then((data) => {
         console.log(data);
         // Display a success message if applicable
+        login({ name: email, role: "user" });
         navigate("/dashboard");
       })
       .catch((status) => {

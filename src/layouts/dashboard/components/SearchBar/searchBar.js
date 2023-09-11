@@ -47,12 +47,14 @@ const AdvertisementSearch = () => {
   };
 
   const [selectedData, setSelectedData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
   const adsPerPage = 20;
 
   const handleSearch = async () => {
     try {
       // Implement your search logic here, fetching data based on the selected option and query
       // For example, you can use the getRecentAd function from the API file
+      setCurrentPage(0);
       setLoading(true);
       const searchData = await getAdbyFilter(
         selectedOption,
@@ -73,7 +75,7 @@ const AdvertisementSearch = () => {
 
   const openCategoryMenu = ({ currentTarget }) => setCategoryMenu(currentTarget);
   const closeCategoryMenu = () => setCategoryMenu(null);
-  const [currentPage, setCurrentPage] = useState(0);
+
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
   const closeMenu = () => setMenu(null);
   const handleMenuItemClick = (dataKey) => {

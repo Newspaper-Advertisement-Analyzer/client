@@ -37,22 +37,20 @@ Coded by www.creative-tim.com
 
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
-import Tables from "layouts/tables";
+
 import Billing from "layouts/billing";
 import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
-import Upload from "layouts/upload";
-import Ad_map from "layouts/advertisement_map";
-import ReportView from "layouts/reports/reportView";
+
+import TBH from "layouts/TBI/tbi";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
-import GraphViewer from "layouts/graph";
+
 import AdvertisementDetail from "layouts/advertisement";
-import Ad from "layouts/advertisement/ad";
-import Report from "layouts/reports";
+
 import GraphReport from "layouts/reports/graphs";
 import App from "layouts/landing/App";
 // import PrivateRoute from "utils/privateRoutes";
@@ -72,7 +70,12 @@ const Wrapper = ({ component: Component }) => {
   }
 };
 
-const routes = [
+const adminRoutes = [
+  {
+    type: "title",
+    title: "Admin Panel",
+  },
+  { type: "divider" },
   {
     type: "collapse",
     name: "Dashboard",
@@ -83,59 +86,59 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Search Advertisements",
-    key: "adsearch",
+    name: "Manage Advertisements",
+    key: "admanage",
     icon: <Icon fontSize="small">search</Icon>,
-    route: "/advertisement",
-    component: <Wrapper component={Ad} />,
+    route: "/manageadvertisements",
+    component: <Wrapper component={TBH} />,
   },
   {
     type: "collapse",
-    name: "Advertisement Extractor",
-    key: "upload",
+    name: "Manage User Accounts",
+    key: "usermanage",
     icon: <Icon fontSize="small">newspaper</Icon>,
-    route: "/upload",
-    component: <Wrapper component={Upload} />,
+    route: "/manageuser",
+    component: <Wrapper component={TBH} />,
   },
   {
     type: "collapse",
-    name: "Graph Viewer",
-    key: "graph",
+    name: "User Feedback",
+    key: "feedback",
     icon: <Icon fontSize="small">equalizer</Icon>,
-    route: "/graphs",
-    component: <Wrapper component={GraphViewer} />,
+    route: "/managefeedback",
+    component: <Wrapper component={TBH} />,
   },
   {
     type: "collapse",
-    name: "Advertisement Map",
-    key: "A_map",
+    name: "Content Approval",
+    key: "content",
     icon: <Icon fontSize="small">map</Icon>,
-    route: "/advertisement_map",
-    component: <Wrapper component={Ad_map} />,
+    route: "/managecontent",
+    component: <Wrapper component={TBH} />,
+  },
+  {
+    type: "collapse",
+    name: "Configure Graphs",
+    key: "configGraph",
+    icon: <Icon fontSize="small">report</Icon>,
+    route: "/managegraphs",
+    component: <Wrapper component={TBH} />,
   },
   {
     type: "collapse",
     name: "Reports",
-    key: "reports",
-    icon: <Icon fontSize="small">report</Icon>,
-    route: "/reports",
-    component: <Wrapper component={Report} />,
-  },
-  {
-    type: "collapse",
-    name: "ReportsView",
     key: "reportsview",
     icon: <Icon fontSize="small">report</Icon>,
-    route: "/reports_view",
-    component: <ReportView />,
+    route: "/managereports",
+    component: <Wrapper component={TBH} />,
   },
   {
     type: "collapse",
-    name: "Tables",
-    key: "tables",
+    name: "User Support",
+    key: "support",
     icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/tables",
-    component: <Tables />,
+    route: "/managesupport",
+    component: <Wrapper component={TBH} />,
   },
   {
     type: "collapse",
@@ -195,4 +198,4 @@ Wrapper.propTypes = {
   component: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired,
 };
 
-export default routes;
+export default adminRoutes;

@@ -38,6 +38,7 @@ import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 
 import VerificationDialog from "./VerificationDialog";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "utils/userContext";
 
 function Cover() {
   const [email, setEmail] = useState("");
@@ -45,6 +46,7 @@ function Cover() {
   const [name, setName] = useState("");
   const navigate = useNavigate();
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const { login } = useUser();
 
   const [verificationOpen, setVerificationOpen] = useState(false); // State to manage the dialog
 
@@ -202,6 +204,7 @@ function Cover() {
             setShowSuccessAlert(true);
             setTimeout(() => {
               setShowSuccessAlert(false);
+              login({ name: email, role: "user" });
               navigate("/dashboard");
             }, 1000);
           }}

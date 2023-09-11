@@ -10,15 +10,14 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
 import Card from "@mui/material/Card";
-import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import Icon from "@mui/material/Icon";
 
 import customMarkerIcon1 from "../../assets/images/map_markers/house.png";
 import customMarkerIcon2 from "../../assets/images/map_markers/land.png";
 import customMarkerIcon3 from "../../assets/images/map_markers/marriage.png";
 
 import { getRecentAdLocation } from "api/advertisementMap/advertisementLocation";
+import MDInput from "components/MDInput";
 
 const MapComponent = () => {
   const location = useLocation();
@@ -28,11 +27,8 @@ const MapComponent = () => {
   const mapCenter = [7.8731, 80.7718];
   const [markers, setMarkers] = useState([]);
   const [selectedData, setSelectedData] = useState("LandSale");
+  const [selectedTime, setSelectedTime] = useState("Overall");
   const [test, setTest] = useState(true);
-  const [menu, setMenu] = useState(null);
-
-  const openMenu = ({ currentTarget }) => setMenu(currentTarget);
-  const closeMenu = () => setMenu(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -130,32 +126,14 @@ const MapComponent = () => {
     }),
   };
 
-  const handleMenuItemClick = (dataKey) => {
+  const handleMenuItemClick = (event) => {
+    const dataKey = event.target.value;
     setSelectedData(dataKey);
-
-    closeMenu();
   };
-
-  const renderMenu = (
-    <Menu
-      id="simple-menu"
-      anchorEl={menu}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "left",
-      }}
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={Boolean(menu)}
-      onClose={closeMenu}
-    >
-      <MenuItem onClick={() => handleMenuItemClick("LandSale")}>Land Sale</MenuItem>
-      <MenuItem onClick={() => handleMenuItemClick("HouseSale")}>House Sale</MenuItem>
-      <MenuItem onClick={() => handleMenuItemClick("MarriageProp")}>Marriage Proposals</MenuItem>
-    </Menu>
-  );
+  const handleTimeItemClick = (event) => {
+    const dataKey = event.target.value;
+    setSelectedTime(dataKey);
+  };
 
   const renderContent = (marker) => {
     switch (selectedData) {
@@ -218,7 +196,39 @@ const MapComponent = () => {
               Top Locations in {selectedData}
             </MDTypography>
           </MDBox>
-          <MDBox color="text" px={2}>
+
+          <MDBox color="text" pr={0} display="flex" justifyContent="space-between">
+            <MDInput
+              value={selectedData}
+              onChange={handleMenuItemClick}
+              size="small"
+              sx={{ marginRight: "5%" }}
+              // Add options for districts
+              select
+            >
+              <MenuItem value="LandSale">Land Sale</MenuItem>
+              <MenuItem value="HouseSale">House Sale</MenuItem>
+              <MenuItem value="MarriageProp">Marriage Proposals</MenuItem>
+            </MDInput>
+
+            <MDInput
+              value={selectedTime}
+              onChange={handleTimeItemClick}
+              size="small"
+              sx={{
+                marginRight: "5%",
+              }}
+              // Add options for districts
+              select
+            >
+              <MenuItem value="Overall">Overall</MenuItem>
+              <MenuItem value="Today">Today</MenuItem>
+              <MenuItem value="Yesterday">Yesterday</MenuItem>
+              <MenuItem value="Last Week">Last Week</MenuItem>
+              <MenuItem value="Last Month">Last Month</MenuItem>
+            </MDInput>
+          </MDBox>
+          {/* <MDBox color="text" px={2}>
             <Icon
               sx={{ cursor: "pointer", fontWeight: "bold" }}
               fontSize="small"
@@ -227,7 +237,7 @@ const MapComponent = () => {
               more_vert
             </Icon>
           </MDBox>
-          {renderMenu}
+          {renderMenu} */}
         </MDBox>
         <MapContainer center={mapCenter} zoom={8} style={{ height: "80vh", width: "100%" }}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
