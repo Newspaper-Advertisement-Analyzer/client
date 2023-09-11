@@ -19,6 +19,9 @@ Coded by www.creative-tim.com
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDBadge from "components/MDBadge";
+// import { useEffect } from "react";
+// import { getReportList } from "api/report/reportsdata";
+// import { useState } from "react";
 
 export default function data() {
   const Job = ({ title, description }) => (
@@ -29,6 +32,20 @@ export default function data() {
       <MDTypography variant="caption">{description}</MDTypography>
     </MDBox>
   );
+
+  // const [reportDetails, setReportsDetails] = useState([]);
+
+  // useEffect(() => {
+  //   // Fetch average price data from the Flask API endpoint
+  //   getReportList()
+  //     .then((data) => {
+  //       setReportsDetails(data);
+  //       //console.log(adDistribution);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data:", error);
+  //     });
+  // }, []);
 
   return {
     rawData: [
@@ -71,6 +88,29 @@ export default function data() {
       { Header: "Download", accessor: "action", align: "center" },
     ],
 
+    // rows: getReportList.map((report, index) => ({
+    //   author: (
+    //     <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+    //       DemographicAnalysis
+    //     </MDTypography>
+    //   ),
+    //   function: <Job title="Manager" description="Organization" />,
+    //   status: (
+    //     <MDBox ml={-1}>
+    //       <MDBadge badgeContent="pdf" color="error" variant="gradient" size="sm" />
+    //     </MDBox>
+    //   ),
+    //   employed: (
+    //     <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+    //       23/04/18
+    //     </MDTypography>
+    //   ),
+    //   action: (
+    //     <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+    //       Download
+    //     </MDTypography>
+    //   ),
+    // })),
     rows: [
       {
         author: (

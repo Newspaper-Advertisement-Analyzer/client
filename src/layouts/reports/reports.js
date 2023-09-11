@@ -3,6 +3,8 @@ import "jspdf-autotable";
 import html2canvas from "html2canvas";
 import * as XLSX from "xlsx";
 import { savePdf } from "api/report/saveReport";
+import { storage } from "../../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export const generateCSV = (data, filename) => {
   const csvContent = "data:text/csv;charset=utf-8," + data.map((row) => row.join(",")).join("\n");
@@ -23,47 +25,46 @@ export const generateExcel = (data, filename) => {
 
 // Function to generate PDF
 const generatePDF = async (componentsToPrint, contentRef, title) => {
-  // Create a new jsPDF instance
-  const doc = new jsPDF();
-
-  const pageHeight = doc.internal.pageSize.height;
-  let yOffset = 10;
-
-  for (let i = 0; i < componentsToPrint.length; i++) {
-    // Skip components that are not rendered (e.g., if they are conditionally displayed)
-    if (contentRef.current.children[i]) {
-      // Use html2canvas to capture the content of the component
-      const canvas = await html2canvas(contentRef.current.children[i]);
-
-      // Check if there's enough space on the current page for the component
-      const componentHeight = (canvas.height * 190) / canvas.width; // Calculate component height based on width
-      if (yOffset + componentHeight > pageHeight) {
-        // If not enough space, add a new page
-        doc.addPage();
-        yOffset = 10; // Reset yOffset for the new page
-      }
-
-      // Convert the captured canvas to a data URL
-      const contentDataURL = canvas.toDataURL("image/jpeg");
-
-      // Adjust the position as needed
-
-      // Add the component content as an image to the PDF
-      doc.addImage(contentDataURL, "JPEG", 10, yOffset + 15, 190, componentHeight); // Adjust the position and size as needed
-      yOffset += componentHeight + 25; // Add vertical spacing between title and component
-    }
-  }
-
-  // Save the PDF with a file name
-  if (!title) {
-    title = "graphs.pdf";
-  }
-  doc.save(`${title}.pdf`);
-  const pdfBlob = doc.output("blob");
-  const userID = "pu123";
   try {
-    // Send the PDF to the backend using the savePdf function
-    const response = await savePdf(pdfBlob, userID, title);
+    // Create a new jsPDF instance
+    const doc = new jsPDF();
+
+    const pageHeight = doc.internal.pageSize.height;
+    let yOffset = 10;
+
+    for (let i = 0; i < componentsToPrint.length; i++) {
+      if (contentRef.current.children[i]) {
+        const canvas = await html2canvas(contentRef.current.children[i]);
+        const componentHeight = (canvas.height * 190) / canvas.width;
+
+        if (yOffset + componentHeight > pageHeight) {
+          doc.addPage();
+          yOffset = 10;
+        }
+
+        const contentDataURL = canvas.toDataURL("image/jpeg");
+        doc.addImage(contentDataURL, "JPEG", 10, yOffset + 15, 190, componentHeight);
+        yOffset += componentHeight + 25;
+      }
+    }
+
+    // Save the PDF with a file name
+    if (!title) {
+      title = "graphs.pdf";
+    }
+
+    doc.save(`${title}.pdf`);
+    const pdfBlob = doc.output("blob");
+    const userID = "pu123";
+    const pdfRef = ref(storage, `Reports/${title}`);
+
+    // Upload the PDF to Firebase Storage
+    await uploadBytes(pdfRef, pdfBlob);
+
+    // Get the download URL of the uploaded PDF
+    const downloadURL = await getDownloadURL(pdfRef); // Add this import: import { getDownloadURL } from "firebase/storage";
+    // Send the PDF URL to the backend using the savePdf function or do whatever you need with it
+    const response = await savePdf(downloadURL, userID, title);
 
     if (response && response.message) {
       console.log("PDF uploaded successfully!");
@@ -71,7 +72,7 @@ const generatePDF = async (componentsToPrint, contentRef, title) => {
       console.error("Failed to upload PDF:", response.error);
     }
   } catch (error) {
-    console.error("An error occurred while uploading PDF:", error);
+    console.error("An error occurred while generating/uploading PDF:", error);
   }
 };
 

@@ -1,13 +1,14 @@
 import axios from "axios";
 
-// Function to send a PDF to the backend
-export async function savePdf(pdf, userID, title) {
+// Function to send the PDF URL to the backend
+export async function savePdf(pdfURL, userID, title) {
   try {
     const formData = new FormData();
-    formData.append("pdf", pdf, "report.pdf"); // Attach the PDF with a filename
+    formData.append("pdfURL", pdfURL); // Attach the PDF URL
     formData.append("userID", userID); // Include the userID in the form data
     formData.append("title", title);
-    const response = await axios.post("/upload-pdf", formData, {
+
+    const response = await axios.post("/upload-pdf-url", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -16,7 +17,7 @@ export async function savePdf(pdf, userID, title) {
     console.log(response.data);
     return response.data;
   } catch (error) {
-    console.error("Error sending PDF to the backend:", error);
+    console.error("Error sending PDF URL to the backend:", error);
     throw error;
   }
 }
