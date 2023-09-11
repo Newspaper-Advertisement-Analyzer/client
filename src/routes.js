@@ -54,6 +54,7 @@ import AdvertisementDetail from "layouts/advertisement";
 import Ad from "layouts/advertisement/ad";
 import Report from "layouts/reports";
 import GraphReport from "layouts/reports/graphs";
+import App from "layouts/landing/App";
 
 const routes = [
   {
@@ -131,6 +132,10 @@ const routes = [
   {
     route: "/advertisement/:id",
     component: <AdvertisementDetail />,
+  },
+  {
+    route: "/landing",
+    component: <App />,
   },
   {
     route: "/reports/:title",

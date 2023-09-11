@@ -1,33 +1,33 @@
 import React from "react";
 import IMAGES from "../Assets/Images";
+import MDTypography from "components/MDTypography";
 
 function Snippets() {
   return (
     <>
       <section className="snippets">
         <div className="snippets__head">
-          <h2>Keep track of your snippets</h2>
-          <p className="desktop__text">
-            Clipboard instantly stores any item you copy in the cloud, meaning you can access your
-            snippets immediately on all your devices. Our Mac and iOS apps will help you organize
-            everything.
-          </p>
+          <MDTypography color="text" variant="h2" textAlign="center">
+            Visualize Data Transform Numbers into Insights
+          </MDTypography>
+
+          <MDTypography color="text" variant="h4" textAlign="center" fontWeight="regular" mb={5}>
+            Turn complex data into clear visualizations, empowering you to make informed decisions.
+          </MDTypography>
         </div>
         <div className="snippets__body">
           <div className="snippets__body__img">
             <img src={IMAGES.computer} alt="computers" />
           </div>
           <div className="snippets__body__text">
-            <h3>Quick Search</h3>
-            <p>
-              Easily search your snippets by content, category, web address, application, and more.
-            </p>
+            <h3>Graph Visulaization</h3>
+            <p>Render detailed graphs and charts to visualize complex data</p>
 
-            <h3>iCloud Sync</h3>
-            <p>Instantly saves and syncs snippets across all your devices.</p>
+            <h3>Report Generation</h3>
+            <p>Create and Download customized Reports</p>
 
-            <h3>Complete History</h3>
-            <p>Retrieve any snippets from the first moment you started using the app.</p>
+            <h3>Reports History</h3>
+            <p>Access your previous Reports easily</p>
           </div>
         </div>
       </section>

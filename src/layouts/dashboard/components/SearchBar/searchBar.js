@@ -11,6 +11,8 @@ import SearchResultCard from "./searchResultCard";
 import { Grid, Pagination } from "@mui/material";
 import { getAdbyFilter } from "api/searchBar/getAdbyFilter";
 import MDTypography from "components/MDTypography";
+import { Link } from "react-router-dom";
+import Loading from "components/Loading";
 // import MDPagination from "components/MDPagination";
 
 const AdvertisementSearch = () => {
@@ -21,6 +23,8 @@ const AdvertisementSearch = () => {
   const [endDate, setEndDate] = useState("");
 
   const [category, setCategory] = useState("");
+
+  const [loading, setLoading] = useState(false);
 
   const handleStartDateChange = (e) => {
     const newStartDate = e.target.value;
@@ -49,6 +53,7 @@ const AdvertisementSearch = () => {
     try {
       // Implement your search logic here, fetching data based on the selected option and query
       // For example, you can use the getRecentAd function from the API file
+      setLoading(true);
       const searchData = await getAdbyFilter(
         selectedOption,
         searchQuery,
@@ -57,6 +62,7 @@ const AdvertisementSearch = () => {
         category
       );
       setSelectedData(searchData);
+      setLoading(false);
     } catch (error) {
       console.error("Error searching:", error);
     }
@@ -164,7 +170,7 @@ const AdvertisementSearch = () => {
   return (
     <MDBox p={2}>
       <Card elevation={3} style={{ padding: "12px", alignItems: "center" }}>
-        <MDTypography variant="h3" fontWeight="medium" mb={4}>
+        <MDTypography component={Link} to="/advertisement" variant="h3" fontWeight="medium" mb={4}>
           Search for Available Advertisements
         </MDTypography>
         <MDBox display="flex" alignItems="center" lineHeight={0}>
@@ -238,8 +244,9 @@ const AdvertisementSearch = () => {
             Search
           </MDButton>
         </MDBox>
-        <div></div>
+        <Loading />
         <MDBox p={2}>
+          <MDBox mb={5}>{loading && <Loading />}</MDBox>
           <Grid container spacing={2}>
             {" "}
             {/* Use Grid container */}

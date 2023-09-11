@@ -1,5 +1,5 @@
 const IMAGES = {
-  logo: require("./images/logo.svg").default,
+  logo: require("./images/logowithbrand.png"),
   computer: require("./images/image-computer.png"),
   devices: require("./images/image-devices.png"),
   blacklist: require("./images/icon-blacklist.svg").default,

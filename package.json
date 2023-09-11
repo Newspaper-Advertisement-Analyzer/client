@@ -37,6 +37,7 @@
     "react-github-btn": "1.4.0",
     "react-google-button": "^0.7.2",
     "react-leaflet": "^4.2.1",
+    "react-loading": "^2.0.3",
     "react-paginate": "^8.2.0",
     "react-router-dom": "6.11.0",
     "react-scripts": "5.0.1",

@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;600&display=swap");
 
-*,
+.landing-page *,
 :after,
 :before {
   margin: 0;
@@ -8,9 +8,9 @@
   box-sizing: border-box;
 }
 
-:root {
+ :root {
   /* Primary color */
-  --StrongCyan: hsl(171, 66%, 44%);
+  --StrongIndigo: #755BB4;
   --LightBlue: hsl(233, 100%, 69%);
 
   /* Neutral color */
@@ -18,47 +18,48 @@
   --GrayishBlue: hsl(201, 11%, 66%);
 }
 
-html {
+.landing-page html {
   font-size: 62.5%;
 }
 
-body {
+.landing-page body {
   font-family: "Bai Jamjuree", sans-serif;
-  background: url(./Assets/images/bg-header-mobile.png) no-repeat;
+  background: url(./Assets/images/background.jpg) no-repeat;
   background-size: 100%;
   font-size: 1.6rem;
   text-align: center;
+
 }
 
-.main{
+.landing-page .main{
   max-width: 375px;
   width: 90%;
   margin: 0 auto;
 }
 
 /* typo */
-h1,
-h2,
-h3 {
+.landing-page h1,
+.landing-page h2,
+.landing-page h3 {
   color: var(--DarkGrayishBlue);
   padding: 0 15px;
   margin-bottom: 10px;
 }
 
-h1 {
+.landing-page h1 {
   font-size: 3.25rem;
 }
 
-h2 {
+.landing-page h2 {
   font-size: 2.5rem;
   padding: 0 1em;
 }
 
-h3{
+.landing-page h3{
   font-size: 2rem;
 }
 
-p {
+.landing-page p {
   color: var(--GrayishBlue);
   font-size: 1.6rem;
   line-height: 1.6;
@@ -67,21 +68,23 @@ p {
   margin-bottom: 40px;
 }
 
-.header__img {
+.landing-page .header__img {
   margin-top: 3em;
+  max-width: 40%; /* Limits the width to the container's width */
+  height: auto;
 }
 
-img {
+.landing-page img {
   width: 100%;
   display: block;
   margin-bottom: 3.5em;
 }
 
-li{
+.landing-page li{
   list-style: none;
 }
 
-.footer a{
+.landing-page .footer a{
   text-decoration: none;
   color: var(--DarkGrayishBlue);
   font-size: 1.8rem;
@@ -91,49 +94,47 @@ li{
 }
 
 /******* override *******/
-.resize {
+.landing-page .resize {
   width: fit-content;
   margin: 0 auto 2em;
 }
 
-.agents .resize {
+.landing-page .agents .resize {
   margin-bottom: 5em;
 }
 
-.footer img{
+.landing-page .footer img{
   width: 15%;
   margin-bottom: 4em;
 }
 
 /* buttons */
-.buttons {
+.landing-page .buttons {
   width: 90%;
-  margin: 0 auto 4em;
+  margin: 2em auto 4em;
 }
 
-.buttons a {
+.landing-page .buttons a {
   text-decoration: none;
-  color: #fff;
-  font-size: 1.8rem;
+
+  font-size: 1rem;
   font-weight: 600;
   display: block;
   padding: 1em 0;
   letter-spacing: 1px;
   border-radius: 2em;
   margin-bottom: 1.5em;
+  text-align: center;
 }
 
-.buttons a:first-child {
-  background-color: var(--StrongCyan);
+.landing-page .buttons a {
+  background-color: var(--StrongIndigo);
 }
 
-.buttons a:last-child {
-  background-color: var(--LightBlue);
-}
 
 /* header section */
-.header {
-  min-height: 100vh;
+.landing-page .header {
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -141,114 +142,114 @@ li{
 }
 
 /* others margin */
-.access,
-.supercharge,
-.agents,
-.action {
+.landing-page .access,
+.landing-page .supercharge,
+.landing-page .agents,
+.landing-page .action {
   margin-bottom: 7em;
 }
 
 /* footer */
-.footer{
+.landing-page .footer{
   background-color: rgb(243, 242, 248);
   padding: 4em 0 1em;
 }
 
-.content{
+.landing-page .content{
   margin-bottom: 4em;
 }
 
-.social a{
+.landing-page .social a{
   display: inline-block;
   width: 15%;
 }
 
-.social img{
+.landing-page .social img{
   width: auto;
   margin-bottom: 0;
 }
 
 @media screen and (min-width:1024px) {
-  html{
+  .landing-page html{
     font-size: 80%;
   }
 
-  body{
+  .landing-page body{
     background: url(./Assets/images/bg-header-desktop.png) no-repeat;
   }
 
-  .main{
+  .landing-page .main{
     max-width: 1440px;
     width: 90%;
   }
 
-  .buttons {
+  .landing-page .buttons {
     display: flex;
     justify-content: center;
     gap: 50px;
   }
 
-  .buttons a{
+  .landing-page .buttons a{
     width: 25%;
   }
 
-  .snippets__body{
+  .landing-page .snippets__body{
     display: flex;
     gap: 5%;
   }
 
-  .snippets__body__text{
+  .landing-page .snippets__body__text{
     text-align: left;
   }
 
-  .supercharge_items, .agents__items{
+  .landing-page .supercharge_items, .agents__items{
     display: flex;
     align-items: baseline;
   }
 
-  .agents__items img{
+  .landing-page .agents__items img{
     height: 100%;
   }
 
   /* footer */
-  .footer-container{
+  .landing-page .footer-container{
     display: flex;
     
   }
 
-  .footer-img{
+  .landing-page .footer-img{
     width: 25%;
     flex: 1;
   }
 
-  .footer img{
+  .landing-page .footer img{
     margin-bottom: 0;
   }
 
-  .content{
+  .landing-page .content{
     margin-bottom: 0;
     flex: 2;
   }
 
-  .content ul{
+  .landing-page .content ul{
     display: grid;
     justify-items: start;
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 3em;
   }
 
-  .content li:nth-of-type(1){order: 1;}
-  .content li:nth-of-type(2){order: 4;}
-  .content li:nth-of-type(3){order: 2;}
-  .content li:nth-of-type(4){order: 5;}
-  .content li:nth-of-type(5){order: 3;}
+  .landing-page .content li:nth-of-type(1){order: 1;}
+  .landing-page .content li:nth-of-type(2){order: 4;}
+  .landing-page .content li:nth-of-type(3){order: 2;}
+  .landing-page .content li:nth-of-type(4){order: 5;}
+  .landing-page .content li:nth-of-type(5){order: 3;}
 
-  .social{
+  .landing-page .social{
     flex: 1;
   }
 
-  .desktop__text, .access, .action__head{
-    max-width: 700px;
+  .landing-page .desktop__text, .landing-page .access, .landing-page .action__head{
+    max-width: 90%;
     margin-left: auto;
     margin-right: auto;
   }

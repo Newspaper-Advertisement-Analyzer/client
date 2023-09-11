@@ -89,16 +89,21 @@ import { getPopularAd } from "api/advertisemntCards/advertisementCard";
 import homeDecor1 from "assets/images/land.jpg";
 import homeDecor2 from "assets/images/house (1).jpg";
 import homeDecor3 from "assets/images/wedding.jpg";
+import MDTypography from "components/MDTypography";
+import Loading from "components/Loading";
 
 export const AdCard = () => {
   const [backendData, setBackendData] = useState([]);
+  const [loading, setLoading] = useState(false); // Set loading to false on component mount
 
   useEffect(() => {
     // Fetch data from the backend using the imported function
     const fetchData = async () => {
       try {
+        setLoading(true);
         const data = await getPopularAd(); // Use the getPopularAd function to fetch data
-        setBackendData(data); // Update state with the fetched data
+        setBackendData(data);
+        setLoading(false); // Update state with the fetched data
       } catch (error) {
         console.error("Error fetching data from the backend:", error);
       }
@@ -118,6 +123,10 @@ export const AdCard = () => {
 
   return (
     <MDBox p={2}>
+      <MDTypography variant="h3" fontWeight="bold" gutterBottom textAlign="center" mb={5}>
+        Recent Advertisements
+      </MDTypography>
+      <MDBox mb={5}>{loading && <Loading />}</MDBox>
       <Grid container spacing={6}>
         {backendData.map((item, index) => (
           <Grid item key={index} xs={12} md={6} xl={3}>
