@@ -72,7 +72,7 @@ function Dashboard() {
                   color="success"
                   icon="store"
                   title="Reports"
-                  count="34k"
+                  count={counts.report_count}
                   percentage={{
                     color: "success",
                     amount: "+1%",

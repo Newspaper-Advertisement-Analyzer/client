@@ -44,6 +44,7 @@ function Basic() {
   const { login } = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("user");
 
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -123,11 +124,12 @@ function Basic() {
         if (data && data.user) {
           // Display a success message if applicable
           const userData = data.user;
+          setRole(userData.role);
           console.log(userData);
           login({
             name: userData.User_Name,
             full_name: userData.Full_Name,
-            role: "user",
+            role: role,
             email: userData.email,
             phone_Number: userData.Contact_Number,
             profession: userData.Profession,
