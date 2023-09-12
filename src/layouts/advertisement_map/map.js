@@ -70,7 +70,7 @@ const MapComponent = () => {
         }
       } else {
         try {
-          const data = await getRecentAdLocation(selectedData);
+          const data = await getRecentAdLocation(selectedData, selectedTime);
           setMarkers(data);
           console.log(markers);
         } catch (error) {
@@ -79,7 +79,7 @@ const MapComponent = () => {
       }
     };
     fetchData();
-  }, [selectedData, test]);
+  }, [selectedData, test, selectedTime]);
 
   // const fetchData = async () => {
   //   try {
@@ -224,8 +224,8 @@ const MapComponent = () => {
               <MenuItem value="Overall">Overall</MenuItem>
               <MenuItem value="Today">Today</MenuItem>
               <MenuItem value="Yesterday">Yesterday</MenuItem>
-              <MenuItem value="Last Week">Last Week</MenuItem>
-              <MenuItem value="Last Month">Last Month</MenuItem>
+              <MenuItem value="LastWeek">Last Week</MenuItem>
+              <MenuItem value="LastMonth">Last Month</MenuItem>
             </MDInput>
           </MDBox>
           {/* <MDBox color="text" px={2}>

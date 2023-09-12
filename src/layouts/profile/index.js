@@ -50,8 +50,10 @@ import team1 from "assets/images/team-1.jpg";
 import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
+import { useUser } from "utils/userContext";
 
 function Overview() {
+  const { user } = useUser();
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -68,24 +70,27 @@ function Overview() {
                 title="profile information"
                 description="Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality)."
                 info={{
-                  fullName: "Alec M. Thompson",
-                  mobile: "(44) 123 1234 123",
-                  email: "alecthompson@mail.com",
-                  location: "USA",
+                  // fullName: "Alec M. Thompson",
+                  fullName: user.full_name,
+                  // mobile: "(44) 123 1234 123",
+                  mobile: user.phone_Number,
+                  // email: "alecthompson@mail.com",
+                  email: user.email,
+                  location: "Sri Lanka",
                 }}
                 social={[
                   {
-                    link: "https://www.facebook.com/CreativeTim/",
+                    link: "https://www.facebook.com",
                     icon: <FacebookIcon />,
                     color: "facebook",
                   },
                   {
-                    link: "https://twitter.com/creativetim",
+                    link: "https://twitter.com",
                     icon: <TwitterIcon />,
                     color: "twitter",
                   },
                   {
-                    link: "https://www.instagram.com/creativetimofficial/",
+                    link: "https://www.instagram.com",
                     icon: <InstagramIcon />,
                     color: "instagram",
                   },

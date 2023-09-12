@@ -60,6 +60,44 @@ function Basic() {
     });
   };
 
+  // const handleLogin = () => {
+  //   if (!email || !password) {
+  //     alert("Please enter both email and password");
+  //     return;
+  //   }
+  //   fetch("/login", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       email: email,
+  //       password: password,
+  //     }),
+  //   })
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw response.status;
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       console.log(data);
+  //       // Display a success message if applicable
+  //       login({ name: email, role: "user" });
+  //       navigate("/dashboard");
+  //     })
+  //     .catch((status) => {
+  //       console.log(status, "error");
+  //       if (status === 400) {
+  //         alert("Email and password are required.");
+  //       } else if (status === 401) {
+  //         alert("Invalid User Name or Incorrect Password.");
+  //       } else {
+  //         alert("An error occurred during login.");
+  //       }
+  //     });
+  // };
   const handleLogin = () => {
     if (!email || !password) {
       alert("Please enter both email and password");
@@ -82,10 +120,25 @@ function Basic() {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
-        // Display a success message if applicable
-        login({ name: email, role: "user" });
-        navigate("/dashboard");
+        if (data && data.user) {
+          // Display a success message if applicable
+          const userData = data.user;
+          console.log(userData);
+          login({
+            name: userData.User_Name,
+            full_name: userData.Full_Name,
+            role: "user",
+            email: userData.email,
+            phone_Number: userData.Contact_Number,
+            profession: userData.Profession,
+          });
+          // Now you can use userData as needed in your frontend
+          // For example, you can store it in state or context for later use
+          // login({ name: userData.User_Name, role: "user" });
+          navigate("/dashboard");
+        } else {
+          alert("User data not found in the response.");
+        }
       })
       .catch((status) => {
         console.log(status, "error");
