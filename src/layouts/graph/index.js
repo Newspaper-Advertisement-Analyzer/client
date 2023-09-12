@@ -16,14 +16,18 @@ import CategoryDistribution from "./components/barCharts/categoryDist";
 import MarriageDistribution from "./components/pieCharts/marriageDist";
 import HouseSaleDistribution from "./components/pieCharts/houseSaleDDist";
 
-import createPDF from "layouts/reports/reports";
+import generatePDF from "layouts/reports/reports";
 import PriceFluctuation from "./components/lineCharts/pricefluctuation";
 import MDInput from "components/MDInput";
 import Demographic from "./components/lineCharts/demographic";
 import HousesaleAveragePrice from "./components/barCharts/houseSaleChart";
 
+import { useUser } from "utils/userContext";
+
 function GraphViewer() {
   const contentRef = useRef(null);
+  const { user } = useUser();
+  console.log(user.user_ID);
 
   const [includeLandSale, setIncludeLandSale] = useState(false);
   const [includeCategoryDist, setIncludeCategoryDist] = useState(false);
@@ -71,7 +75,7 @@ function GraphViewer() {
     setIncludeMarriageDist(true);
     setIncludePriceFluct(true);
   };
-  const generatePDF = () => {
+  const createPDF = () => {
     const selectedComponents = [];
 
     // Check which components are selected and add them to the selectedComponents array
@@ -92,7 +96,7 @@ function GraphViewer() {
     }
 
     // Pass the selected components to your PDF generator function (ChartToPDF)
-    createPDF(selectedComponents, contentRef, title);
+    generatePDF(selectedComponents, contentRef, title, user.user_ID);
   };
 
   return (
@@ -269,7 +273,7 @@ function GraphViewer() {
             />
           </MDBox>
         </MDBox>
-        <MDButton color="primary" maxWidth="20px" component="span" onClick={generatePDF}>
+        <MDButton color="primary" maxWidth="20px" component="span" onClick={createPDF}>
           Generate PDF
         </MDButton>
       </Card>

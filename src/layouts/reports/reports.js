@@ -2,6 +2,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import html2canvas from "html2canvas";
 import * as XLSX from "xlsx";
+
 import { savePdf } from "api/report/saveReport";
 import { storage } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -24,7 +25,7 @@ export const generateExcel = (data, filename) => {
 };
 
 // Function to generate PDF
-const generatePDF = async (componentsToPrint, contentRef, title) => {
+const generatePDF = async (componentsToPrint, contentRef, title, user_ID) => {
   try {
     // Create a new jsPDF instance
     const doc = new jsPDF();
@@ -55,7 +56,7 @@ const generatePDF = async (componentsToPrint, contentRef, title) => {
 
     doc.save(`${title}.pdf`);
     const pdfBlob = doc.output("blob");
-    const userID = "pu123";
+    const userID = user_ID;
     const pdfRef = ref(storage, `Reports/${title}`);
 
     // Upload the PDF to Firebase Storage

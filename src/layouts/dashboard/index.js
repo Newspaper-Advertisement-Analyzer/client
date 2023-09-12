@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 
@@ -21,7 +20,7 @@ import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatist
 import Projects from "layouts/dashboard/components/Projects";
 import SearchBar from "./components/SearchBar/searchBar";
 import { AdCard } from "./components/adCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getCounts } from "api/count/counts";
 import { Link } from "react-router-dom";
 // import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
