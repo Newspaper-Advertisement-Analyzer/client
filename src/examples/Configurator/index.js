@@ -16,18 +16,18 @@ Coded by www.creative-tim.com
 import { useState, useEffect } from "react";
 
 // react-github-btn
-import GitHubButton from "react-github-btn";
+// import GitHubButton from "react-github-btn";
 
 // @mui material components
 import Divider from "@mui/material/Divider";
 import Switch from "@mui/material/Switch";
-import IconButton from "@mui/material/IconButton";
+// import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
 import Icon from "@mui/material/Icon";
 
 // @mui icons
-import TwitterIcon from "@mui/icons-material/Twitter";
-import FacebookIcon from "@mui/icons-material/Facebook";
+// import TwitterIcon from "@mui/icons-material/Twitter";
+// import FacebookIcon from "@mui/icons-material/Facebook";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -38,28 +38,30 @@ import MDButton from "components/MDButton";
 import ConfiguratorRoot from "examples/Configurator/ConfiguratorRoot";
 
 // Material Dashboard 2 React context
-import {
-  useMaterialUIController,
-  setOpenConfigurator,
-  setTransparentSidenav,
-  setWhiteSidenav,
-  setFixedNavbar,
-  setSidenavColor,
-  setDarkMode,
-} from "context";
+// import {
+//   useMaterialUIController,
+//   setOpenConfigurator,
+//   setTransparentSidenav,
+//   setWhiteSidenav,
+//   setFixedNavbar,
+//   setSidenavColor,
+//   setDarkMode,
+// } from "context";
+import { useMaterialUIController, setOpenConfigurator, setDarkMode } from "context";
 
 function Configurator() {
   const [controller, dispatch] = useMaterialUIController();
-  const {
-    openConfigurator,
-    fixedNavbar,
-    sidenavColor,
-    transparentSidenav,
-    whiteSidenav,
-    darkMode,
-  } = controller;
+  // const {
+  //   openConfigurator,
+  //   fixedNavbar,
+  //   sidenavColor,
+  //   transparentSidenav,
+  //   whiteSidenav,
+  //   darkMode,
+  // } = controller;
+  const { openConfigurator, darkMode } = controller;
   const [disabled, setDisabled] = useState(false);
-  const sidenavColors = ["primary", "dark", "info", "success", "warning", "error"];
+  // const sidenavColors = ["primary", "dark", "info", "success", "warning", "error"];
 
   // Use the useEffect hook to change the button state for the sidenav type based on window size.
   useEffect(() => {
@@ -67,7 +69,7 @@ function Configurator() {
     function handleDisabled() {
       return window.innerWidth > 1200 ? setDisabled(false) : setDisabled(true);
     }
-
+    console.log(disabled);
     // The event listener that's calling the handleDisabled function when resizing the window.
     window.addEventListener("resize", handleDisabled);
 
@@ -79,53 +81,53 @@ function Configurator() {
   }, []);
 
   const handleCloseConfigurator = () => setOpenConfigurator(dispatch, false);
-  const handleTransparentSidenav = () => {
-    setTransparentSidenav(dispatch, true);
-    setWhiteSidenav(dispatch, false);
-  };
-  const handleWhiteSidenav = () => {
-    setWhiteSidenav(dispatch, true);
-    setTransparentSidenav(dispatch, false);
-  };
-  const handleDarkSidenav = () => {
-    setWhiteSidenav(dispatch, false);
-    setTransparentSidenav(dispatch, false);
-  };
-  const handleFixedNavbar = () => setFixedNavbar(dispatch, !fixedNavbar);
+  // const handleTransparentSidenav = () => {
+  //   setTransparentSidenav(dispatch, true);
+  //   setWhiteSidenav(dispatch, false);
+  // };
+  // const handleWhiteSidenav = () => {
+  //   setWhiteSidenav(dispatch, true);
+  //   setTransparentSidenav(dispatch, false);
+  // };
+  // const handleDarkSidenav = () => {
+  //   setWhiteSidenav(dispatch, false);
+  //   setTransparentSidenav(dispatch, false);
+  // };
+  // const handleFixedNavbar = () => setFixedNavbar(dispatch, !fixedNavbar);
   const handleDarkMode = () => setDarkMode(dispatch, !darkMode);
 
   // sidenav type buttons styles
-  const sidenavTypeButtonsStyles = ({
-    functions: { pxToRem },
-    palette: { white, dark, background },
-    borders: { borderWidth },
-  }) => ({
-    height: pxToRem(39),
-    background: darkMode ? background.sidenav : white.main,
-    color: darkMode ? white.main : dark.main,
-    border: `${borderWidth[1]} solid ${darkMode ? white.main : dark.main}`,
+  // const sidenavTypeButtonsStyles = ({
+  //   functions: { pxToRem },
+  //   palette: { white, dark, background },
+  //   borders: { borderWidth },
+  // }) => ({
+  //   height: pxToRem(39),
+  //   background: darkMode ? background.sidenav : white.main,
+  //   color: darkMode ? white.main : dark.main,
+  //   border: `${borderWidth[1]} solid ${darkMode ? white.main : dark.main}`,
 
-    "&:hover, &:focus, &:focus:not(:hover)": {
-      background: darkMode ? background.sidenav : white.main,
-      color: darkMode ? white.main : dark.main,
-      border: `${borderWidth[1]} solid ${darkMode ? white.main : dark.main}`,
-    },
-  });
+  //   "&:hover, &:focus, &:focus:not(:hover)": {
+  //     background: darkMode ? background.sidenav : white.main,
+  //     color: darkMode ? white.main : dark.main,
+  //     border: `${borderWidth[1]} solid ${darkMode ? white.main : dark.main}`,
+  //   },
+  // });
 
   // sidenav type active button styles
-  const sidenavTypeActiveButtonStyles = ({
-    functions: { pxToRem, linearGradient },
-    palette: { white, gradients, background },
-  }) => ({
-    height: pxToRem(39),
-    background: darkMode ? white.main : linearGradient(gradients.dark.main, gradients.dark.state),
-    color: darkMode ? background.sidenav : white.main,
+  // const sidenavTypeActiveButtonStyles = ({
+  //   functions: { pxToRem, linearGradient },
+  //   palette: { white, gradients, background },
+  // }) => ({
+  //   height: pxToRem(39),
+  //   background: darkMode ? white.main : linearGradient(gradients.dark.main, gradients.dark.state),
+  //   color: darkMode ? background.sidenav : white.main,
 
-    "&:hover, &:focus, &:focus:not(:hover)": {
-      background: darkMode ? white.main : linearGradient(gradients.dark.main, gradients.dark.state),
-      color: darkMode ? background.sidenav : white.main,
-    },
-  });
+  //   "&:hover, &:focus, &:focus:not(:hover)": {
+  //     background: darkMode ? white.main : linearGradient(gradients.dark.main, gradients.dark.state),
+  //     color: darkMode ? background.sidenav : white.main,
+  //   },
+  // });
 
   return (
     <ConfiguratorRoot variant="permanent" ownerState={{ openConfigurator }}>
@@ -138,10 +140,7 @@ function Configurator() {
         px={3}
       >
         <MDBox>
-          <MDTypography variant="h5">Material UI Configurator</MDTypography>
-          <MDTypography variant="body2" color="text">
-            See our dashboard options.
-          </MDTypography>
+          <MDTypography variant="h5">Advizor Preferences</MDTypography>
         </MDBox>
 
         <Icon
@@ -159,10 +158,10 @@ function Configurator() {
         </Icon>
       </MDBox>
 
-      <Divider />
+      {/* <Divider /> */}
 
       <MDBox pt={0.5} pb={3} px={3}>
-        <MDBox>
+        {/* <MDBox>
           <MDTypography variant="h6">Sidenav Colors</MDTypography>
 
           <MDBox mb={0.5}>
@@ -206,9 +205,9 @@ function Configurator() {
               />
             ))}
           </MDBox>
-        </MDBox>
+        </MDBox> */}
 
-        <MDBox mt={3} lineHeight={1}>
+        {/* <MDBox mt={3} lineHeight={1}>
           <MDTypography variant="h6">Sidenav Type</MDTypography>
           <MDTypography variant="button" color="text">
             Choose between different sidenav types.
@@ -266,8 +265,8 @@ function Configurator() {
               White
             </MDButton>
           </MDBox>
-        </MDBox>
-        <MDBox
+        </MDBox> */}
+        {/* <MDBox
           display="flex"
           justifyContent="space-between"
           alignItems="center"
@@ -277,7 +276,7 @@ function Configurator() {
           <MDTypography variant="h6">Navbar Fixed</MDTypography>
 
           <Switch checked={fixedNavbar} onChange={handleFixedNavbar} />
-        </MDBox>
+        </MDBox> */}
         <Divider />
         <MDBox display="flex" justifyContent="space-between" alignItems="center" lineHeight={1}>
           <MDTypography variant="h6">Light / Dark</MDTypography>
@@ -288,7 +287,7 @@ function Configurator() {
         <MDBox mt={3} mb={2}>
           <MDButton
             component={Link}
-            href="https://www.creative-tim.com/learning-lab/react/quick-start/material-dashboard/"
+            href="https://github.com/Newspaper-Advertisement-Analyzer"
             target="_blank"
             rel="noreferrer"
             color={darkMode ? "light" : "dark"}
@@ -298,7 +297,7 @@ function Configurator() {
             view documentation
           </MDButton>
         </MDBox>
-        <MDBox display="flex" justifyContent="center">
+        {/* <MDBox display="flex" justifyContent="center">
           <GitHubButton
             href="https://github.com/creativetimofficial/material-dashboard-react"
             data-icon="octicon-star"
@@ -308,13 +307,13 @@ function Configurator() {
           >
             Star
           </GitHubButton>
-        </MDBox>
+        </MDBox> */}
         <MDBox mt={2} textAlign="center">
-          <MDBox mb={0.5}>
+          {/* <MDBox mb={0.5}>
             <MDTypography variant="h6">Thank you for sharing!</MDTypography>
-          </MDBox>
+          </MDBox> */}
 
-          <MDBox display="flex" justifyContent="center">
+          {/* <MDBox display="flex" justifyContent="center">
             <MDBox mr={1.5}>
               <MDButton
                 component={Link}
@@ -337,7 +336,7 @@ function Configurator() {
               <FacebookIcon />
               &nbsp; Share
             </MDButton>
-          </MDBox>
+          </MDBox> */}
         </MDBox>
       </MDBox>
     </ConfiguratorRoot>

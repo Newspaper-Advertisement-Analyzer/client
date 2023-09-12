@@ -100,8 +100,8 @@ const colors = {
     primary: {
       // main: "#EC407A",
       // state: "#D81B60",
-      main: "#755BB4",
-      state: "#5938A9",
+      main: "#49a3f1",
+      state: "#1A73E8",
     },
 
     secondary: {
@@ -110,8 +110,8 @@ const colors = {
     },
 
     info: {
-      main: "#49a3f1",
-      state: "#1A73E8",
+      main: "#755BB4",
+      state: "#5938A9",
     },
 
     success: {

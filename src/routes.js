@@ -37,15 +37,15 @@ Coded by www.creative-tim.com
 
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
-import Tables from "layouts/tables";
-import Billing from "layouts/billing";
-import Notifications from "layouts/notifications";
+// import Tables from "layouts/tables";
+// import Billing from "layouts/billing";
+// import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
-import SignUp from "layouts/authentication/sign-up";
+// import SignUp from "layouts/authentication/sign-up";
 import Upload from "layouts/upload";
 import Ad_map from "layouts/advertisement_map";
-import ReportView from "layouts/reports/reportView";
+// import ReportView from "layouts/reports/reportView";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -58,6 +58,7 @@ import App from "layouts/landing/App";
 // import PrivateRoute from "utils/privateRoutes";
 import { useUser } from "utils/userContext";
 import PropTypes from "prop-types";
+import TBH from "layouts/TBI/tbi";
 
 // ...
 
@@ -73,6 +74,11 @@ const Wrapper = ({ component: Component }) => {
 };
 
 const routes = [
+  {
+    type: "title",
+    title: "General",
+  },
+  { type: "divider" },
   {
     type: "collapse",
     name: "Dashboard",
@@ -98,6 +104,11 @@ const routes = [
     component: <Wrapper component={Upload} />,
   },
   {
+    type: "title",
+    title: "Analysis",
+  },
+  { type: "divider" },
+  {
     type: "collapse",
     name: "Graph Viewer",
     key: "graph",
@@ -114,6 +125,11 @@ const routes = [
     component: <Wrapper component={Ad_map} />,
   },
   {
+    type: "title",
+    title: "Insights",
+  },
+  { type: "divider" },
+  {
     type: "collapse",
     name: "Reports",
     key: "reports",
@@ -123,28 +139,44 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "ReportsView",
-    key: "reportsview",
-    icon: <Icon fontSize="small">report</Icon>,
-    route: "/reports_view",
-    component: <ReportView />,
+    name: "FeedBack",
+    key: "feedback",
+    icon: <Icon fontSize="small">feedback</Icon>,
+    route: "/feedback",
+    component: <Wrapper component={TBH} />,
   },
   {
     type: "collapse",
-    name: "Tables",
-    key: "tables",
-    icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/tables",
-    component: <Tables />,
+    name: "Help and Support",
+    key: "support",
+    icon: <Icon fontSize="small">support</Icon>,
+    route: "/support",
+    component: <Wrapper component={TBH} />,
   },
-  {
-    type: "collapse",
-    name: "Billing",
-    key: "billing",
-    icon: <Icon fontSize="small">receipt_long</Icon>,
-    route: "/billing",
-    component: <Billing />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "ReportsView",
+  //   key: "reportsview",
+  //   icon: <Icon fontSize="small">report</Icon>,
+  //   route: "/reports_view",
+  //   component: <ReportView />,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Tables",
+  //   key: "tables",
+  //   icon: <Icon fontSize="small">table_view</Icon>,
+  //   route: "/tables",
+  //   component: <Tables />,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Billing",
+  //   key: "billing",
+  //   icon: <Icon fontSize="small">receipt_long</Icon>,
+  //   route: "/billing",
+  //   component: <Billing />,
+  // },
   {
     route: "/advertisement/:id",
     component: <Wrapper component={AdvertisementDetail} />,
@@ -157,14 +189,15 @@ const routes = [
     route: "/reports/:title",
     component: <Wrapper component={GraphReport} />,
   },
-  {
-    type: "collapse",
-    name: "Notifications",
-    key: "notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/notifications",
-    component: <Notifications />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Notifications",
+  //   key: "notifications",
+  //   icon: <Icon fontSize="small">notifications</Icon>,
+  //   route: "/notifications",
+  //   component: <Notifications />,
+  // },
+  { type: "divider" },
   {
     type: "collapse",
     name: "Profile",
@@ -173,22 +206,30 @@ const routes = [
     route: "/profile",
     component: <Wrapper component={Profile} />,
   },
-  {
-    type: "collapse",
-    name: "Sign In",
-    key: "sign-in",
-    icon: <Icon fontSize="small">login</Icon>,
-    route: "/authentication/sign-in",
-    component: <SignIn />,
-  },
-  {
-    type: "collapse",
-    name: "Sign Up",
-    key: "sign-up",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/authentication/sign-up",
-    component: <SignUp />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Settings",
+  //   key: "settings",
+  //   icon: <Icon fontSize="small">settings</Icon>,
+  //   route: "/settings",
+  //   component: <Wrapper component={TBH} />,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Sign In",
+  //   key: "sign-in",
+  //   icon: <Icon fontSize="small">login</Icon>,
+  //   route: "/authentication/sign-in",
+  //   component: <SignIn />,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Sign Up",
+  //   key: "sign-up",
+  //   icon: <Icon fontSize="small">assignment</Icon>,
+  //   route: "/authentication/sign-up",
+  //   component: <SignUp />,
+  // },
 ];
 
 Wrapper.propTypes = {

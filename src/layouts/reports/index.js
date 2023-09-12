@@ -11,12 +11,12 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import DataTable from "examples/Tables/DataTable";
 import Footer from "examples/Footer";
 import data from "./data/reportsdata";
-import MDButton from "components/MDButton";
-import { generateExcel } from "./reports";
-import { CSVLink } from "react-csv";
+// import MDButton from "components/MDButton";
+// import { generateExcel } from "./reports";
+// import { CSVLink } from "react-csv";
 
 function Report() {
-  const { columns, rows, rawData } = data();
+  const { columns, rows } = data();
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -30,7 +30,7 @@ function Report() {
                 py={3}
                 px={2}
                 variant="gradient"
-                bgColor="primary"
+                bgColor="info"
                 borderRadius="lg"
                 coloredShadow="info"
               >
@@ -50,7 +50,7 @@ function Report() {
             </Card>
           </Grid>
         </Grid>
-        <MDBox mt={5} textAlign="center">
+        {/* <MDBox mt={5} textAlign="center">
           <MDButton color="primary" onClick={() => generateExcel(rawData, "uselessReport")}>
             Export to Excel
           </MDButton>
@@ -59,7 +59,7 @@ function Report() {
           <CSVLink data={rawData} filename={`uselessCSV.csv`}>
             <MDButton color="primary">Export to CSV</MDButton>
           </CSVLink>
-        </MDBox>
+        </MDBox> */}
       </MDBox>
       <Footer />
     </DashboardLayout>

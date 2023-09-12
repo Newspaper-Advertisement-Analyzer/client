@@ -151,7 +151,7 @@ export default function App() {
                   onMouseLeave={handleOnMouseLeave}
                 />
                 <Configurator />
-                {configsButton}
+                {/* {configsButton} */}
               </>
             )}
             {user?.role === "admin" && (
