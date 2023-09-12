@@ -33,15 +33,7 @@ import Footer from "layouts/authentication/components/Footer";
 function CoverLayout({ coverHeight, image, children }) {
   return (
     <PageLayout>
-      <DefaultNavbar
-        action={{
-          type: "external",
-          route: "https://creative-tim.com/product/material-dashboard-react",
-          label: "free download",
-        }}
-        transparent
-        light
-      />
+      <DefaultNavbar transparent light />
       <MDBox
         width="calc(100% - 2rem)"
         minHeight={coverHeight}

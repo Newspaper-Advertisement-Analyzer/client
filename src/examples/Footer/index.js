@@ -103,8 +103,8 @@ Footer.defaultProps = {
   links: [
     { href: "https://github.com/Newspaper-Advertisement-Analyzer/", name: "Advizor" },
     { href: "/landing", name: "About Us" },
-    { href: "https://www.creative-tim.com/blog", name: "Blog" },
-    { href: "https://www.creative-tim.com/license", name: "License" },
+    // { href: "https://www.creative-tim.com/blog", name: "Blog" },
+    // { href: "https://www.creative-tim.com/license", name: "License" },
   ],
 };
 

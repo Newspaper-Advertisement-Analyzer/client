@@ -261,9 +261,11 @@ const AdvertisementSearch = () => {
             </MDBox>
             {renderMenu}
           </MDBox>
-          <MDButton color="primary" onClick={handleSearch} mb={2}>
-            Search
-          </MDButton>
+          <MDBox mb={2}>
+            <MDButton color="primary" onClick={handleSearch}>
+              Search
+            </MDButton>
+          </MDBox>
         </MDBox>
         <Loading />
         <MDBox p={2}>
