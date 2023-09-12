@@ -5,28 +5,25 @@ import Access from "./Page/Access";
 import Supercharge from "./Page/Supercharge";
 import Agents from "./Page/Agents";
 import Action from "./Page/Action";
-import Footer from "./Page/Footer";
+// import Footer from "./Page/Footer";
 import "./index.css";
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+// import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+// import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
 function App() {
   return (
-    <DashboardLayout>
-      <DashboardNavbar />
-      <div className="landing-page">
-        <main className="main">
-          <Hero />
-          <Snippets />
-          <Access />
-          <Supercharge />
-          <Agents />
-          <Action />
-        </main>
+    <div className="landing-page">
+      <main className="main">
+        <Hero />
+        <Snippets />
+        <Access />
+        <Supercharge />
+        <Agents />
+        <Action />
+      </main>
 
-        <Footer className="footer" />
-      </div>
-    </DashboardLayout>
+      {/* <Footer className="footer" /> */}
+    </div>
   );
 }
 
