@@ -199,23 +199,13 @@ function Basic() {
           textAlign="center"
         >
           <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-            Join us today
+            Welcome Back
           </MDTypography>
           <MDTypography display="block" variant="button" color="white" my={1}>
-            Enter your email and password to register
+            Enter your email and password to log in
           </MDTypography>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
-          <MDTypography
-            textAlign="center"
-            variant="h4"
-            fontWeight="medium"
-            color="black"
-            mt={1}
-            mb={5}
-          >
-            Hi Welcome Back!
-          </MDTypography>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
               <MDInput

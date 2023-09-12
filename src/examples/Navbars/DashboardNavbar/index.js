@@ -125,6 +125,15 @@ function DashboardNavbar({ absolute, light, isMini }) {
       return colorValue;
     },
   });
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsVisible(false);
+    }, 10000);
+
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
     <AppBar
@@ -135,9 +144,11 @@ function DashboardNavbar({ absolute, light, isMini }) {
       <Toolbar sx={(theme) => navbarContainer(theme)}>
         <MDBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
           <Breadcrumbs icon="home" title={route[route.length - 1]} route={route} light={light} />
-          <MDTypography variant="h6" fontWeight="medium">
-            Welcome {user?.name}
-          </MDTypography>
+          {isVisible && (
+            <MDTypography variant="h6" fontWeight="medium">
+              Welcome {user?.name}
+            </MDTypography>
+          )}
         </MDBox>
         {isMini ? null : (
           <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
