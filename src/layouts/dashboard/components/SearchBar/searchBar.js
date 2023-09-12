@@ -8,7 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
 import SearchResultCard from "./searchResultCard";
-import { Grid, Pagination } from "@mui/material";
+import { Grid, Pagination, useMediaQuery } from "@mui/material";
 import { getAdbyFilter } from "api/searchBar/getAdbyFilter";
 import MDTypography from "components/MDTypography";
 import { Link } from "react-router-dom";
@@ -168,81 +168,100 @@ const AdvertisementSearch = () => {
   //   })), // Add your data here
   // };
   // Customized page options starting from 1
-
+  const isMobile = useMediaQuery("(max-width: 600px)");
   return (
     <MDBox p={2}>
       <Card elevation={3} style={{ padding: "12px", alignItems: "center" }}>
-        <MDTypography component={Link} to="/advertisement" variant="h3" fontWeight="medium" mb={4}>
-          Search for Available Advertisements
+        <MDTypography
+          component={Link}
+          to="/advertisement"
+          variant="h3"
+          fontWeight="medium"
+          mb={4}
+          sx={{
+            // Define a font size for mobile screens using a media query
+            "@media (max-width: 600px)": {
+              fontSize: "1.5rem", // Adjust the font size as needed
+            },
+          }}
+        >
+          Search Advertisements
         </MDTypography>
-        <MDBox display="flex" alignItems="center" lineHeight={0}>
-          <MDBox>
-            {selectedOption === "Date" ? (
-              <MDBox
-                display="flex"
-                flexDirection="row"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <MDBox>
-                  <MDInput
-                    value={startDate}
-                    onChange={handleStartDateChange}
-                    sx={{ width: "24vw" }}
-                    label="Start Date"
-                    type="date"
-                    InputLabelProps={{ shrink: true }}
-                  />
-                </MDBox>
-                <MDBox>
-                  <MDInput
-                    value={endDate}
-                    onChange={handleEndDateChange}
-                    sx={{ width: "24vw" }}
-                    label="End Date"
-                    type="date"
-                    InputLabelProps={{ shrink: true }}
-                  />
-                </MDBox>
-              </MDBox>
-            ) : (
-              <>
-                {selectedOption === "Category" ? (
+        <MDBox
+          display="flex"
+          flexDirection={isMobile ? "column" : "row"}
+          alignItems="center"
+          lineHeight={0}
+        >
+          <MDBox display="flex" alignItems="center" lineHeight={0} mb={2}>
+            <MDBox>
+              {selectedOption === "Date" ? (
+                <MDBox
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
                   <MDBox>
-                    <MDBox>
-                      <MDInput
-                        value={category}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        readOnly // Make the input read-only to prevent typing
-                        onClick={openCategoryMenu}
-                        sx={{ width: "50vw" }}
-                        label="Search By Category"
-                      />
-                      {renderCategoryMenu}
-                    </MDBox>
+                    <MDInput
+                      value={startDate}
+                      onChange={handleStartDateChange}
+                      sx={{ width: "24vw" }}
+                      label="Start Date"
+                      type="date"
+                      InputLabelProps={{ shrink: true }}
+                    />
                   </MDBox>
-                ) : (
-                  <MDInput
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    sx={{ width: "50vw" }}
-                    label={`Search by ${selectedOption}`}
-                  />
-                )}
-              </>
-            )}
+                  <MDBox>
+                    <MDInput
+                      value={endDate}
+                      onChange={handleEndDateChange}
+                      sx={{ width: "24vw" }}
+                      label="End Date"
+                      type="date"
+                      InputLabelProps={{ shrink: true }}
+                    />
+                  </MDBox>
+                </MDBox>
+              ) : (
+                <>
+                  {selectedOption === "Category" ? (
+                    <MDBox>
+                      <MDBox>
+                        <MDInput
+                          value={category}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          readOnly // Make the input read-only to prevent typing
+                          onClick={openCategoryMenu}
+                          sx={{ width: "50vw" }}
+                          label="Search By Category"
+                        />
+                        {renderCategoryMenu}
+                      </MDBox>
+                    </MDBox>
+                  ) : (
+                    <MDInput
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      sx={{ width: "50vw" }}
+                      label={`Search by ${selectedOption}`}
+                    />
+                  )}
+                </>
+              )}
+            </MDBox>
+            <MDBox color="text" px={2}>
+              <Icon
+                sx={{ cursor: "pointer", fontWeight: "bold" }}
+                fontSize="small"
+                onClick={openMenu}
+              >
+                more_vert
+              </Icon>
+            </MDBox>
+            {renderMenu}
           </MDBox>
-          <MDBox color="text" px={2}>
-            <Icon
-              sx={{ cursor: "pointer", fontWeight: "bold" }}
-              fontSize="small"
-              onClick={openMenu}
-            >
-              more_vert
-            </Icon>
-          </MDBox>
-          {renderMenu}
-          <MDButton color="primary" onClick={handleSearch}>
+          <MDButton color="primary" onClick={handleSearch} mb={2}>
             Search
           </MDButton>
         </MDBox>

@@ -103,19 +103,6 @@ function InputURL() {
         )}
 
         {backendResponse.length > 0 && (
-          // <div>
-          //   <p>Results:</p>
-          //   <div>
-          //     <p>Title: {backendResponse[0]}</p>
-          //     <p>Text: {backendResponse[1]}</p>
-          //     <p>Summary: {backendResponse[2]}</p>
-          //     <p>Keywords: {backendResponse[3].join(", ")}</p>
-          //     <p>Category: {backendResponse[4]}</p>
-          //     <p>Price: {backendResponse[5]}</p>
-          //     <p>Contact: {backendResponse[6]}</p>
-          //     <p>Locations: {backendResponse[7].join(", ")}</p>
-          //   </div>
-          // </div>
           <MDBox mt={5} mb={3} alignItems="center" fullWidth>
             <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
               <MDTypography variant="body1">Title: {backendResponse[0]}</MDTypography>
