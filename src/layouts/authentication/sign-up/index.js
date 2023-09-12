@@ -34,7 +34,7 @@ import MDAlert from "components/MDAlert";
 import BasicLayout from "../components/BasicLayout";
 
 // Images
-import bgImage from "assets/images/bg-sign-up-cover.jpeg";
+import bgImage from "assets/images/newspaper2.jpg";
 
 import VerificationDialog from "./VerificationDialog";
 import { useNavigate } from "react-router-dom";
