@@ -1,14 +1,14 @@
 import axios from "axios";
 
 // Function to upload multiple images to the backend
-export async function uploadPdfs(pdfs) {
+export async function uploadPdfs(pdfs, isImageContained) {
   const formData = new FormData();
   pdfs.forEach((pdf) => {
     formData.append("pdfs", pdf);
   });
 
   try {
-    const response = await axios.post("/uploadpdf", formData, {
+    const response = await axios.post(`/uploadpdf?isImageContained=${isImageContained}`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

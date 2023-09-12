@@ -32,7 +32,7 @@ const PDFUploader = () => {
   const handleSubmit = async () => {
     if (selectedFiles.length > 0) {
       try {
-        const response = await uploadPdfs(selectedFiles); // Replace with your API call to upload PDFs
+        const response = await uploadPdfs(selectedFiles, imageScan); // Replace with your API call to upload PDFs
         console.log("PDF upload response:", response);
         setBackendResponse(response.message);
       } catch (error) {
