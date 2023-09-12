@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Typography } from "@mui/material";
+import { Container, Switch, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import MDButton from "components/MDButton";
 import MDBox from "components/MDBox";
@@ -11,6 +11,7 @@ import { uploadPdfs } from "api/sendPdf"; // Replace with your API endpoint for 
 const PDFUploader = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [backendResponse, setBackendResponse] = useState([]);
+  const [imageScan, setImageScan] = useState(false);
   const navigate = useNavigate();
 
   const handleFileChange = (event) => {
@@ -72,6 +73,16 @@ const PDFUploader = () => {
             Upload PDFs
           </MDButton>
         </label>
+        <MDBox display="flex" alignItems="center" mt={5}>
+          <MDBox>
+            <MDTypography variant="button" fontWeight="regular" color="dark">
+              Does PDF contain Scanned Images?
+            </MDTypography>
+          </MDBox>
+          <MDBox>
+            <Switch checked={imageScan} onChange={() => setImageScan(!imageScan)} />
+          </MDBox>
+        </MDBox>
       </Card>
       <MDButton color="primary" onClick={handleSubmit} style={{ marginTop: "10px" }}>
         Submit
