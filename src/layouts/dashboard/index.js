@@ -47,7 +47,7 @@ function Dashboard() {
       <DashboardNavbar />
       <MDBox py={3}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={3}>
+          <Grid item xs={12} md={6} lg={4}>
             <MDBox mb={1.5}>
               <AnchorLink href="#table">
                 <ComplexStatisticsCard
@@ -64,7 +64,22 @@ function Dashboard() {
               </AnchorLink>
             </MDBox>
           </Grid>
-          <Grid item xs={12} md={6} lg={3}>
+          <Grid item xs={12} md={6} lg={4}>
+            <MDBox mb={1.5}>
+              <ComplexStatisticsCard
+                color="success"
+                icon="store"
+                title="Reports"
+                count="34k"
+                percentage={{
+                  color: "success",
+                  amount: "+1%",
+                  label: "than yesterday",
+                }}
+              />
+            </MDBox>
+          </Grid>
+          <Grid item xs={12} md={6} lg={4}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 icon="face"
@@ -82,9 +97,9 @@ function Dashboard() {
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="success"
-                icon="report"
-                title="Total Reports"
-                count={counts.report_count}
+                icon="store"
+                title="Revenue"
+                count="34k"
                 percentage={{
                   color: "success",
                   amount: "+1%",
@@ -107,7 +122,7 @@ function Dashboard() {
                 }}
               />
             </MDBox>
-          </Grid>
+          </Grid>{" "}
         </Grid>
         {/* <MDBox mt={4.5}>
           <Grid container spacing={3}>
