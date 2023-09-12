@@ -1,19 +1,4 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// @mui material components
+import { useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 
@@ -36,10 +21,26 @@ import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatist
 import Projects from "layouts/dashboard/components/Projects";
 import SearchBar from "./components/SearchBar/searchBar";
 import { AdCard } from "./components/adCard";
+import { useState } from "react";
+import { getCounts } from "api/count/counts";
 // import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 
 function Dashboard() {
+  const [counts, setCounts] = useState([]);
   // const { sales, tasks } = reportsLineChartData;
+  useEffect(() => {
+    // Fetch data from the backend using the imported function
+    const fetchData = async () => {
+      try {
+        const data = await getCounts();
+        setCounts(data);
+      } catch (error) {
+        console.error("Error fetching data from the backend:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <DashboardLayout>
@@ -53,7 +54,7 @@ function Dashboard() {
                   color="dark"
                   icon="newspaper"
                   title="Total Advertisements"
-                  count={281}
+                  count={counts.ad_count}
                   percentage={{
                     color: "success",
                     amount: "+55%",
@@ -68,7 +69,7 @@ function Dashboard() {
               <ComplexStatisticsCard
                 icon="face"
                 title="Total Users"
-                count="2,300"
+                count={counts.user_count}
                 percentage={{
                   color: "success",
                   amount: "+3%",
@@ -81,9 +82,9 @@ function Dashboard() {
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="success"
-                icon="store"
-                title="Revenue"
-                count="34k"
+                icon="report"
+                title="Total Reports"
+                count={counts.report_count}
                 percentage={{
                   color: "success",
                   amount: "+1%",
