@@ -204,7 +204,7 @@ function Cover() {
             setShowSuccessAlert(true);
             setTimeout(() => {
               setShowSuccessAlert(false);
-              login({ name: email, role: "user" });
+              login({ name: name, role: "user" });
               navigate("/dashboard");
             }, 1000);
           }}
