@@ -31,10 +31,10 @@ import MDButton from "components/MDButton";
 import MDAlert from "components/MDAlert";
 
 // Authentication layout components
-import CoverLayout from "layouts/authentication/components/CoverLayout";
+import BasicLayout from "../components/BasicLayout";
 
 // Images
-import bgImage from "assets/images/bg-sign-up-cover.jpeg";
+import bgImage from "assets/images/newspaper2.jpg";
 
 import VerificationDialog from "./VerificationDialog";
 import { useNavigate } from "react-router-dom";
@@ -93,7 +93,7 @@ function Cover() {
   };
 
   return (
-    <CoverLayout image={bgImage}>
+    <BasicLayout image={bgImage}>
       {showSuccessAlert && (
         <MDAlert color="success" dismissible>
           Registration Successful!
@@ -115,7 +115,7 @@ function Cover() {
             Join us today
           </MDTypography>
           <MDTypography display="block" variant="button" color="white" my={1}>
-            Enter your email and password to register
+            Enter your credentials to register
           </MDTypography>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
@@ -210,7 +210,7 @@ function Cover() {
           }}
         />
       )}
-    </CoverLayout>
+    </BasicLayout>
   );
 }
 

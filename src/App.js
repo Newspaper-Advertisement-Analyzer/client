@@ -37,8 +37,8 @@ import theme from "assets/theme";
 import themeDark from "assets/theme-dark";
 
 // Material Dashboard 2 React routes
-import routes from "routes";
-import adminRoutes from "adminroutes";
+import routes from "routes/routes";
+import adminRoutes from "routes/adminroutes";
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
