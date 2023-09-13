@@ -32,7 +32,7 @@ function HouseSaleDistribution() {
           labels: housesalebyCity.map((data) => data._id),
           datasets: {
             label: "City",
-            backgroundColors: ["info", "dark", "error", "secondary", "primary", "success"],
+            backgroundColors: ["info", "dark", "#8A6FC5", "secondary", "primary", "#C08DD8"],
             data: housesalebyCity.map((data) => data.count),
           },
         }}

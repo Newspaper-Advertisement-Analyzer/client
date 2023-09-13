@@ -28,7 +28,7 @@ function MarriageDistribution() {
   return (
     <MDBox mt={4}>
       <PieChart
-        icon={{ color: "info", component: "leaderboard" }}
+        icon={{ color: "info", component: "people" }}
         title="Distribution Marriage Proposal"
         description=" According to Age"
         chart={{

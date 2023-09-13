@@ -34,6 +34,8 @@ function GraphViewer() {
   const [includeMarriageDist, setIncludeMarriageDist] = useState(false);
   const [includeHouseSaleDist, setIncludeHouseSaleDist] = useState(false);
   const [includePriceFluct, setIncludePriceFluct] = useState(false);
+  const [includeDemographic, setIncludeDemographic] = useState(false);
+  const [includeHouseSale, setIncludeHouseSale] = useState(false);
   const [includeAll, setIncludeAll] = useState(false);
   const [title, settitle] = useState("");
 
@@ -44,7 +46,9 @@ function GraphViewer() {
         includeHouseSaleDist &&
         includeLandSale &&
         includeMarriageDist &&
-        includePriceFluct
+        includePriceFluct &&
+        includeDemographic &&
+        includeHouseSale
       ) {
         setIncludeAll(true);
       } else {
@@ -65,6 +69,8 @@ function GraphViewer() {
     includeMarriageDist,
     includeAll,
     includePriceFluct,
+    includeDemographic,
+    includeHouseSale,
   ]);
 
   const handleAll = () => {
@@ -74,6 +80,8 @@ function GraphViewer() {
     setIncludeLandSale(true);
     setIncludeMarriageDist(true);
     setIncludePriceFluct(true);
+    setIncludeDemographic(true);
+    setIncludeHouseSale(true);
   };
   const createPDF = () => {
     const selectedComponents = [];
@@ -93,6 +101,12 @@ function GraphViewer() {
     }
     if (includePriceFluct) {
       selectedComponents.push(<PriceFluctuation key="priceFluct" />);
+    }
+    if (includeDemographic) {
+      selectedComponents.push(<Demographic key="demographic" />);
+    }
+    if (includeHouseSale) {
+      selectedComponents.push(<HousesaleAveragePrice key="houseSale" />);
     }
 
     // Pass the selected components to your PDF generator function (ChartToPDF)
@@ -134,8 +148,8 @@ function GraphViewer() {
               </MDBox>
               <MDBox mt={0.5}>
                 <Switch
-                  checked={includeLandSale}
-                  onChange={() => setIncludeLandSale(!includeLandSale)}
+                  checked={includeHouseSale}
+                  onChange={() => setIncludeHouseSale(!includeHouseSale)}
                 />
               </MDBox>
             </MDBox>
@@ -215,8 +229,8 @@ function GraphViewer() {
               </MDBox>
               <MDBox mt={0.5}>
                 <Switch
-                  checked={includePriceFluct}
-                  onChange={() => setIncludePriceFluct(!includePriceFluct)}
+                  checked={includeDemographic}
+                  onChange={() => setIncludeDemographic(!includeDemographic)}
                 />
               </MDBox>
             </MDBox>

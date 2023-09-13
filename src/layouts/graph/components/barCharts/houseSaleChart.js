@@ -40,7 +40,7 @@ function HousesaleAveragePrice() {
   return (
     <MDBox mt={4}>
       <VerticalBarChart
-        icon={{ color: "info", component: "leaderboard" }}
+        icon={{ color: "info", component: "house" }}
         title="House Sales"
         description={`Average Price - ${selectedItem}`}
         chart={{

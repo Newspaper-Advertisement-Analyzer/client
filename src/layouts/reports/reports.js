@@ -3,9 +3,9 @@ import "jspdf-autotable";
 import html2canvas from "html2canvas";
 import * as XLSX from "xlsx";
 
-import { savePdf } from "api/report/saveReport";
-import { storage } from "../../firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+// import { savePdf } from "api/report/saveReport";
+// import { storage } from "../../firebase";
+// import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export const generateCSV = (data, filename) => {
   const csvContent = "data:text/csv;charset=utf-8," + data.map((row) => row.join(",")).join("\n");
@@ -55,23 +55,24 @@ const generatePDF = async (componentsToPrint, contentRef, title, user_ID) => {
     }
 
     doc.save(`${title}.pdf`);
-    const pdfBlob = doc.output("blob");
+    // const pdfBlob = doc.output("blob");
     const userID = user_ID;
-    const pdfRef = ref(storage, `Reports/${title}`);
+    console.log(userID);
+    // const pdfRef = ref(storage, `Reports/${title}`);
 
-    // Upload the PDF to Firebase Storage
-    await uploadBytes(pdfRef, pdfBlob);
+    // // Upload the PDF to Firebase Storage
+    // await uploadBytes(pdfRef, pdfBlob);
 
-    // Get the download URL of the uploaded PDF
-    const downloadURL = await getDownloadURL(pdfRef); // Add this import: import { getDownloadURL } from "firebase/storage";
-    // Send the PDF URL to the backend using the savePdf function or do whatever you need with it
-    const response = await savePdf(downloadURL, userID, title);
+    // // Get the download URL of the uploaded PDF
+    // const downloadURL = await getDownloadURL(pdfRef); // Add this import: import { getDownloadURL } from "firebase/storage";
+    // // Send the PDF URL to the backend using the savePdf function or do whatever you need with it
+    // const response = await savePdf(downloadURL, userID, title);
 
-    if (response && response.message) {
-      console.log("PDF uploaded successfully!");
-    } else {
-      console.error("Failed to upload PDF:", response.error);
-    }
+    // if (response && response.message) {
+    //   console.log("PDF uploaded successfully!");
+    // } else {
+    //   console.error("Failed to upload PDF:", response.error);
+    // }
   } catch (error) {
     console.error("An error occurred while generating/uploading PDF:", error);
   }

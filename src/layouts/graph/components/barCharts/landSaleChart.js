@@ -38,7 +38,7 @@ function LandsaleAveragePrice() {
   return (
     <MDBox mt={4}>
       <VerticalBarChart
-        icon={{ color: "info", component: "leaderboard" }}
+        icon={{ color: "info", component: "land" }}
         title="Land Sales"
         description={`Average Price Per Perch - ${selectedItem}`}
         chart={{

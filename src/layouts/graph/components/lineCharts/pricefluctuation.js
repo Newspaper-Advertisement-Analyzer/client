@@ -30,7 +30,7 @@ function PriceFluctuation() {
   return (
     <MDBox mt={4}>
       <DefaultLineChart
-        icon={{ color: "info", component: "leaderboard" }}
+        icon={{ color: "info", component: "money" }}
         title="Price Fluctuation"
         description="Estimation for future years"
         chart={{

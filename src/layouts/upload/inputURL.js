@@ -62,38 +62,52 @@ function InputURL() {
           maxWidth: "100%",
         }}
       >
-        <form onSubmit={handleUrlSubmit}>
-          <label>
-            <MDTypography textAlign="center" variant="h4" fontWeight="medium" mt={1} mb={5}>
-              Enter URL to be analyzed
-            </MDTypography>
-            <MDBox
-              alignItems="center"
-              sx={{
-                width: 500,
-                maxWidth: "100%",
-              }}
-            >
-              <MDBox mb={2} alignItems="center">
-                <MDInput
-                  alignItems="center"
-                  type="url"
-                  label="Enter URL"
-                  fullWidth
-                  value={inputUrl}
-                  onChange={(e) => setInputUrl(e.target.value)}
-                  placeholder="https://example.com"
-                  required
-                />
+        <Card
+          sx={{
+            width: "100%",
+          }}
+          elevation={3}
+          style={{ padding: "12px", alignItems: "center" }}
+        >
+          <form onSubmit={handleUrlSubmit}>
+            <label>
+              <MDTypography
+                textAlign="center"
+                variant="h4"
+                fontWeight="medium"
+                mt={1}
+                mb={5}
+                sx={{
+                  // Define a font size for mobile screens using a media query
+                  "@media (max-width: 600px)": {
+                    fontSize: "1rem", // Adjust the font size as needed
+                  },
+                }}
+              >
+                Enter URL to be analyzed
+              </MDTypography>
+              <MDBox alignItems="center">
+                <MDBox mb={2} alignItems="center">
+                  <MDInput
+                    alignItems="center"
+                    type="url"
+                    label="Enter URL"
+                    fullWidth
+                    value={inputUrl}
+                    onChange={(e) => setInputUrl(e.target.value)}
+                    placeholder="https://example.com"
+                    required
+                  />
+                </MDBox>
               </MDBox>
+            </label>
+            <MDBox mt={5} mb={3}>
+              <MDButton color="primary" type="submit">
+                Analyze
+              </MDButton>
             </MDBox>
-          </label>
-          <MDBox mt={5} mb={3}>
-            <MDButton color="primary" type="submit">
-              Analyze
-            </MDButton>
-          </MDBox>
-        </form>
+          </form>
+        </Card>
 
         {loading && (
           <div>

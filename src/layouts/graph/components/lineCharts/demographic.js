@@ -34,7 +34,7 @@ function Demographic() {
   return (
     <MDBox mt={4}>
       <DefaultLineChart
-        icon={{ color: "info", component: "leaderboard" }}
+        icon={{ color: "info", component: "people" }}
         title="Demographic Analysis"
         description={`Subject to ${selectedItem}`}
         menuItems={[

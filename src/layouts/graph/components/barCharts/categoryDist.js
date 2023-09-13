@@ -25,7 +25,7 @@ function CategoryDistribution() {
   return (
     <MDBox mt={4}>
       <HorizontalBarChart
-        icon={{ color: "info", component: "leaderboard" }}
+        icon={{ color: "info", component: "category" }}
         title="Distribution by Category"
         description="Overall category distribution in the database"
         chart={{
