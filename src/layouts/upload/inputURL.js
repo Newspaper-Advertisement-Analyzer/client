@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppState } from "utils/userContext";
 
 import LinearProgress from "@mui/material/LinearProgress";
 import MDBox from "components/MDBox";
@@ -9,12 +10,16 @@ import MDInput from "components/MDInput";
 import Card from "@mui/material/Card";
 
 import { sendUrlToBackend } from "api/sendUrl";
+import Loading from "components/Loading";
 
 function InputURL() {
-  const [inputUrl, setInputUrl] = useState("");
-  const [backendResponse, setBackendResponse] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { state } = useAppState();
+  const inputUrl = state.inputUrl;
+  const setInputUrl = state.setInputUrl;
+  const backendResponse = state.backendResponse;
+  const setBackendResponse = state.setBackendResponse;
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -113,6 +118,7 @@ function InputURL() {
           <div>
             <p>Analyzing...</p>
             <LinearProgress />
+            <Loading />
           </div>
         )}
 
@@ -121,9 +127,9 @@ function InputURL() {
             <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
               <MDTypography variant="body1">Title: {backendResponse[0]}</MDTypography>
             </Card>
-            <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+            {/* <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
               <MDTypography variant="body1">Text: {backendResponse[1]}</MDTypography>
-            </Card>
+            </Card> */}
             <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
               <MDTypography variant="body1">Summary: {backendResponse[2]}</MDTypography>
             </Card>

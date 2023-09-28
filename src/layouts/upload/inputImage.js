@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
@@ -7,11 +7,20 @@ import MDButton from "components/MDButton";
 import { uploadImages } from "api/sendImg";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
+import { useAppState } from "utils/userContext";
 
 const ImageUploader = () => {
-  const [selectedFiles, setSelectedFiles] = useState([]);
-  const [imagePreviews, setImagePreviews] = useState([]);
-  const [backendResponse, setBackendResponse] = useState([]);
+  // const [selectedFiles, setSelectedFiles] = useState([]);
+  // const [imagePreviews, setImagePreviews] = useState([]);
+  // const [backendResponse, setBackendResponse] = useState([]);
+  const { state } = useAppState();
+  const selectedFiles = state.selectedFiles;
+  const setSelectedFiles = state.setSelectedFiles;
+  const imagePreviews = state.imagePreviews;
+  const setImagePreviews = state.setImagePreviews;
+  const backendResponse = state.imgBackendResponse;
+  const setBackendResponse = state.setimgBackendResponse;
+
   const navigate = useNavigate();
 
   const handleFileChange = (event) => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Switch, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
@@ -7,11 +7,20 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
 import { uploadPdfs } from "api/sendPdf"; // Replace with your API endpoint for PDF upload
+import { useAppState } from "utils/userContext";
 
 const PDFUploader = () => {
-  const [selectedFiles, setSelectedFiles] = useState([]);
-  const [backendResponse, setBackendResponse] = useState([]);
-  const [imageScan, setImageScan] = useState(false);
+  // const [selectedFiles, setSelectedFiles] = useState([]);
+  // const [backendResponse, setBackendResponse] = useState([]);
+  // const [imageScan, setImageScan] = useState(false);
+  const { state } = useAppState();
+
+  const selectedFiles = state.selectedPdfFiles;
+  const setSelectedFiles = state.setSelectedPdfFiles;
+  const backendResponse = state.pdfBackendResponse;
+  const setBackendResponse = state.setpdfBackendResponse;
+  const imageScan = state.imageScan;
+  const setImageScan = state.setImageScan;
   const navigate = useNavigate();
 
   const handleFileChange = (event) => {
