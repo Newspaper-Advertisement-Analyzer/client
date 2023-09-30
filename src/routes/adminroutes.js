@@ -19,6 +19,10 @@ import App from "layouts/landing/App";
 // import PrivateRoute from "utils/privateRoutes";
 import { useUser } from "utils/userContext";
 import PropTypes from "prop-types";
+import AdvertisementForm from "layouts/admin/submitadvertisement/submitad";
+import UserView from "layouts/admin/manageuser/manageuser";
+import ManageFeedback from "layouts/admin/managefeedback/feedback";
+import ContentApprovalPage from "layouts/admin/contentapproval/contentApproval";
 
 // ...
 
@@ -53,7 +57,7 @@ const adminRoutes = [
     key: "admanage",
     icon: <Icon fontSize="small">search</Icon>,
     route: "/manageadvertisements",
-    component: <Wrapper component={TBH} />,
+    component: <Wrapper component={AdvertisementForm} />,
   },
   {
     type: "collapse",
@@ -61,7 +65,7 @@ const adminRoutes = [
     key: "usermanage",
     icon: <Icon fontSize="small">newspaper</Icon>,
     route: "/manageuser",
-    component: <Wrapper component={TBH} />,
+    component: <Wrapper component={UserView} />,
   },
   {
     type: "collapse",
@@ -69,7 +73,7 @@ const adminRoutes = [
     key: "feedback",
     icon: <Icon fontSize="small">equalizer</Icon>,
     route: "/managefeedback",
-    component: <Wrapper component={TBH} />,
+    component: <Wrapper component={ManageFeedback} />,
   },
   {
     type: "collapse",
@@ -77,7 +81,7 @@ const adminRoutes = [
     key: "content",
     icon: <Icon fontSize="small">map</Icon>,
     route: "/managecontent",
-    component: <Wrapper component={TBH} />,
+    component: <Wrapper component={ContentApprovalPage} />,
   },
   {
     type: "collapse",
