@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppState } from "utils/userContext";
 
-import LinearProgress from "@mui/material/LinearProgress";
+// import LinearProgress from "@mui/material/LinearProgress";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
@@ -117,7 +117,7 @@ function InputURL() {
         {loading && (
           <div>
             <p>Analyzing...</p>
-            <LinearProgress />
+            {/* <LinearProgress /> */}
             <Loading />
           </div>
         )}
