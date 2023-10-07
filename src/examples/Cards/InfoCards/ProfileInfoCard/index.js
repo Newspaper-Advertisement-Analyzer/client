@@ -32,6 +32,8 @@ import MDTypography from "components/MDTypography";
 // Material Dashboard 2 React base styles
 import colors from "assets/theme/base/colors";
 import typography from "assets/theme/base/typography";
+import UpdateInfoModal from "./updateInfo";
+import { useState } from "react";
 
 function ProfileInfoCard({ title, description, info, social, action, shadow }) {
   const labels = [];
@@ -84,6 +86,21 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
     </MDBox>
   ));
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSaveInfo = (updatedInfo) => {
+    // Handle saving updated info (e.g., make an API call)
+    console.log("Updated info:", updatedInfo);
+  };
+
   return (
     <Card sx={{ height: "100%", boxShadow: !shadow && "none" }}>
       <MDBox display="flex" justifyContent="space-between" alignItems="center" pt={2} px={2}>
@@ -92,9 +109,15 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
         </MDTypography>
         <MDTypography component={Link} to={action.route} variant="body2" color="secondary">
           <Tooltip title={action.tooltip} placement="top">
-            <Icon>edit</Icon>
+            <Icon onClick={handleOpenModal}>edit</Icon>
           </Tooltip>
         </MDTypography>
+        <UpdateInfoModal
+          open={isModalOpen}
+          onClose={handleCloseModal}
+          onSave={handleSaveInfo}
+          initialValues={info} // Pass the current info data as initialValues
+        />
       </MDBox>
       <MDBox p={2}>
         <MDBox mb={2} lineHeight={1}>

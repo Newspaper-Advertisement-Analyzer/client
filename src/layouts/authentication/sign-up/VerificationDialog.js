@@ -8,6 +8,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import baseURL from "config";
 
 export default function VerificationDialog({ open, onClose, email, onSuccess }) {
   const [verificationCode, setVerificationCode] = useState("");
@@ -35,7 +36,7 @@ export default function VerificationDialog({ open, onClose, email, onSuccess }) 
   const handleVerificationSubmit = () => {
     if (verificationCode) {
       axios
-        .post("/verify", {
+        .post(`${baseURL}/verify`, {
           email: email,
           verificationCode: verificationCode,
         })
