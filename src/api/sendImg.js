@@ -1,4 +1,5 @@
 import axios from "axios";
+import baseURL from "config";
 
 // Function to upload multiple images to the backend
 export async function uploadImages(images) {
@@ -8,7 +9,7 @@ export async function uploadImages(images) {
   });
 
   try {
-    const response = await axios.post("/upload", formData, {
+    const response = await axios.post(`${baseURL}/upload`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

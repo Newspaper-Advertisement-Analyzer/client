@@ -1,9 +1,10 @@
 import axios from "axios";
+import baseURL from "config";
 
 // Function to fetch a saved PDF report from the backend
 export async function getReportPdf(reportId) {
   try {
-    const response = await axios.get(`/view-pdf?ReportID=${reportId}`, {
+    const response = await axios.get(`${baseURL}/view-pdf?ReportID=${reportId}`, {
       responseType: "blob", // Specify the response type as a blob
     });
 

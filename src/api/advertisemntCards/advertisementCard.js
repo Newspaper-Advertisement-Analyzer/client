@@ -1,9 +1,10 @@
 import axios from "axios";
+import baseURL from "config";
 
 // Function to fetch data from the backend
 export async function getPopularAd() {
   try {
-    const response = await axios.get("/getPopularAd"); // Adjust the endpoint URL
+    const response = await axios.get(`${baseURL}/getPopularAd`); // Adjust the endpoint URL
     console.log(response.data);
     return response.data;
   } catch (error) {
@@ -14,7 +15,7 @@ export async function getPopularAd() {
 
 export async function getAdDetail(adID) {
   try {
-    const response = await axios.get(`/getAdDetails?adID=${adID}`);
+    const response = await axios.get(`${baseURL}/getAdDetails?adID=${adID}`);
     console.log(response.data);
     return response.data;
   } catch (error) {

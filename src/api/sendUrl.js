@@ -1,8 +1,10 @@
 // api/backendApi.js
 
+import baseURL from "config";
+
 export async function sendUrlToBackend(inputUrl) {
   try {
-    const response = await fetch("/sendurl", {
+    const response = await fetch(`${baseURL}/sendurl`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -2,7 +2,6 @@
   "name": "advizor-newspaper-ad-analyzer",
   "version": "2.2.0",
   "private": true,
-  "proxy": "http://16.170.163.211:5000/",
   "author": "Creative Tim",
   "license": "See license in https://www.creative-tim.com/license",
   "description": "React version of Material Dashboard 2 by Creative Tim",

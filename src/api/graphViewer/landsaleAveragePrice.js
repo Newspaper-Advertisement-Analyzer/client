@@ -1,10 +1,11 @@
 import axios from "axios";
+import baseURL from "config";
 
 // Function to fetch data from the backend
 export async function getAverageLandPrice(interval, district) {
   try {
     const response = await axios.get(
-      `/getAverageLandPrice?interval=${interval}&district=${district}`
+      `${baseURL}/getAverageLandPrice?interval=${interval}&district=${district}`
     ); // Adjust the endpoint URL
     return response.data;
   } catch (error) {

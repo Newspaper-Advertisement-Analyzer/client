@@ -3,7 +3,7 @@ const axios = require("axios");
 
 exports.myFlaskFunction = functions.https.onRequest((request, response) => {
   // Define the URL of your local Flask server
-  const flaskServerURL = "http://127.0.0.1:5000"; // Replace with your Flask server's URL
+  const flaskServerURL = "http://16.170.163.211:5000/"; // Replace with your Flask server's URL
 
   // Proxy the incoming request to the Flask server
   axios({

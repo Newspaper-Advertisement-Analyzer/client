@@ -39,6 +39,7 @@ import { auth, provider } from "../../../firebase";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "utils/userContext";
+import baseURL from "../../../config";
 
 function Basic() {
   const { login } = useUser();
@@ -103,7 +104,7 @@ function Basic() {
       alert("Please enter both email and password");
       return;
     }
-    fetch("/login", {
+    fetch(`${baseURL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

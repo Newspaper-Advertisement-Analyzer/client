@@ -1,4 +1,5 @@
 import axios from "axios";
+import baseURL from "config";
 
 // Function to upload multiple images to the backend
 export async function uploadPdfs(pdfs, isImageContained) {
@@ -8,11 +9,15 @@ export async function uploadPdfs(pdfs, isImageContained) {
   });
 
   try {
-    const response = await axios.post(`/uploadpdf?isImageContained=${isImageContained}`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const response = await axios.post(
+      `${baseURL}/uploadpdf?isImageContained=${isImageContained}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error sending URL to backend:", error);

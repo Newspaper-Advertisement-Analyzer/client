@@ -1,9 +1,10 @@
 import axios from "axios";
+import baseURL from "config";
 
 // Function to fetch data from the backend
 export async function getReportList() {
   try {
-    const response = await axios.get("/get-all-reports"); // Adjust the endpoint URL
+    const response = await axios.get(`${baseURL}/get-all-reports`); // Adjust the endpoint URL
     console.log(response.data);
     return response.data;
   } catch (error) {

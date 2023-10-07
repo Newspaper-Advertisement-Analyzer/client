@@ -39,6 +39,7 @@ import bgImage from "assets/images/newspaper2.jpg";
 import VerificationDialog from "./VerificationDialog";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "utils/userContext";
+import baseURL from "config";
 
 function Cover() {
   const [email, setEmail] = useState("");
@@ -59,7 +60,7 @@ function Cover() {
       alert("Please fill all the fields");
       return;
     }
-    fetch("/signup", {
+    fetch(`${baseURL}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

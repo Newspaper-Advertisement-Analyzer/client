@@ -1,4 +1,5 @@
 import axios from "axios";
+import baseURL from "config";
 
 // Function to send the PDF URL to the backend
 export async function savePdf(pdfURL, userID, title) {
@@ -8,7 +9,7 @@ export async function savePdf(pdfURL, userID, title) {
     formData.append("userID", userID); // Include the userID in the form data
     formData.append("title", title);
 
-    const response = await axios.post("/upload-pdf-url", formData, {
+    const response = await axios.post(`${baseURL}/upload-pdf-url`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
