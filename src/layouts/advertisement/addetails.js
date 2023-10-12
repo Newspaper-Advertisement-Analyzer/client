@@ -233,7 +233,7 @@ const Addetail = () => {
           </MDTypography>
 
           <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
-            <Card sx={{ my: { xs: 2, md: 4 }, p: { xs: 2, md: 3 } }}>
+            <Card sx={{ my: { xs: 2, md: 4 } }}>
               <MDBox p={2}>
                 <MDTypography variant="h4" fontWeight="medium" color="primary">
                   General Information
