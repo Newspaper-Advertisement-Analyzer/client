@@ -35,7 +35,7 @@ import MDAvatar from "components/MDAvatar";
 import breakpoints from "assets/theme/base/breakpoints";
 
 // Images
-import burceMars from "assets/images/bruce-mars.jpg";
+import burceMars from "assets/images/socrates.jpeg";
 import backgroundImage from "assets/images/bg-profile.jpeg";
 import { useUser } from "utils/userContext";
 
