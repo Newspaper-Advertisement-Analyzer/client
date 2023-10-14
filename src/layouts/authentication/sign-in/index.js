@@ -248,6 +248,16 @@ function Basic() {
                 &nbsp;&nbsp;Forget Password ?
               </MDTypography>
             </MDBox>
+            <MDBox alignItems="center" display="flex" justifyContent="center" mt={3}>
+              <MDTypography
+                variant="button"
+                fontWeight="regular"
+                color="success"
+                textAlign="center"
+              >
+                Use &quot;test@advizor.com&quot; and &quot;test&quot; as demo-credentials
+              </MDTypography>
+            </MDBox>
             <MDBox mt={4} mb={1}>
               <MDButton id="sign-in-button" color="primary" fullWidth onClick={handleLogin}>
                 Log in

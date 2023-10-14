@@ -6,6 +6,7 @@
 ![Image](src/assets/images/overview.png)
 
 The **Newspaper Ad Analyzer** is a powerful tool designed to simplify the process of extracting valuable information from newspaper advertisements. It uses state-of-the-art technologies including Optical Character Recognition (OCR), Natural Language Processing (NLP), and data visualization to transform unstructured newspaper ads into structured data for analysis and insight.
+Visit the ongoing Demo site [here](https://newspaper-analyzer.web.app)
 
 ## Key Features
 
