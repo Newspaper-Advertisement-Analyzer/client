@@ -87,7 +87,7 @@ jest.mock("react-router-dom", () => ({
 describe("Sign In Page", () => {
   it("handles login correctly", () => {
     render(
-      <MemoryRouter>
+      <BrowserRouter>
         <MaterialUIControllerProvider>
           <UserProvider>
             <ThemeProvider theme={theme}>
@@ -95,7 +95,7 @@ describe("Sign In Page", () => {
             </ThemeProvider>
           </UserProvider>
         </MaterialUIControllerProvider>
-      </MemoryRouter>
+      </BrowserRouter>
     );
 
     // Mock the fetch function to handle the login request

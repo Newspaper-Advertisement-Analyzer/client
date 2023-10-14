@@ -24,25 +24,27 @@ function CategoryDistribution() {
 
   return (
     <MDBox mt={4}>
-      <HorizontalBarChart
-        icon={{ color: "info", component: "category" }}
-        title="Distribution by Category"
-        description="Overall category distribution in the database"
-        chart={{
-          labels: adDistribution.map((data) => data.label),
-          datasets: [
-            {
-              label: "Distribution Count",
-              color: "primary",
-              data: adDistribution.map((data) => data.count), // Use the data from the API
-            },
-          ],
-        }}
-        action={{
-          type: "internal", // or "external" based on your use case
-          route: "/reports/Category Distribution", // Define the route
-        }}
-      />
+      <div data-testid="chart-container">
+        <HorizontalBarChart
+          icon={{ color: "info", component: "category" }}
+          title="Distribution by Category"
+          description="Overall category distribution in the database"
+          chart={{
+            labels: adDistribution.map((data) => data.label),
+            datasets: [
+              {
+                label: "Distribution Count",
+                color: "primary",
+                data: adDistribution.map((data) => data.count), // Use the data from the API
+              },
+            ],
+          }}
+          action={{
+            type: "internal", // or "external" based on your use case
+            route: "/reports/Category Distribution", // Define the route
+          }}
+        />
+      </div>
     </MDBox>
   );
 }

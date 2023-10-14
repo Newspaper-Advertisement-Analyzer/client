@@ -211,6 +211,7 @@ function Basic() {
           <MDBox component="form" role="form">
             <MDBox mb={2}>
               <MDInput
+                id="email"
                 type="email"
                 label="Email"
                 fullWidth
@@ -219,6 +220,7 @@ function Basic() {
             </MDBox>
             <MDBox mb={2}>
               <MDInput
+                id="password"
                 type="password"
                 label="Password"
                 fullWidth
@@ -247,7 +249,7 @@ function Basic() {
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton color="primary" fullWidth onClick={handleLogin}>
+              <MDButton id="sign-in-button" color="primary" fullWidth onClick={handleLogin}>
                 Log in
               </MDButton>
             </MDBox>
