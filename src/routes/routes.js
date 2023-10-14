@@ -22,7 +22,7 @@ import App from "layouts/landing/App";
 import { useUser } from "utils/userContext";
 import PropTypes from "prop-types";
 import TBH from "layouts/TBI/tbi";
-import FeedbackSection from "layouts/feedback/feedback";
+import FeedbackSection from "layouts/feedback/index";
 
 // ...
 

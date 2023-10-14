@@ -61,7 +61,7 @@ export default function VerificationDialog({ open, onClose, email, onSuccess }) 
 
   const handleCancel = () => {
     axios
-      .post("/verify", {
+      .post(`${baseURL}/verify`, {
         email: email,
         verificationCode: "", // Provide an empty code to indicate cancellation
         cancel: true, // Add a flag to indicate cancellation
