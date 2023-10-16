@@ -1,13 +1,17 @@
+// FeedbackSection.jsx
 import { Card, Checkbox, TextField } from "@mui/material";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
 import React, { useState } from "react";
+import { submitFeedback } from "api/feedback/saveFeedback";
+import { useUser } from "utils/userContext";
 
 const FeedbackSection = () => {
-  const [rating, setRating] = useState(0); // The initial rating is set to 0
+  const [rating, setRating] = useState(0);
   const [feedback, setFeedback] = useState("");
   const [publish, setPublish] = useState(false);
+  const { user } = useUser();
 
   const handleRatingChange = (newRating) => {
     setRating(newRating);
@@ -20,18 +24,16 @@ const FeedbackSection = () => {
   const handlePublishChange = (e) => {
     setPublish(e.target.checked);
   };
-  const handleSubmitFeedback = () => {
-    // You can send the feedback (rating and comments) to your backend or perform any other action here.
-    // Remember to handle this data appropriately in your project.
 
-    // For this example, we will log the feedback to the console.
-    console.log(`Rating: ${rating} stars`);
-    console.log(`Feedback: ${feedback}`);
-    // You can add your logic to send this data to your server or handle it as needed.
-
-    // Optionally, you can clear the form:
-    setRating(0);
-    setFeedback("");
+  const handleSubmitFeedback = async () => {
+    try {
+      const userID = user?.userID; // Make sure user is not undefined before accessing its properties
+      await submitFeedback({ rating, feedback, publish, userID }); // Using the submitFeedback function from the API
+      setRating(0);
+      setFeedback("");
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+    }
   };
 
   return (
