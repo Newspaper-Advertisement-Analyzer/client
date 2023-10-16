@@ -32,15 +32,18 @@ import MDTypography from "components/MDTypography";
 // Material Dashboard 2 React base styles
 import colors from "assets/theme/base/colors";
 import typography from "assets/theme/base/typography";
+import UpdateInfoModal from "./updateInfo";
+import { useState } from "react";
 
 function ProfileInfoCard({ title, description, info, social, action, shadow }) {
   const labels = [];
   const values = [];
   const { socialMediaColors } = colors;
   const { size } = typography;
+  const [updatedInfo, setUpdatedInfo] = useState(info);
 
   // Convert this form `objectKey` of the object key in to this `object key`
-  Object.keys(info).forEach((el) => {
+  Object.keys(updatedInfo).forEach((el) => {
     if (el.match(/[A-Z\s]+/)) {
       const uppercaseLetter = Array.from(el).find((i) => i.match(/[A-Z]+/));
       const newElement = el.replace(uppercaseLetter, ` ${uppercaseLetter.toLowerCase()}`);
@@ -52,7 +55,7 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
   });
 
   // Push the object values into the values array
-  Object.values(info).forEach((el) => values.push(el));
+  Object.values(updatedInfo).forEach((el) => values.push(el));
 
   // Render the card info items
   const renderItems = labels.map((label, key) => (
@@ -84,6 +87,22 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
     </MDBox>
   ));
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSaveInfo = (updatedInformation) => {
+    // Handle saving updated info (e.g., make an API call)
+    console.log("Updated info:", updatedInformation);
+    setUpdatedInfo(updatedInformation);
+  };
+
   return (
     <Card sx={{ height: "100%", boxShadow: !shadow && "none" }}>
       <MDBox display="flex" justifyContent="space-between" alignItems="center" pt={2} px={2}>
@@ -92,9 +111,15 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
         </MDTypography>
         <MDTypography component={Link} to={action.route} variant="body2" color="secondary">
           <Tooltip title={action.tooltip} placement="top">
-            <Icon>edit</Icon>
+            <Icon onClick={handleOpenModal}>edit</Icon>
           </Tooltip>
         </MDTypography>
+        <UpdateInfoModal
+          open={isModalOpen}
+          onClose={handleCloseModal}
+          onSave={handleSaveInfo}
+          initialValues={updatedInfo} // Pass the current info data as initialValues
+        />
       </MDBox>
       <MDBox p={2}>
         <MDBox mb={2} lineHeight={1}>

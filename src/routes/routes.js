@@ -22,6 +22,8 @@ import App from "layouts/landing/App";
 import { useUser } from "utils/userContext";
 import PropTypes from "prop-types";
 import TBH from "layouts/TBI/tbi";
+import FeedbackSection from "layouts/feedback/index";
+import GuestExtractor from "layouts/upload/guestindex";
 
 // ...
 
@@ -106,7 +108,7 @@ const routes = [
     key: "feedback",
     icon: <Icon fontSize="small">feedback</Icon>,
     route: "/feedback",
-    component: <Wrapper component={TBH} />,
+    component: <Wrapper component={FeedbackSection} />,
   },
   {
     type: "collapse",
@@ -147,6 +149,10 @@ const routes = [
   {
     route: "/landing",
     component: <App />,
+  },
+  {
+    route: "/extractor",
+    component: <GuestExtractor />,
   },
   {
     route: "/reports/:title",

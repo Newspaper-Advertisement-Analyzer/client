@@ -21,6 +21,7 @@ import MDTypography from "components/MDTypography";
 import MDBadge from "components/MDBadge";
 import { useEffect, useState } from "react";
 import { getReportList } from "api/report/reportsdata";
+import { useUser } from "utils/userContext";
 
 export default function Data() {
   const Job = ({ title, description }) => (
@@ -33,10 +34,12 @@ export default function Data() {
   );
 
   const [reportDetails, setReportsDetails] = useState([]);
+  const { user } = useUser();
+  const userID = user.user_ID;
 
   useEffect(() => {
     // Fetch average price data from the Flask API endpoint
-    getReportList()
+    getReportList(userID)
       .then((data) => {
         setReportsDetails(data);
         console.log(data); // Use 'data' instead of 'reportDetails'

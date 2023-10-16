@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // react-router-dom components
 import React, { useState } from "react";
 // import axios from "axios";
@@ -40,6 +25,7 @@ import VerificationDialog from "./VerificationDialog";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "utils/userContext";
 import baseURL from "config";
+import TermModal from "./term";
 
 function Cover() {
   const [email, setEmail] = useState("");
@@ -49,7 +35,13 @@ function Cover() {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const { login } = useUser();
 
-  const [verificationOpen, setVerificationOpen] = useState(false); // State to manage the dialog
+  const [verificationOpen, setVerificationOpen] = useState(false);
+
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [nameError, setNameError] = useState("");
+
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const handleRegister = () => {
     console.log("email: ", email);
@@ -60,6 +52,29 @@ function Cover() {
       alert("Please fill all the fields");
       return;
     }
+
+    const namePattern = /^[A-Za-z0-9_.-]+( [A-Za-z0-9_.-]+)*$/;
+    if (!namePattern.test(name)) {
+      setNameError("Invalid name");
+      return;
+    } else {
+      setNameError("");
+    }
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailPattern.test(email)) {
+      setEmailError("Invalid email address");
+      return;
+    } else {
+      setEmailError("");
+    }
+
+    if (password.length < 6) {
+      setPasswordError("Password must be at least 6 characters long.");
+      return;
+    } else {
+      setPasswordError("");
+    }
+
     fetch(`${baseURL}/signup`, {
       method: "POST",
       headers: {
@@ -81,6 +96,17 @@ function Cover() {
             console.log(data);
             // Handle success, e.g., show a success message to the user
             // alert(data.message);
+            const userData = data.user;
+            console.log(userData);
+            login({
+              name: userData.User_Name,
+              full_name: userData.Full_Name,
+              user_ID: userData.UserID,
+              role: userData.Role,
+              email: userData.email,
+              phone_Number: userData.Contact_Number,
+              profession: userData.Profession,
+            });
             setVerificationOpen(true);
 
             // navigate("/dashboard");
@@ -91,6 +117,15 @@ function Cover() {
         console.log(error, "error");
         alert("An error occurred during registration.");
       });
+  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -130,6 +165,7 @@ function Cover() {
                 onChange={(e) => setName(e.target.value)}
                 required
               />
+              {nameError && <p style={{ color: "red", fontSize: "14px" }}>{nameError}</p>}
             </MDBox>
             <MDBox mb={2}>
               <MDInput
@@ -140,6 +176,7 @@ function Cover() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+              {emailError && <p style={{ color: "red", fontSize: "14px" }}>{emailError}</p>}
             </MDBox>
             <MDBox mb={2}>
               <MDInput
@@ -150,9 +187,10 @@ function Cover() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              {passwordError && <p style={{ color: "red", fontSize: "14px" }}>{passwordError}</p>}
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
-              <Checkbox />
+              <Checkbox onChange={(e) => setTermsAccepted(e.target.checked)} />
               <MDTypography
                 variant="button"
                 fontWeight="regular"
@@ -162,18 +200,26 @@ function Cover() {
                 &nbsp;&nbsp;I agree the&nbsp;
               </MDTypography>
               <MDTypography
-                component="a"
-                href="#"
+                // component="a"
+                // href="#"
                 variant="button"
                 fontWeight="bold"
                 color="info"
                 textGradient
+                onClick={handleOpenModal}
               >
                 Terms and Conditions
               </MDTypography>
+              <TermModal open={isModalOpen} onClose={handleCloseModal} />
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth onClick={handleRegister}>
+              <MDButton
+                variant="gradient"
+                color="info"
+                fullWidth
+                onClick={handleRegister}
+                disabled={!termsAccepted}
+              >
                 sign up
               </MDButton>
             </MDBox>
@@ -205,7 +251,6 @@ function Cover() {
             setShowSuccessAlert(true);
             setTimeout(() => {
               setShowSuccessAlert(false);
-              login({ name: name, role: "user" });
               navigate("/dashboard");
             }, 1000);
           }}

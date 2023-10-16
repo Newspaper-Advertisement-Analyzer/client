@@ -29,6 +29,7 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import MDAvatar from "components/MDAvatar";
+import { useRef, useState, useEffect } from "react";
 
 function DefaultProjectCard({ image, label, title, description, action, authors }) {
   const renderAuthors = authors.map(({ image: media, name }) => (
@@ -51,8 +52,39 @@ function DefaultProjectCard({ image, label, title, description, action, authors 
     </Tooltip>
   ));
 
+  const cardRef = useRef();
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const checkVisibility = () => {
+      if (cardRef.current) {
+        const rect = cardRef.current.getBoundingClientRect();
+        setIsVisible(rect.top < window.innerHeight);
+      }
+    };
+
+    // Initial check
+    checkVisibility();
+
+    // Add a scroll event listener to check if the card is in view
+    window.addEventListener("scroll", checkVisibility);
+
+    return () => {
+      // Clean up the event listener when the component unmounts
+      window.removeEventListener("scroll", checkVisibility);
+    };
+  }, []);
+
+  const cardStyle = {
+    animation: "fadeIn 2s ease-out",
+    opacity: 0, // Initial opacity set to 0
+    transform: "translateY(20px)", // Initial position below the viewport
+  };
+
   return (
     <Card
+      ref={cardRef}
+      style={isVisible ? { ...cardStyle, opacity: 1, transform: "translateY(0)" } : cardStyle}
       sx={{
         display: "flex",
         flexDirection: "column",
