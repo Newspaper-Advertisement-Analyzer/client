@@ -12,6 +12,7 @@ const FeedbackSection = () => {
   const [feedback, setFeedback] = useState("");
   const [publish, setPublish] = useState(false);
   const { user } = useUser();
+  const userID = user.user_ID;
 
   const handleRatingChange = (newRating) => {
     setRating(newRating);
@@ -27,7 +28,6 @@ const FeedbackSection = () => {
 
   const handleSubmitFeedback = async () => {
     try {
-      const userID = user?.userID; // Make sure user is not undefined before accessing its properties
       await submitFeedback({ rating, feedback, publish, userID }); // Using the submitFeedback function from the API
       setRating(0);
       setFeedback("");
