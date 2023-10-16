@@ -24,7 +24,7 @@
 
 .landing-page body {
   font-family: "Bai Jamjuree", sans-serif;
-  background: url(./Assets/images/background.jpg) no-repeat;
+  background: url(./Assets/images/background2.jpg) no-repeat;
   background-size: 100%;
   font-size: 1.6rem;
   text-align: center;
@@ -195,7 +195,8 @@
 
   .landing-page .snippets__body{
     display: flex;
-    gap: 5%;
+    gap: 10%;
+    margin-top: 5em;
   }
 
   .landing-page .snippets__body__text{
@@ -252,5 +253,76 @@
     max-width: 90%;
     margin-left: auto;
     margin-right: auto;
+  }
+}
+.btn {
+  transition: all 0.3s ease-in-out;
+  font-family: "Dosis", sans-serif;
+}
+
+.btn {
+  width: 150px;
+  height: 60px;
+  border-radius: 50px;
+  background-image: linear-gradient(135deg, #feb692 0%, #ea5455 100%);
+  box-shadow: 0 20px 30px -6px rgba(238, 103, 97, 0.5);
+  outline: none;
+  cursor: pointer;
+  border: none;
+  font-size: 24px;
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+.btn:active {
+  opacity: 0.5;
+}
+
+.demo a {
+  padding-top: 70px;
+}
+.demo a span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  border-left: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-animation: sdb05 1.5s infinite;
+  animation: sdb05 1.5s infinite;
+  box-sizing: border-box;
+}
+@-webkit-keyframes sdb05 {
+  0% {
+    -webkit-transform: rotate(-45deg) translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: rotate(-45deg) translate(-20px, 20px);
+    opacity: 0;
+  }
+}
+@keyframes sdb05 {
+  0% {
+    transform: rotate(-45deg) translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(-45deg) translate(-20px, 20px);
+    opacity: 0;
   }
 }

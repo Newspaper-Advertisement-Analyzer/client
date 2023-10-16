@@ -23,6 +23,7 @@ import { useUser } from "utils/userContext";
 import PropTypes from "prop-types";
 import TBH from "layouts/TBI/tbi";
 import FeedbackSection from "layouts/feedback/index";
+import GuestExtractor from "layouts/upload/guestindex";
 
 // ...
 
@@ -148,6 +149,10 @@ const routes = [
   {
     route: "/landing",
     component: <App />,
+  },
+  {
+    route: "/extractor",
+    component: <GuestExtractor />,
   },
   {
     route: "/reports/:title",

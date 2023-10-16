@@ -47,7 +47,7 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 import brandWhite from "assets/images/brand-dark.png";
 import brandDark from "assets/images/brand-light.png";
 import Background from "examples/LayoutContainers/background";
-import bgImage from "layouts/landing/Assets/images/background3.png";
+// import bgImage from "layouts/landing/Assets/images/background3.png";
 import { useUser } from "utils/userContext";
 
 export default function App() {
@@ -136,7 +136,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
-      <Background image={bgImage}>
+      <Background>
         <CssBaseline />
         {layout === "dashboard" && (
           <>

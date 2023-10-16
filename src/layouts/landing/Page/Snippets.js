@@ -20,14 +20,26 @@ function Snippets() {
             <img src={IMAGES.computer} alt="computers" />
           </div>
           <div className="snippets__body__text">
-            <h3>Graph Visulaization</h3>
-            <p>Render detailed graphs and charts to visualize complex data</p>
+            <MDTypography color="text" variant="h3" textAlign="center">
+              Graph Visulaization
+            </MDTypography>
+            <MDTypography color="text" variant="h4" textAlign="center" fontWeight="regular" mb={5}>
+              Render detailed graphs and charts to visualize complex data
+            </MDTypography>
 
-            <h3>Report Generation</h3>
-            <p>Create and Download customized Reports</p>
+            <MDTypography color="text" variant="h3" textAlign="center">
+              Report Generation
+            </MDTypography>
+            <MDTypography color="text" variant="h4" textAlign="center" fontWeight="regular" mb={5}>
+              Create and Download customized Reports
+            </MDTypography>
 
-            <h3>Reports History</h3>
-            <p>Access your previous Reports easily</p>
+            <MDTypography color="text" variant="h3" textAlign="center">
+              Reports History
+            </MDTypography>
+            <MDTypography color="text" variant="h4" textAlign="center" fontWeight="regular" mb={5}>
+              Access your previous Reports easily
+            </MDTypography>
           </div>
         </div>
       </section>
