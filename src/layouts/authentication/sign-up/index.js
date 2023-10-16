@@ -25,6 +25,7 @@ import VerificationDialog from "./VerificationDialog";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "utils/userContext";
 import baseURL from "config";
+import TermModal from "./term";
 
 function Cover() {
   const [email, setEmail] = useState("");
@@ -117,6 +118,15 @@ function Cover() {
         alert("An error occurred during registration.");
       });
   };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <BasicLayout image={bgImage}>
@@ -190,15 +200,17 @@ function Cover() {
                 &nbsp;&nbsp;I agree the&nbsp;
               </MDTypography>
               <MDTypography
-                component="a"
-                href="#"
+                // component="a"
+                // href="#"
                 variant="button"
                 fontWeight="bold"
                 color="info"
                 textGradient
+                onClick={handleOpenModal}
               >
                 Terms and Conditions
               </MDTypography>
+              <TermModal open={isModalOpen} onClose={handleCloseModal} />
             </MDBox>
             <MDBox mt={4} mb={1}>
               <MDButton
