@@ -8,9 +8,12 @@ import Grid from "@mui/material/Grid";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
+import { updateUser } from "api/updateUser/updateUser";
+import { useUser } from "utils/userContext";
 
 function UpdateInfoModal({ open, onClose, onSave, initialValues }) {
   const [formData, setFormData] = useState(initialValues);
+  const { user } = useUser();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -20,9 +23,20 @@ function UpdateInfoModal({ open, onClose, onSave, initialValues }) {
     });
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     onSave(formData);
-    onClose();
+    try {
+      const userId = user.user_ID; // Extract the user ID from the form data
+      const { fullName, mobile, profession, location } = formData;
+      console.log(formData);
+      const userData = { fullName, mobile, profession, location, userId };
+      await updateUser(userData); // Call the updateUser API function
+
+      onClose(); // Close the modal after the update is successful
+    } catch (error) {
+      console.error("Error updating user information:", error);
+      // Handle the error as needed
+    }
   };
 
   return (
@@ -53,7 +67,7 @@ function UpdateInfoModal({ open, onClose, onSave, initialValues }) {
                 <MDInput
                   type="tel"
                   label="Mobile"
-                  name="Mobile"
+                  name="mobile"
                   fullWidth
                   value={formData.mobile}
                   onChange={handleInputChange}
@@ -62,7 +76,7 @@ function UpdateInfoModal({ open, onClose, onSave, initialValues }) {
                 <MDInput
                   type="text"
                   label="Profession"
-                  name="Profession"
+                  name="profession"
                   fullWidth
                   value={formData.profession}
                   onChange={handleInputChange}
@@ -71,7 +85,7 @@ function UpdateInfoModal({ open, onClose, onSave, initialValues }) {
                 <MDInput
                   type="text"
                   label="location"
-                  name="Location"
+                  name="location"
                   fullWidth
                   value={formData.location}
                   onChange={handleInputChange}
