@@ -1,35 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "@mui/material";
 import MDTypography from "components/MDTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import { getFeedbackData } from "api/feedback/getFeedback";
+
+// Helper function to render the rating as stars
+const renderRatingStars = (rating) => {
+  const starArray = [];
+  for (let i = 0; i < rating; i++) {
+    starArray.push(<span key={i}>&#9733;</span>); // Render a star character
+  }
+  return starArray;
+};
 
 function ManageFeedback() {
-  // Assuming feedbackData is an array of feedback objects
-  const feedbackData = [
-    {
-      name: "John Doe",
-      email: "johndoe@example.com",
-      date: "2023-09-01",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget justo eu urna condimentum elementum vel eget enim.",
-    },
-    {
-      name: "Jane Smith",
-      email: "janesmith@example.com",
-      date: "2023-09-02",
-      message:
-        "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas quis fringilla libero.",
-    },
-    {
-      name: "Alice Johnson",
-      email: "alicejohnson@example.com",
-      date: "2023-09-03",
-      message:
-        "Vestibulum in metus eu ipsum finibus auctor. Curabitur feugiat urna eget elit dictum, eget elementum quam cursus.",
-    },
-    // Add more feedback objects as needed
-  ];
+  const [feedbackData, setFeedbackData] = useState([]);
+
+  useEffect(() => {
+    // Fetch feedback data when the component mounts
+    async function fetchFeedbackData() {
+      try {
+        const data = await getFeedbackData();
+        setFeedbackData(data);
+      } catch (error) {
+        console.error("Error fetching feedback data:", error);
+      }
+    }
+    fetchFeedbackData();
+  }, []);
 
   return (
     <DashboardLayout>
@@ -39,13 +38,20 @@ function ManageFeedback() {
         <Card key={index} elevation={3} style={{ marginBottom: "16px" }}>
           <div style={{ padding: "16px" }}>
             <MDTypography variant="h6" fontWeight="bold">
-              {feedback.name}
+              {feedback.user_name}
+            </MDTypography>
+            <MDTypography variant="h6" fontWeight="bold">
+              {feedback.email}
             </MDTypography>
             <MDTypography variant="body2" color="textSecondary">
-              {feedback.email} | {feedback.date}
+              {feedback.rating && renderRatingStars(feedback.rating)} |{" "}
+              {feedback.date && new Date(feedback.date).toDateString()}
             </MDTypography>
             <MDTypography variant="body1" mt={2}>
-              {feedback.message}
+              {feedback.feedback}
+            </MDTypography>
+            <MDTypography variant="body1" mt={2}>
+              {feedback.timestamp && new Date(feedback.timestamp).toLocaleString()}
             </MDTypography>
             {/* You can add buttons or actions here for managing feedback */}
           </div>

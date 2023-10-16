@@ -95,6 +95,17 @@ function Cover() {
             console.log(data);
             // Handle success, e.g., show a success message to the user
             // alert(data.message);
+            const userData = data.user;
+            console.log(userData);
+            login({
+              name: userData.User_Name,
+              full_name: userData.Full_Name,
+              user_ID: userData.UserID,
+              role: userData.Role,
+              email: userData.email,
+              phone_Number: userData.Contact_Number,
+              profession: userData.Profession,
+            });
             setVerificationOpen(true);
 
             // navigate("/dashboard");
@@ -228,7 +239,6 @@ function Cover() {
             setShowSuccessAlert(true);
             setTimeout(() => {
               setShowSuccessAlert(false);
-              login({ name: name, role: "user" });
               navigate("/dashboard");
             }, 1000);
           }}
