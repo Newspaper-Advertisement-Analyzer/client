@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAppState } from "utils/userContext";
 
 // import LinearProgress from "@mui/material/LinearProgress";
@@ -11,10 +10,12 @@ import Card from "@mui/material/Card";
 
 import { sendUrlToBackend } from "api/sendUrl";
 import Loading from "components/Loading";
+import { CardContent, Grid, Modal } from "@mui/material";
+import emptyImage from "./empty.gif";
+import RenderResults from "./renderresults";
 
 function InputURL() {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const { state } = useAppState();
   const inputUrl = state.inputUrl;
   const setInputUrl = state.setInputUrl;
@@ -50,8 +51,46 @@ function InputURL() {
       })
       .finally(() => {
         setLoading(false); // Set loading to false after fetch operation is complete
+        if (backendResponse[4] === "Couldn't found a category") {
+          handleOpenModal();
+        }
       });
   };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  const emptyModal = (
+    <Modal
+      open={isModalOpen}
+      onClose={handleCloseModal}
+      style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+    >
+      <Card style={{ backgroundColor: "#aedcf3" }}>
+        <CardContent>
+          <Grid container spacing={2}>
+            <Grid item xs={12} mt={5}>
+              <MDTypography variant="h3" fontWeight="medium" textAlign="center">
+                Oops ! We couldn&apos;t find a category for your advertisement.
+              </MDTypography>
+              <MDTypography variant="h3" fontWeight="medium" textAlign="center">
+                Try another one
+              </MDTypography>
+              <MDBox display="flex" justifyContent="center" alignItems="center">
+                <img src={emptyImage} alt="undraw-Add-user-re-5oib" border="0" />
+              </MDBox>
+            </Grid>
+            <Grid item xs={12}></Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+    </Modal>
+  );
 
   return (
     <MDBox>
@@ -74,6 +113,7 @@ function InputURL() {
           elevation={3}
           style={{ padding: "12px", alignItems: "center" }}
         >
+          {emptyModal}
           <form onSubmit={handleUrlSubmit}>
             <label>
               <MDTypography
@@ -124,12 +164,13 @@ function InputURL() {
 
         {backendResponse.length > 0 && (
           <MDBox mt={5} mb={3} alignItems="center" fullWidth>
-            <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+            <RenderResults backendResponse={backendResponse} />
+            {/* <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
               <MDTypography variant="body1">Title: {backendResponse[0]}</MDTypography>
             </Card>
-            {/* <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
+            <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
               <MDTypography variant="body1">Text: {backendResponse[1]}</MDTypography>
-            </Card> */}
+            </Card>
             <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
               <MDTypography variant="body1">Summary: {backendResponse[2]}</MDTypography>
             </Card>
@@ -169,7 +210,7 @@ function InputURL() {
                   </MDButton>
                 </div>
               </Card>
-            )}
+            )} */}
           </MDBox>
         )}
       </MDBox>
