@@ -11,15 +11,17 @@ import { storage } from "../../../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useUser } from "utils/userContext";
 import { updateProfilePicture } from "api/updateUser/updateUser";
+import ReactLoading from "react-loading";
 
 function ProfileModal({ open, onClose, image, setImage }) {
   const [selectedImage, setSelectedImage] = useState(image); // State to hold the selected image
   const [imageUpload, setImageUpload] = useState(null); // State to hold the uploaded image
   const { user } = useUser();
-
+  const [loading, setLoading] = useState(false);
   // Function to handle file input change
   const handleUpload = async () => {
     console.log(user);
+    setLoading(true);
     try {
       // Upload selectedImage to Firebase storage
       const imageRef = ref(storage, `profile-picture/${user.user_ID}`); // Define the reference to the image
@@ -30,7 +32,7 @@ function ProfileModal({ open, onClose, image, setImage }) {
       // Call setImage with the download URL to update the image
       updateProfilePicture(url, user.user_ID);
       setImage(url);
-
+      setLoading(false);
       onClose();
     } catch (error) {
       console.error("Error uploading image to Firebase storage:", error);
@@ -86,10 +88,26 @@ function ProfileModal({ open, onClose, image, setImage }) {
                 onChange={handleImageChange}
                 style={{ marginTop: "10px" }}
               />
+
               <MDButton variant="gradient" color="info" size="medium" onClick={handleUpload}>
                 Upload
+                {loading && (
+                  <ReactLoading
+                    type="spinningBubbles"
+                    color="#ffff"
+                    style={{ width: "15px", height: "auto", marginLeft: "5px" }}
+                  />
+                )}
               </MDButton>
             </Grid>
+            {/* <MDBox
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              sx={{ width: "5px", height: "auto" }}
+            >
+              <ReactLoading type="spinningBubbles" color="#000" />
+            </MDBox> */}
           </Grid>
         </CardContent>
       </Card>
