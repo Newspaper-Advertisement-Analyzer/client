@@ -38,11 +38,13 @@ import breakpoints from "assets/theme/base/breakpoints";
 import burceMars from "assets/images/socrates.jpeg";
 import backgroundImage from "assets/images/bg-profile.jpeg";
 import { useUser } from "utils/userContext";
+import ProfileModal from "./updateprofile";
 
 function Header({ children }) {
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
   const [tabValue, setTabValue] = useState(0);
   const { user } = useUser();
+  const [image, setImage] = useState(burceMars);
 
   useEffect(() => {
     // A function that sets the orientation state of the tabs.
@@ -65,6 +67,16 @@ function Header({ children }) {
   }, [tabsOrientation]);
 
   const handleSetTabValue = (event, newValue) => setTabValue(newValue);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <MDBox position="relative" mb={5}>
@@ -105,8 +117,20 @@ function Header({ children }) {
               mt={-10}
               mr={0}
             >
-              <MDAvatar src={burceMars} alt="profile-image" size="xxl" shadow="sm" />
+              <MDAvatar
+                src={image}
+                alt="profile-image"
+                size="xxl"
+                shadow="sm"
+                onClick={handleOpenModal}
+              />
             </MDBox>
+            <ProfileModal
+              open={isModalOpen}
+              onClose={handleCloseModal}
+              image={image}
+              setImage={setImage}
+            />
             {/* <MDAvatar src={burceMars} alt="profile-image" size="xxl" shadow="sm" /> */}
           </Grid>
           <Grid item>

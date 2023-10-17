@@ -160,8 +160,10 @@ import Box from "@mui/material/Box";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import { Card } from "@mui/material";
+import { Card, Menu, MenuItem } from "@mui/material";
 import MDButton from "components/MDButton";
+import MDBox from "components/MDBox";
+import MDInput from "components/MDInput";
 
 function AdvertisementForm() {
   const [formData, setFormData] = useState({
@@ -198,7 +200,7 @@ function AdvertisementForm() {
 
   // Define form fields based on category
   let categoryFields;
-  if (formData.category === "landsale") {
+  if (formData.category === "Land Sale") {
     categoryFields = (
       <>
         <Box>
@@ -312,7 +314,7 @@ function AdvertisementForm() {
         </Box>
       </>
     );
-  } else if (formData.category === "housesale") {
+  } else if (formData.category === "House Sale") {
     categoryFields = (
       <>
         <Box>
@@ -415,7 +417,7 @@ function AdvertisementForm() {
         {/* Add more fields for housesale */}
       </>
     );
-  } else if (formData.category === "marriageproposals") {
+  } else if (formData.category === "Marriage Proposals") {
     categoryFields = (
       <>
         <Box>
@@ -557,6 +559,42 @@ function AdvertisementForm() {
     );
   }
 
+  // const handleChangeMenu = (event) => {};
+
+  const [categoryMenu, setCategoryMenu] = useState(null);
+
+  const openCategoryMenu = ({ currentTarget }) => setCategoryMenu(currentTarget);
+  const closeCategoryMenu = () => setCategoryMenu(null);
+  const [category, setCategory] = useState("");
+
+  const handleCategoryMenuItemClick = (dataKey) => {
+    setCategory(dataKey);
+    formData.category = dataKey;
+    closeCategoryMenu();
+  };
+
+  const renderCategoryMenu = (
+    <Menu
+      id="simple-menu"
+      anchorEl={categoryMenu}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "left",
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "left",
+      }}
+      open={Boolean(categoryMenu)}
+      onClose={closeCategoryMenu}
+    >
+      <MenuItem onClick={() => handleCategoryMenuItemClick("Land Sale")}>Land Sales</MenuItem>
+      <MenuItem onClick={() => handleCategoryMenuItemClick("House Sale")}>House Sales</MenuItem>
+      <MenuItem onClick={() => handleCategoryMenuItemClick("Marriage Proposals")}>
+        Marriage Proposals
+      </MenuItem>
+    </Menu>
+  );
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -566,18 +604,37 @@ function AdvertisementForm() {
             Submit Advertisement
           </Typography>
           <form onSubmit={handleSubmit}>
-            <Box>
+            {/* <Box>
               <Typography variant="body1" gutterBottom>
                 Category
               </Typography>
               <select name="category" value={formData.category} onChange={handleChange} required>
                 <option value="">Select Category</option>
-                <option value="landsale">Land Sale</option>
-                <option value="housesale">House Sale</option>
-                <option value="marriageproposals">Marriage Proposals</option>
+                <option value="Land Sale">Land Sale</option>
+                <option value="House Sale">House Sale</option>
+                <option value="Marriage Proposals">Marriage Proposals</option>
               </select>
+            </Box> */}
+            <Box>
+              <Typography variant="body1" gutterBottom>
+                Category
+              </Typography>
+              <MDBox>
+                <MDBox>
+                  <MDInput
+                    value={category}
+                    onChange={handleChange}
+                    readOnly // Make the input read-only to prevent typing
+                    onClick={openCategoryMenu}
+                    sx={{ width: "50vw" }}
+                    // label="Search By Category"
+                  />
+                  {renderCategoryMenu}
+                </MDBox>
+              </MDBox>
             </Box>
             {categoryFields /* Render category-specific fields */}
+
             <Box>
               <Typography variant="body1" gutterBottom>
                 Title
