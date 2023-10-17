@@ -4,9 +4,9 @@ import baseURL from "config";
 // Function to delete a user
 export async function deleteUser(userId) {
   try {
-    const response = await axios.delete(`${baseURL}/users/${userId}`);
+    const response = await axios.post(`${baseURL}/delete-user`, { user_ID: userId });
     if (response.status === 200) {
-      console.log(`User with ID ${userId} has been deleted`);
+      console.log(response.data.message); // Assuming the response has a message field
     } else {
       console.error("Failed to delete user:", response.statusText);
     }
@@ -19,9 +19,14 @@ export async function deleteUser(userId) {
 // Function to edit user details
 export async function editUser(userId, updatedData) {
   try {
-    const response = await axios.put(`${baseURL}/users/${userId}`, updatedData);
+    const response = await axios.post(`${baseURL}/updateUser`, {
+      userId: userId,
+      fullName: updatedData.fullName,
+      mobile: updatedData.contactNumber,
+      profession: updatedData.profession,
+    });
     if (response.status === 200) {
-      console.log(`User with ID ${userId} has been updated`);
+      console.log(response.data.message); // Assuming the response has a message field
     } else {
       console.error("Failed to edit user:", response.statusText);
     }
@@ -34,7 +39,7 @@ export async function editUser(userId, updatedData) {
 // Function to get the list of users
 export async function getUserList() {
   try {
-    const response = await axios.get(`${baseURL}/users`);
+    const response = await axios.get(`${baseURL}/getAllUsers`);
     if (response.status === 200) {
       return response.data;
     } else {
