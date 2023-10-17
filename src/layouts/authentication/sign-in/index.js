@@ -133,6 +133,7 @@ function Basic() {
             email: userData.email,
             phone_Number: userData.Contact_Number,
             profession: userData.Profession,
+            Profile_Picture: userData.Profile_Picture,
           });
           // Now you can use userData as needed in your frontend
           // For example, you can store it in state or context for later use

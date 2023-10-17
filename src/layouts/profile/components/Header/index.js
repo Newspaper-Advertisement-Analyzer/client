@@ -35,7 +35,7 @@ import MDAvatar from "components/MDAvatar";
 import breakpoints from "assets/theme/base/breakpoints";
 
 // Images
-import burceMars from "assets/images/socrates.jpeg";
+//import burceMars from "assets/images/socrates.jpeg";
 import backgroundImage from "assets/images/bg-profile.jpeg";
 import { useUser } from "utils/userContext";
 import ProfileModal from "./updateprofile";
@@ -44,10 +44,11 @@ function Header({ children }) {
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
   const [tabValue, setTabValue] = useState(0);
   const { user } = useUser();
-  const [image, setImage] = useState(burceMars);
+  const [image, setImage] = useState(user.Profile_Picture);
 
   useEffect(() => {
     // A function that sets the orientation state of the tabs.
+    console.log(image);
     function handleTabsOrientation() {
       return window.innerWidth < breakpoints.values.sm
         ? setTabsOrientation("vertical")

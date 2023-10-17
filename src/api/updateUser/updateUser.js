@@ -12,3 +12,14 @@ export async function updateUser(userData) {
     throw error;
   }
 }
+
+export async function updateProfilePicture(url, userId) {
+  try {
+    const response = await axios.post(`${baseURL}/updateProfilePicture`, { url, userId }); // Adjust the endpoint URL
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating user data on the backend:", error);
+    throw error;
+  }
+}

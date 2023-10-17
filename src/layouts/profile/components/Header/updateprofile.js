@@ -1,25 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-
 import Modal from "@mui/material/Modal";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
-// import signinimage from "../../../upload/signin.gif";
 import MDBox from "components/MDBox";
-import { useState } from "react";
-// import { Link } from "react-router-dom";
+import { storage } from "../../../../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useUser } from "utils/userContext";
+import { updateProfilePicture } from "api/updateUser/updateUser";
 
 function ProfileModal({ open, onClose, image, setImage }) {
   const [selectedImage, setSelectedImage] = useState(image); // State to hold the selected image
+  const [imageUpload, setImageUpload] = useState(null); // State to hold the uploaded image
+  const { user } = useUser();
 
   // Function to handle file input change
-  const handleUpload = () => {
-    setImage(selectedImage);
-    onClose();
+  const handleUpload = async () => {
+    console.log(user);
+    try {
+      // Upload selectedImage to Firebase storage
+      const imageRef = ref(storage, `profile-picture/${user.user_ID}`); // Define the reference to the image
+      await uploadBytes(imageRef, imageUpload); // Upload the image bytes
+
+      // Get the download URL
+      const url = await getDownloadURL(imageRef);
+      // Call setImage with the download URL to update the image
+      updateProfilePicture(url, user.user_ID);
+      setImage(url);
+
+      onClose();
+    } catch (error) {
+      console.error("Error uploading image to Firebase storage:", error);
+    }
   };
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
 
@@ -27,12 +44,16 @@ function ProfileModal({ open, onClose, image, setImage }) {
       const reader = new FileReader();
 
       reader.onload = (e) => {
-        setSelectedImage(e.target.result); // Update the selected image in the state
+        // Ensure that the result is set to the selectedImage state
+        setSelectedImage(e.target.result);
+        setImageUpload(file); // Set the uploaded image in the state
       };
 
+      // Read the file as a data URL
       reader.readAsDataURL(file);
     }
   };
+
   return (
     <Modal
       open={open}
