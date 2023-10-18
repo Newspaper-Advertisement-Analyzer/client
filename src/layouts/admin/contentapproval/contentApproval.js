@@ -7,35 +7,43 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import { fetchPendingAdvertisements } from "api/pendingAdvertisement/pendingAdvertisemnet";
 
 // Simulated data for advertisements pending approval
-const advertisements = [
-  {
-    id: 1,
-    title: "Historic Estate",
-    location: "Jaffna",
-    date: "Sun, 03 Sep 2023 18:30:04 GMT",
-    description: "This is a historic estate.",
-    image: "image_url_here",
-  },
-  {
-    id: 2,
-    title: "Historic Estate",
-    location: "Jaffna",
-    date: "Sun, 03 Sep 2023 18:30:04 GMT",
-    description: "This is a historic estate.",
-    image: "image_url_here",
-  },
-  // Add more advertisements as needed
-];
+// const advertisements = [
+//   {
+//     id: 1,
+//     title: "Historic Estate",
+//     location: "Jaffna",
+//     date: "Sun, 03 Sep 2023 18:30:04 GMT",
+//     description: "This is a historic estate.",
+//     image: "image_url_here",
+//   },
+//   {
+//     id: 2,
+//     title: "Historic Estate",
+//     location: "Jaffna",
+//     date: "Sun, 03 Sep 2023 18:30:04 GMT",
+//     description: "This is a historic estate.",
+//     image: "image_url_here",
+//   },
+//   // Add more advertisements as needed
+// ];
 
 function ContentApprovalPage() {
-  const [pendingAds, setPendingAds] = useState(advertisements);
+  const [pendingAds, setPendingAds] = useState([]);
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
 
   useEffect(() => {
-    // Fetch pending advertisements from the server here if needed
-    // Update the 'pendingAds' state with the fetched data
+    async function fetchData() {
+      try {
+        const data = await fetchPendingAdvertisements();
+        setPendingAds(data);
+      } catch (error) {
+        console.error("Error fetching pending advertisements:", error);
+      }
+    }
+    fetchData();
   }, []);
 
   const approveAd = () => {
@@ -78,19 +86,19 @@ function ContentApprovalPage() {
           <Card>
             <CardContent>
               <Typography variant="h5" gutterBottom>
-                Advertisement ID: {currentAd.id}
+                Advertisement ID: {currentAd.Advertisement_ID}
               </Typography>
               <Typography variant="body1" gutterBottom>
-                Title: {currentAd.title}
+                Title: {currentAd.Title}
               </Typography>
               <Typography variant="body1" gutterBottom>
-                Location: {currentAd.location}
+                Location: {currentAd.Location.City}
               </Typography>
               <Typography variant="body1" gutterBottom>
-                Date: {currentAd.date}
+                Date: {currentAd.Posted_Date}
               </Typography>
               <Typography variant="body1" gutterBottom>
-                Description: {currentAd.description}
+                Description: {currentAd.Description}
               </Typography>
               {currentAd.image && (
                 <img
