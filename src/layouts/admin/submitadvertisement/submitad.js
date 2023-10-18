@@ -173,7 +173,6 @@ function AdvertisementForm() {
   const [formData, setFormData] = useState({
     title: "",
     location: "",
-    date: "",
     description: "",
     image: null,
     category: "", // New category field
@@ -181,7 +180,6 @@ function AdvertisementForm() {
   const initialFormData = {
     title: "",
     location: "",
-    date: "",
     description: "",
     image: null,
     category: "",
