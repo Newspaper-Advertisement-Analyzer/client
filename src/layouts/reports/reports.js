@@ -56,15 +56,19 @@ export const generateExcel = async (data, filename, userID) => {
 
   const excelBlob = new Blob([s2ab(wbout)], { type: "application/octet-stream" });
   const excelRef = ref(storage, `Reports/${filename}.xlsx`);
-  await uploadBytes(excelRef, excelBlob);
 
-  const downloadURL = await getDownloadURL(excelRef);
-  const response = await savePdf(downloadURL, userID, filename);
+  try {
+    await uploadBytes(excelRef, excelBlob);
+    const downloadURL = await getDownloadURL(excelRef);
+    const response = await savePdf(downloadURL, userID, filename);
 
-  if (response && response.message) {
-    console.log("PDF uploaded successfully!");
-  } else {
-    console.error("Failed to upload PDF:", response.error);
+    if (response && response.message) {
+      console.log("Excel uploaded successfully!");
+    } else {
+      console.error("Failed to upload Excel:", response.error);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
   }
 };
 
