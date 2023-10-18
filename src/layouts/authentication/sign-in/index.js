@@ -150,7 +150,7 @@ function Basic() {
         } else if (status === 401) {
           alert("Invalid User Name or Incorrect Password.");
         } else {
-          alert("An error occurred during login.");
+          alert("Check your Network Connection");
         }
       });
   };

@@ -10,7 +10,7 @@ import Card from "@mui/material/Card";
 
 import { sendUrlToBackend } from "api/sendUrl";
 import Loading from "components/Loading";
-import { CardContent, Grid, Modal } from "@mui/material";
+import { CardContent, Checkbox, Grid, Modal } from "@mui/material";
 import emptyImage from "./empty.gif";
 import RenderResults from "./renderresults";
 
@@ -45,21 +45,25 @@ function InputURL() {
       .then((responseData) => {
         console.log("Response from backend:", responseData);
         setBackendResponse(responseData.results); // Assuming 'results' is the key holding the array
+        if (backendResponse[4] === "Couldn't found a category") {
+          handleOpenModal();
+        }
       })
       .catch((error) => {
         console.error("Error sending URL to backend:", error);
       })
       .finally(() => {
         setLoading(false); // Set loading to false after fetch operation is complete
-        if (backendResponse[4] === "Couldn't found a category") {
-          handleOpenModal();
-        }
       });
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
+  };
+  const [publish, setPublish] = useState(false);
+  const handlePublishChange = (e) => {
+    setPublish(e.target.checked);
   };
 
   const handleCloseModal = () => {
@@ -146,6 +150,17 @@ function InputURL() {
                 </MDBox>
               </MDBox>
             </label>
+            <div>
+              <Checkbox
+                id="publish"
+                checked={publish}
+                onChange={handlePublishChange}
+                inputProps={{ "aria-label": "controlled" }}
+              />
+              <label style={{ fontSize: "15px" }} htmlFor="publish">
+                We value your privacy. Check the box if you like to publish your feedback
+              </label>
+            </div>
             <MDBox mt={5} mb={3}>
               <MDButton color="primary" type="submit">
                 Analyze
