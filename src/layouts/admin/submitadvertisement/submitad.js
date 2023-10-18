@@ -237,11 +237,11 @@ function AdvertisementForm() {
             Number of Perches
           </Typography>
           <TextField
-            fullWidth
             margin="normal"
             name="numberOfPerches"
             value={formData.numberOfPerches}
             onChange={handleChange}
+            type="number"
           />
         </Box>
         <Box>
@@ -351,11 +351,11 @@ function AdvertisementForm() {
             Number of rooms
           </Typography>
           <TextField
-            fullWidth
             margin="normal"
             name="numberOfRooms"
             value={formData.numberOfRooms}
             onChange={handleChange}
+            type="number"
           />
         </Box>
         <Box>
@@ -442,20 +442,28 @@ function AdvertisementForm() {
             Gender
           </Typography>
           <TextField
-            fullWidth
             margin="normal"
             name="gender"
             value={formData.gender}
             onChange={handleChange}
-          />
+            select
+            SelectProps={{
+              // Add this prop to style the Select component
+              style: { minHeight: "40px", minWidth: "100px" }, // You can adjust the height as needed
+            }}
+          >
+            <MenuItem value="male">Male</MenuItem>
+            <MenuItem value="female">Female</MenuItem>
+            <MenuItem value="other">Other</MenuItem>
+          </TextField>
         </Box>
         <Box>
           <Typography variant="body1" gutterBottom>
             Age
           </Typography>
           <TextField
-            fullWidth
             margin="normal"
+            type="number"
             name="age"
             value={formData.age}
             onChange={handleChange}
@@ -616,8 +624,8 @@ function AdvertisementForm() {
     <DashboardLayout>
       <DashboardNavbar />
       <Card>
-        <Container maxWidth="xs" mt={5}>
-          <Typography variant="h4" align="center" gutterBottom>
+        <Container maxWidth="xs">
+          <Typography variant="h4" align="center" gutterBottom style={{ marginTop: "20px" }}>
             Submit Advertisement
           </Typography>
           <form onSubmit={handleSubmit}>
@@ -707,8 +715,8 @@ function AdvertisementForm() {
                 />
               )}
             </Box>
-            <Box mt={2} textAlign="center" alignItems="center">
-              <MDButton variant="contained" color="primary" type="submit" size="small">
+            <Box mt={2} textAlign="center" alignItems="center" style={{ marginBottom: "20px" }}>
+              <MDButton variant="contained" color="primary" type="submit" size="large">
                 Submit Advertisement
               </MDButton>
             </Box>
