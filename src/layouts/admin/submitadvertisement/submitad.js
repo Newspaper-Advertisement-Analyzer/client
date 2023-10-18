@@ -178,6 +178,14 @@ function AdvertisementForm() {
     image: null,
     category: "", // New category field
   });
+  const initialFormData = {
+    title: "",
+    location: "",
+    date: "",
+    description: "",
+    image: null,
+    category: "",
+  };
 
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -207,11 +215,16 @@ function AdvertisementForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await submitAdvertisement(formData);
-      console.log("Advertisement submitted successfully:", response);
-    } catch (error) {
-      console.error("Error submitting advertisement:", error);
+    if (formData.category) {
+      try {
+        const response = await submitAdvertisement(formData);
+        console.log("Advertisement submitted successfully:", response);
+        setFormData(initialFormData);
+      } catch (error) {
+        console.error("Error submitting advertisement:", error);
+      }
+    } else {
+      alert("Select a category");
     }
   };
 
@@ -222,7 +235,7 @@ function AdvertisementForm() {
       <>
         <Box>
           <Typography variant="body1" gutterBottom>
-            Price per Perch
+            Price per Perch in LKR
           </Typography>
           <TextField
             fullWidth
@@ -230,6 +243,7 @@ function AdvertisementForm() {
             name="pricePerPerch"
             value={formData.pricePerPerch}
             onChange={handleChange}
+            required
           />
         </Box>
         <Box>
@@ -249,12 +263,12 @@ function AdvertisementForm() {
             Posted on
           </Typography>
           <TextField
-            fullWidth
             margin="normal"
             name="postedOn"
             type="date"
             value={formData.postedOn}
             onChange={handleChange}
+            required
           />
         </Box>
         <Box>
@@ -303,6 +317,7 @@ function AdvertisementForm() {
             name="nearestCity"
             value={formData.nearestCity}
             onChange={handleChange}
+            required
           />
         </Box>
         <Box>
@@ -336,7 +351,7 @@ function AdvertisementForm() {
       <>
         <Box>
           <Typography variant="body1" gutterBottom>
-            Price
+            Price in LKR
           </Typography>
           <TextField
             fullWidth
@@ -344,6 +359,7 @@ function AdvertisementForm() {
             name="price"
             value={formData.price}
             onChange={handleChange}
+            required
           />
         </Box>
         <Box>
@@ -363,12 +379,12 @@ function AdvertisementForm() {
             Posted on
           </Typography>
           <TextField
-            fullWidth
             margin="normal"
             name="postedOn"
             type="date"
             value={formData.postedOn}
             onChange={handleChange}
+            required
           />
         </Box>
         <Box>
@@ -417,6 +433,7 @@ function AdvertisementForm() {
             name="nearestCity"
             value={formData.nearestCity}
             onChange={handleChange}
+            required
           />
         </Box>
         <Box>
@@ -444,6 +461,7 @@ function AdvertisementForm() {
           <TextField
             margin="normal"
             name="gender"
+            required
             value={formData.gender}
             onChange={handleChange}
             select
@@ -467,6 +485,7 @@ function AdvertisementForm() {
             name="age"
             value={formData.age}
             onChange={handleChange}
+            required
           />
         </Box>
         <Box>
@@ -504,6 +523,7 @@ function AdvertisementForm() {
             value={formData.requirements}
             onChange={handleChange}
             style={{ width: "100%" }}
+            required
           />
         </Box>
         <Box>
@@ -511,12 +531,12 @@ function AdvertisementForm() {
             Posted on
           </Typography>
           <TextField
-            fullWidth
             margin="normal"
             name="postedOn"
             type="date"
             value={formData.postedOn}
             onChange={handleChange}
+            required
           />
         </Box>
         <Box>
@@ -565,6 +585,7 @@ function AdvertisementForm() {
             name="nearestCity"
             value={formData.nearestCity}
             onChange={handleChange}
+            required
           />
         </Box>
         <Box>
