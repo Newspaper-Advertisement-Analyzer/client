@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import MDTypography from "components/MDTypography";
 import { getRecentAd } from "api/searchTable/recentLandSale";
 //import MDAvatar from "components/MDAvatar";
 
@@ -52,7 +51,7 @@ export default function data() {
         { Header: "Posted Date", accessor: "date", align: "center" },
         //{ Header: "Address", accessor: "address", align: "center" },
         { Header: "PhoneNumber", accessor: "phoneNumber", align: "center" },
-        { Header: "Price Per Perch", accessor: "price", align: "center" },
+        { Header: "Price Per Perch in Rs.", accessor: "price", align: "center" },
       ],
 
       rows: recentLandAds.map((ad, index) => ({
@@ -63,11 +62,7 @@ export default function data() {
         date: ad.Posted_Date,
         address: ad.Location.Address, // Use the correct field for the address
         phoneNumber: ad.Contact_Info.Phone_Number.join(", "), // Join multiple phone numbers if available
-        price: (
-          <MDTypography variant="caption" color="text" fontWeight="medium">
-            Rs.{ad.Price_per_Perch}
-          </MDTypography>
-        ),
+        price: ad.Price_per_Perch,
       })),
     },
 
@@ -81,7 +76,7 @@ export default function data() {
         { Header: "Posted Date", accessor: "date", align: "center" },
         //{ Header: "Address", accessor: "address", align: "center" },
         { Header: "PhoneNumber", accessor: "phoneNumber", align: "center" },
-        { Header: "Price", accessor: "price", align: "center" },
+        { Header: "Price in Rs.", accessor: "price", align: "center" },
       ],
 
       rows: recentHouseAds.map((ad, index) => ({
@@ -93,11 +88,7 @@ export default function data() {
         address: ad.Location.Address, // Use the correct field for the address
         phoneNumber: ad.Contact_Info.Phone_Number.join(", "), // Join multiple phone numbers if available
         No_of_Rooms: ad.Number_of_Rooms,
-        price: (
-          <MDTypography variant="caption" color="text" fontWeight="medium">
-            Rs.{ad.Price}
-          </MDTypography>
-        ),
+        price: ad.Price,
       })),
     },
 
