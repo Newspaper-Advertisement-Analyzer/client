@@ -23,7 +23,7 @@ import bgImage from "assets/images/newspaper2.jpg";
 
 import VerificationDialog from "./VerificationDialog";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "utils/userContext";
+// import { useUser } from "utils/userContext";
 import baseURL from "config";
 import TermModal from "./term";
 
@@ -33,7 +33,7 @@ function Cover() {
   const [name, setName] = useState("");
   const navigate = useNavigate();
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-  const { login } = useUser();
+  // const { login } = useUser();
 
   const [verificationOpen, setVerificationOpen] = useState(false);
 
@@ -97,16 +97,18 @@ function Cover() {
             // Handle success, e.g., show a success message to the user
             // alert(data.message);
             const userData = data.user;
-            console.log(userData);
-            login({
-              name: userData.User_Name,
-              full_name: userData.Full_Name,
-              user_ID: userData.UserID,
-              role: userData.Role,
-              email: userData.email,
-              phone_Number: userData.Contact_Number,
-              profession: userData.Profession,
-            });
+            console.log("error is here", userData);
+            // login({
+            //   name: userData.User_Name,
+            //   full_name: userData.Full_Name,
+            //   user_ID: userData.UserID,
+            //   role: userData.Role,
+            //   email: userData.email,
+            //   phone_Number: userData.Contact_Number,
+            //   profession: userData.Profession,
+            //   Profile_Picture: userData.Profile_Picture,
+            // });
+            // login();
             setVerificationOpen(true);
 
             // navigate("/dashboard");

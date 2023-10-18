@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -34,10 +34,15 @@ import data from "layouts/dashboard/components/Projects/data";
 function Projects() {
   const { landSale, houseSale, marriageProposals } = data();
   const [menu, setMenu] = useState(null);
-  const [selectedData, setSelectedData] = useState(landSale);
-
+  const [selectedData, setSelectedData] = useState(() => landSale);
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
   const closeMenu = () => setMenu(null);
+  useEffect(() => {
+    // This code will run when the component is initially rendered.
+    console.log("Component is initially rendered.");
+    setSelectedData(landSale);
+    // You can place your logic here.
+  }, []);
   const handleMenuItemClick = (dataKey) => {
     setSelectedData(dataKey);
     closeMenu();

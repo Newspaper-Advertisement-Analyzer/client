@@ -9,11 +9,13 @@ import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import baseURL from "config";
+import { useUser } from "utils/userContext";
 
 export default function VerificationDialog({ open, onClose, email, onSuccess }) {
   const [verificationCode, setVerificationCode] = useState("");
   const [timeRemaining, setTimeRemaining] = useState(60);
   const [alertType, setAlertType] = useState(null);
+  const { login } = useUser();
 
   useEffect(() => {
     let interval = null;
@@ -46,6 +48,17 @@ export default function VerificationDialog({ open, onClose, email, onSuccess }) 
             // alert("Registration successful!");
             setAlertType("success");
             console.log(alertType);
+            const userData = response.data.user;
+            login({
+              name: userData.User_Name,
+              full_name: userData.Full_Name,
+              user_ID: userData.UserID,
+              role: userData.Role,
+              email: userData.email,
+              phone_Number: userData.Contact_Number,
+              profession: userData.Profession,
+              Profile_Picture: userData.Profile_Picture,
+            });
             onSuccess();
           } else {
             setAlertType("error");
