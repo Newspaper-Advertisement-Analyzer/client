@@ -24,10 +24,18 @@ export async function updateProfilePicture(url, userId) {
   }
 }
 
-export async function updateLastSeen(url, userId) {
+export async function updateLastSeen(userid) {
   try {
-    const response = await axios.post(`${baseURL}/updateProfilePicture`, { url, userId }); // Adjust the endpoint URL
-    console.log(response.data);
+    const last_seen = Date.now(); // Obtain the timestamp
+    const date = new Date(last_seen); // Convert the timestamp to a Date object
+    const lastSeenDate = date.toLocaleDateString(); // Obtain the date in a locale-specific format
+    const lastSeenTime = date.toLocaleTimeString(); // Obtain the time in a locale-specific format
+    const lastSeenDateTime = `${lastSeenDate} ${lastSeenTime}`; // Combine the date and time
+    console.log(userid, lastSeenDateTime);
+    const response = await axios.post(`${baseURL}/updateLastSeen`, {
+      last_seen: lastSeenDateTime,
+      userId: userid,
+    });
     return response.data;
   } catch (error) {
     console.error("Error updating user data on the backend:", error);

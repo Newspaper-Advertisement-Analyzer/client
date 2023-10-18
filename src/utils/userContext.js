@@ -22,10 +22,14 @@ export const UserProvider = ({ children }) => {
     setUser(userData);
   };
 
-  const logout = () => {
-    setIsAuthenticated(false);
-    setUser(null);
-    updateLastSeen();
+  const logout = async () => {
+    try {
+      setIsAuthenticated(false);
+      setUser(null);
+      await updateLastSeen(user.user_ID); // Call the updateLastSeen function asynchronously
+    } catch (error) {
+      console.error("Error updating last seen status:", error);
+    }
   };
 
   const [inputUrl, setInputUrl] = useState("");

@@ -72,7 +72,7 @@ export default function Data() {
       ),
       lastSeen: (
         <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-          {user.lastSeen}
+          {user.Last_Seen}
         </MDTypography>
       ),
       action: (
