@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import PropTypes from "prop-types";
+import { updateLastSeen } from "api/updateUser/updateUser";
 
 const UserContext = createContext();
 const StateContext = createContext();
@@ -24,6 +25,7 @@ export const UserProvider = ({ children }) => {
   const logout = () => {
     setIsAuthenticated(false);
     setUser(null);
+    updateLastSeen();
   };
 
   const [inputUrl, setInputUrl] = useState("");
