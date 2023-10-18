@@ -164,6 +164,10 @@ import { Card, Menu, MenuItem } from "@mui/material";
 import MDButton from "components/MDButton";
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
+import { submitAdvertisement } from "api/submitAdvertisement/submitAdvertisement";
+import { storage } from "../../../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
 
 function AdvertisementForm() {
   const [formData, setFormData] = useState({
@@ -179,12 +183,20 @@ function AdvertisementForm() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    if (name === "phoneNumbers") {
+      const phoneNumbers = value.split(",").map((number) => number.trim());
+      setFormData({ ...formData, [name]: phoneNumbers });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    setFormData({ ...formData, image: file });
+    const imageRef = ref(storage, `advertisement-picture/${v4()}`); // Define the reference to the image
+    await uploadBytes(imageRef, file); // Upload the image bytes
+    const url = await getDownloadURL(imageRef);
+    setFormData({ ...formData, image: url });
 
     const reader = new FileReader();
     reader.onload = (event) => {
@@ -193,9 +205,14 @@ function AdvertisementForm() {
     reader.readAsDataURL(file);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form data:", formData);
+    try {
+      const response = await submitAdvertisement(formData);
+      console.log("Advertisement submitted successfully:", response);
+    } catch (error) {
+      console.error("Error submitting advertisement:", error);
+    }
   };
 
   // Define form fields based on category
@@ -646,6 +663,18 @@ function AdvertisementForm() {
                 value={formData.title}
                 onChange={handleChange}
                 required
+              />
+            </Box>
+            <Box>
+              <Typography variant="body1" gutterBottom>
+                Description
+              </Typography>
+              <TextField
+                fullWidth
+                margin="normal"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
               />
             </Box>
             <Box>
