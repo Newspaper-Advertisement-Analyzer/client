@@ -183,7 +183,7 @@ function AdvertisementForm() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "phoneNumbers") {
+    if (name === "phoneNumbers" || name == "landMarks") {
       const phoneNumbers = value.split(",").map((number) => number.trim());
       setFormData({ ...formData, [name]: phoneNumbers });
     } else {
