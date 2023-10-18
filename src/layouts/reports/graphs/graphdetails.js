@@ -6,14 +6,16 @@ import { Container, Typography } from "@mui/material";
 import MDBox from "components/MDBox";
 
 import MDButton from "components/MDButton";
-import { generateExcel } from "../reports";
+import { generateCSV, generateExcel } from "../reports";
 import { CSVLink } from "react-csv";
 // import Projects from "layouts/dashboard/components/Projects";
 import DataTable from "examples/Tables/DataTable";
 import data1 from "layouts/dashboard/components/Projects/data";
 import { useEffect } from "react";
+import { useUser } from "utils/userContext";
 
 const GraphDetails = () => {
+  const { user } = useUser();
   const { landSale, houseSale, marriageProposals } = data1();
   const dataMapping = {
     "Land Sales": landSale,
@@ -52,14 +54,19 @@ const GraphDetails = () => {
           <MDBox mt={5} textAlign="center">
             <MDButton
               color="primary"
-              onClick={() => generateExcel(selectedData.rows, "uselessReport")}
+              onClick={() => generateExcel(selectedData.rows, "uselessReport", user.user_ID)}
             >
               Export to Excel
             </MDButton>
           </MDBox>
           <MDBox mt={5} textAlign="center">
             <CSVLink data={selectedData.rows} filename={`uselessCSV.csv`}>
-              <MDButton color="primary">Export to CSV</MDButton>
+              <MDButton
+                color="primary"
+                onClick={() => generateCSV(selectedData.rows, "uselessReport", user.user_ID)}
+              >
+                Export to CSV
+              </MDButton>
             </CSVLink>
           </MDBox>
         </>
