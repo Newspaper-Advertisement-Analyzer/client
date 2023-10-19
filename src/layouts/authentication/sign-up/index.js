@@ -256,6 +256,7 @@ function Cover() {
               navigate("/dashboard");
             }, 1000);
           }}
+          address={"verify"}
         />
       )}
     </BasicLayout>

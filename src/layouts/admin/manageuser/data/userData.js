@@ -66,9 +66,9 @@ export default function Data() {
       ),
       email: <UserDetails name={user.Email} description="Organization" />,
       role: (
-        <MDBox ml={-1}>
-          <MDBadge badgeContent={user.Profession} color="info" variant="gradient" size="sm" />
-        </MDBox>
+        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+          {user.Profession}
+        </MDTypography>
       ),
       lastSeen: (
         <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
@@ -77,26 +77,25 @@ export default function Data() {
       ),
       action: (
         <div>
-          <MDTypography
+          <MDBadge
             component="a"
             href="#"
-            variant="caption"
-            color="text"
-            fontWeight="medium"
+            badgeContent="Delete"
+            color="error"
+            variant="gradient"
+            size="sm"
             onClick={() => handleUserDelete(user._id)} // Use an arrow function
-          >
-            Delete
-          </MDTypography>
-          <MDTypography
+          />
+          <MDBadge
             component="a"
             href="#"
-            variant="caption"
-            color="text"
+            variant="gradient"
+            color="warning"
+            badgeContent="View"
             fontWeight="medium"
+            size="sm"
             onClick={() => handleUserEdit(user._id)} // Use an arrow function
-          >
-            Edit
-          </MDTypography>
+          />
         </div>
       ),
     })),

@@ -49,9 +49,12 @@ function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
-  const handleForgetPassword = () => {};
   const [value, setValue] = useState("");
   const navigate = useNavigate();
+
+  const handleForgetPassword = () => {
+    navigate("/authentication/reset-password");
+  };
 
   const handleClick = () => {
     signInWithPopup(auth, provider).then((data) => {

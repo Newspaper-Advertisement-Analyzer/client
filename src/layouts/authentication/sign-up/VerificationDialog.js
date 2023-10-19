@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import baseURL from "config";
 import { useUser } from "utils/userContext";
 
-export default function VerificationDialog({ open, onClose, email, onSuccess }) {
+export default function VerificationDialog({ open, onClose, email, onSuccess, address }) {
   const [verificationCode, setVerificationCode] = useState("");
   const [timeRemaining, setTimeRemaining] = useState(60);
   const [alertType, setAlertType] = useState(null);
@@ -38,7 +38,7 @@ export default function VerificationDialog({ open, onClose, email, onSuccess }) 
   const handleVerificationSubmit = () => {
     if (verificationCode) {
       axios
-        .post(`${baseURL}/verify`, {
+        .post(`${baseURL}/${address}`, {
           email: email,
           verificationCode: verificationCode,
         })
@@ -48,23 +48,32 @@ export default function VerificationDialog({ open, onClose, email, onSuccess }) 
             // alert("Registration successful!");
             setAlertType("success");
             console.log(alertType);
-            const userData = response.data.user;
-            login({
-              name: userData.User_Name,
-              full_name: userData.Full_Name,
-              user_ID: userData.UserID,
-              role: userData.Role,
-              email: userData.email,
-              phone_Number: userData.Contact_Number,
-              profession: userData.Profession,
-              Profile_Picture: userData.Profile_Picture,
-            });
-            onSuccess();
-          } else {
-            setAlertType("error");
-            alert("Verification code is incorrect or expired.");
+            if (address === "verify") {
+              const userData = response.data.user;
+              login({
+                name: userData.User_Name,
+                full_name: userData.Full_Name,
+                user_ID: userData.UserID,
+                role: userData.Role,
+                email: userData.email,
+                phone_Number: userData.Contact_Number,
+                profession: userData.Profession,
+                Profile_Picture: userData.Profile_Picture,
+              });
+              onSuccess();
+            } else if (address === "verify-email") {
+              alert(
+                "Your new password is " +
+                  response.data.newpassword +
+                  " Important: Please imeediately change your password after login"
+              );
+              onSuccess();
+            } else {
+              setAlertType("error");
+              alert("Verification code is incorrect or expired.");
+            }
+            onClose();
           }
-          onClose();
         })
         .catch(function (error) {
           console.log(error, "error");
