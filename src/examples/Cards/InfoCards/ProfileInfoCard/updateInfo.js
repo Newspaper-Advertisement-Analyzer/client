@@ -13,6 +13,7 @@ import { useUser } from "utils/userContext";
 
 function UpdateInfoModal({ open, onClose, onSave, initialValues }) {
   const [formData, setFormData] = useState(initialValues);
+  const [changePassword, setChangePassword] = useState(false); // State to hold the change password checkbox value
   const { user } = useUser();
 
   const handleInputChange = (e) => {
@@ -27,10 +28,18 @@ function UpdateInfoModal({ open, onClose, onSave, initialValues }) {
     onSave(formData);
     try {
       const userId = user.user_ID; // Extract the user ID from the form data
-      const { fullName, mobile, profession, location } = formData;
+      const { fullName, mobile, profession, location, password } = formData;
       console.log(formData);
-      const userData = { fullName, mobile, profession, location, userId };
-      await updateUser(userData); // Call the updateUser API function
+      const userData = { fullName, mobile, profession, location, password, userId };
+      const response = await updateUser(userData); // Call the updateUser API function
+
+      // Check if the password was updated
+      if (response && response.password_updated) {
+        setChangePassword(true); // Reset the change password checkbox
+        // You can use a state or a notification library here to show the message to the user
+        console.log("Password has been updated.", changePassword);
+        console.log("Password has been updated.");
+      }
 
       onClose(); // Close the modal after the update is successful
     } catch (error) {
