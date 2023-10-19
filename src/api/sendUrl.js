@@ -2,14 +2,14 @@
 
 import baseURL from "config";
 
-export async function sendUrlToBackend(inputUrl) {
+export async function sendUrlToBackend(inputUrl, publish) {
   try {
     const response = await fetch(`${baseURL}/sendurl`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ url: inputUrl }),
+      body: JSON.stringify({ url: inputUrl, publish: publish }),
     });
 
     if (!response.ok) {

@@ -41,7 +41,7 @@ function InputURL() {
     setBackendResponse([]); // Clear previous results
 
     // Send URL to backend
-    sendUrlToBackend(inputUrl)
+    sendUrlToBackend(inputUrl, publish)
       .then((responseData) => {
         console.log("Response from backend:", responseData);
         setBackendResponse(responseData.results); // Assuming 'results' is the key holding the array

@@ -39,6 +39,7 @@ function ContentApprovalPage() {
       try {
         const data = await fetchPendingAdvertisements();
         setPendingAds(data);
+        console.log(pendingAds);
       } catch (error) {
         console.error("Error fetching pending advertisements:", error);
       }
@@ -72,7 +73,7 @@ function ContentApprovalPage() {
     }
   };
 
-  const currentAd = pendingAds[currentAdIndex];
+  //const currentAd = pendingAds[currentAdIndex];
 
   return (
     <DashboardLayout>
@@ -82,46 +83,51 @@ function ContentApprovalPage() {
         <Typography variant="h4" align="center" gutterBottom>
           Content Approval
         </Typography>
-        {currentAd ? (
-          <Card>
-            <CardContent>
-              <Typography variant="h5" gutterBottom>
-                Advertisement ID: {currentAd.Advertisement_ID}
-              </Typography>
-              <Typography variant="body1" gutterBottom>
-                Title: {currentAd.Title}
-              </Typography>
-              <Typography variant="body1" gutterBottom>
-                Location: {currentAd.Location.City}
-              </Typography>
-              <Typography variant="body1" gutterBottom>
-                Date: {currentAd.Posted_Date}
-              </Typography>
-              <Typography variant="body1" gutterBottom>
-                Description: {currentAd.Description}
-              </Typography>
-              {currentAd.image && (
-                <img
-                  src={currentAd.image}
-                  alt="Advertisement"
-                  style={{ maxWidth: "100%", marginTop: "16px" }}
-                />
-              )}
-              <Box mt={2} display="flex" justifyContent="center">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={approveAd}
-                  style={{ marginRight: "16px" }}
-                >
-                  Approve
-                </Button>
-                <Button variant="contained" color="secondary" onClick={rejectAd}>
-                  Reject
-                </Button>
-              </Box>
-            </CardContent>
-          </Card>
+        {pendingAds.length ? (
+          pendingAds.map((currentAd, index) => (
+            <Card key={index} style={{ marginTop: "20px" }}>
+              <CardContent>
+                <Typography variant="h5" gutterBottom>
+                  Advertisement ID: {currentAd.Advertisement_ID}
+                </Typography>
+                <Typography variant="h5" gutterBottom>
+                  Category: {currentAd.Category}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                  Title: {currentAd.Title}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                  Location: {currentAd.Location.City}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                  Date: {currentAd.Posted_Date}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                  Description: {currentAd.Description}
+                </Typography>
+                {currentAd.image && (
+                  <img
+                    src={currentAd.image}
+                    alt="Advertisement"
+                    style={{ maxWidth: "100%", marginTop: "16px" }}
+                  />
+                )}
+                <Box mt={2} display="flex" justifyContent="center">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={approveAd}
+                    style={{ marginRight: "16px" }}
+                  >
+                    Approve
+                  </Button>
+                  <Button variant="contained" color="secondary" onClick={rejectAd}>
+                    Reject
+                  </Button>
+                </Box>
+              </CardContent>
+            </Card>
+          ))
         ) : (
           <Typography variant="h6" align="center">
             No pending advertisements.
