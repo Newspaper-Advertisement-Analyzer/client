@@ -93,6 +93,23 @@ function UpdateInfoModal({ open, onClose, onSave, initialValues }) {
                 {/* Add more fields as needed */}
               </form>
             </Grid>
+            <Grid item xs={12}>
+              <MDTypography variant="h6" fontWeight="medium">
+                Change Account Password
+              </MDTypography>
+            </Grid>
+            <Grid item xs={12}>
+              <form>
+                <MDInput
+                  type="password"
+                  label="New Password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                />
+                <div style={{ marginBottom: "5%" }}></div>
+              </form>
+            </Grid>
             <Grid item xs={12} style={{ display: "flex", justifyContent: "flex-end" }}>
               <MDButton color="primary" onClick={handleSave}>
                 Save

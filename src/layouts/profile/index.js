@@ -31,7 +31,7 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import ProfileInfoCard from "examples/Cards/InfoCards/ProfileInfoCard";
-import ProfilesList from "examples/Lists/ProfilesList";
+// import ProfilesList from "examples/Lists/ProfilesList";
 // import DefaultProjectCard from "examples/Cards/ProjectCards/DefaultProjectCard";
 
 // Overview page components
@@ -39,7 +39,7 @@ import Header from "layouts/profile/components/Header";
 // import PlatformSettings from "layouts/profile/components/PlatformSettings";
 
 // Data
-import profilesListData from "layouts/profile/data/profilesListData";
+// import profilesListData from "layouts/profile/data/profilesListData";
 
 // Images
 // import homeDecor1 from "assets/images/home-decor-1.jpg";
@@ -102,9 +102,9 @@ function Overview() {
               />
               {/* <Divider orientation="vertical" sx={{ mx: 0 }} /> */}
             </Grid>
-            <Grid item xs={12} xl={4}>
+            {/* <Grid item xs={12} xl={4}>
               <ProfilesList title="conversations" profiles={profilesListData} shadow={false} />
-            </Grid>
+            </Grid> */}
           </Grid>
         </MDBox>
         {/* <MDBox pt={2} px={2} lineHeight={1.25}>

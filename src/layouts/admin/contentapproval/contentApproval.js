@@ -3,11 +3,11 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { fetchPendingAdvertisements } from "api/pendingAdvertisement/pendingAdvertisemnet";
+import MDButton from "components/MDButton";
 
 // Simulated data for advertisements pending approval
 // const advertisements = [
@@ -113,17 +113,25 @@ function ContentApprovalPage() {
                   />
                 )}
                 <Box mt={2} display="flex" justifyContent="center">
-                  <Button
+                  <MDButton
                     variant="contained"
                     color="primary"
                     onClick={approveAd}
                     style={{ marginRight: "16px" }}
                   >
                     Approve
-                  </Button>
-                  <Button variant="contained" color="secondary" onClick={rejectAd}>
+                  </MDButton>
+                  <MDButton
+                    variant="contained"
+                    color="warning"
+                    onClick={rejectAd}
+                    style={{ marginRight: "16px" }}
+                  >
+                    Edit
+                  </MDButton>
+                  <MDButton variant="contained" color="error" onClick={rejectAd}>
                     Reject
-                  </Button>
+                  </MDButton>
                 </Box>
               </CardContent>
             </Card>
