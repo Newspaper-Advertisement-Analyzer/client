@@ -68,7 +68,7 @@ function ResetPSW() {
             Reset Password
           </MDTypography>
           <MDTypography display="block" variant="button" color="white" my={1}>
-            You will receive an e-mail in maximum 60 seconds
+            You will receive a temporary password
           </MDTypography>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
@@ -100,7 +100,7 @@ function ResetPSW() {
             setShowSuccessAlert(true);
             setTimeout(() => {
               setShowSuccessAlert(false);
-              navigate(`/authentication/new-password`);
+              navigate(`/authentication/sign-in`);
             }, 1000);
           }}
           address={"verify-email"}

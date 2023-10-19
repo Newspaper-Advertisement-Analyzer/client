@@ -15,6 +15,9 @@ export default function VerificationDialog({ open, onClose, email, onSuccess, ad
   const [verificationCode, setVerificationCode] = useState("");
   const [timeRemaining, setTimeRemaining] = useState(60);
   const [alertType, setAlertType] = useState(null);
+  const [alertPassword, setAlertPassword] = useState(false);
+  const [hideComponent, sethideComponent] = useState(true);
+  const [newpassword, setNewPassword] = useState("");
   const { login } = useUser();
 
   useEffect(() => {
@@ -61,24 +64,32 @@ export default function VerificationDialog({ open, onClose, email, onSuccess, ad
                 Profile_Picture: userData.Profile_Picture,
               });
               onSuccess();
+              onClose();
             } else if (address === "verify-email") {
-              alert(
-                "Your new password is " +
-                  response.data.newpassword +
-                  " Important: Please imeediately change your password after login"
-              );
-              onSuccess();
+              // alert(
+              //   "Your new password is " +
+              //     response.data.newpassword +
+              //     " Important: Please imeediately change your password after login"
+              // );
+              setAlertPassword(true);
+              sethideComponent(false);
+              setNewPassword(response.data.newpassword);
+              // onSuccess();
             } else {
               setAlertType("error");
               alert("Verification code is incorrect or expired.");
             }
-            onClose();
           }
         })
         .catch(function (error) {
           console.log(error, "error");
         });
     }
+  };
+
+  const handlePasswordSubmit = () => {
+    onSuccess();
+    onClose();
   };
 
   const handleCancel = () => {
@@ -99,46 +110,64 @@ export default function VerificationDialog({ open, onClose, email, onSuccess, ad
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Verification Code</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          Please enter the verification code you received:
-          {timeRemaining > 0 ? (
-            <span> ({timeRemaining} seconds left)</span>
-          ) : (
-            <span style={{ color: "red" }}> (Timeout)</span>
-          )}
-        </DialogContentText>
+    <>
+      <Dialog open={open} onClose={onClose}>
+        {hideComponent && (
+          <>
+            <DialogTitle>Verification Code</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Please enter the verification code you received:
+                {timeRemaining > 0 ? (
+                  <span> ({timeRemaining} seconds left)</span>
+                ) : (
+                  <span style={{ color: "red" }}> (Timeout)</span>
+                )}
+              </DialogContentText>
 
-        {/* {alertType === "success" && (
-          <Alert severity="success">Registration successful!</Alert>
+              <TextField
+                autoFocus
+                margin="dense"
+                label="Verification Code"
+                type="text"
+                fullWidth
+                value={verificationCode}
+                onChange={(e) => setVerificationCode(e.target.value)}
+              />
+            </DialogContent>
+            <DialogActions>
+              <>
+                <Button onClick={handleCancel} color="primary">
+                  Cancel
+                </Button>
+                <Button
+                  onClick={handleVerificationSubmit}
+                  color="primary"
+                  disabled={timeRemaining === 0}
+                >
+                  Submit
+                </Button>
+              </>
+            </DialogActions>
+          </>
         )}
-
-        {alertType === "error" && (
-          <Alert severity="error">
-            Verification code is incorrect or expired.
-          </Alert>
-        )} */}
-
-        <TextField
-          autoFocus
-          margin="dense"
-          label="Verification Code"
-          type="text"
-          fullWidth
-          value={verificationCode}
-          onChange={(e) => setVerificationCode(e.target.value)}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleCancel} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleVerificationSubmit} color="primary" disabled={timeRemaining === 0}>
-          Submit
-        </Button>
-      </DialogActions>
-    </Dialog>
+        {alertPassword && (
+          <>
+            <DialogTitle>Verification Successful</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Your new password is {newpassword} Important: Please imediately change your password
+                after login
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handlePasswordSubmit} color="primary" disabled={timeRemaining === 0}>
+                Sign In
+              </Button>
+            </DialogActions>
+          </>
+        )}
+      </Dialog>
+    </>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Switch, Typography } from "@mui/material";
+import { Checkbox, Container, Switch, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import MDButton from "components/MDButton";
 import MDBox from "components/MDBox";
@@ -8,6 +8,7 @@ import MDTypography from "components/MDTypography";
 
 import { uploadPdfs } from "api/sendPdf"; // Replace with your API endpoint for PDF upload
 import { useAppState } from "utils/userContext";
+import { useState } from "react";
 
 const PDFUploader = () => {
   // const [selectedFiles, setSelectedFiles] = useState([]);
@@ -44,10 +45,16 @@ const PDFUploader = () => {
         const response = await uploadPdfs(selectedFiles, imageScan); // Replace with your API call to upload PDFs
         console.log("PDF upload response:", response);
         setBackendResponse(response.message);
+        setSelectedFiles([]);
       } catch (error) {
         console.error("Error uploading PDFs:", error);
+        alert("Sorry. Server error from our side. Try Again in a few seconds");
       }
     }
+  };
+  const [publish, setPublish] = useState(false);
+  const handlePublishChange = (e) => {
+    setPublish(e.target.checked);
   };
 
   return (
@@ -92,6 +99,19 @@ const PDFUploader = () => {
             <Switch checked={imageScan} onChange={() => setImageScan(!imageScan)} />
           </MDBox>
         </MDBox>
+        <div style={{ marginTop: "5px" }}>
+          <Checkbox
+            id="publish"
+            checked={publish}
+            onChange={handlePublishChange}
+            inputProps={{ "aria-label": "controlled" }}
+          />
+          <label style={{ fontSize: "15px" }} htmlFor="publish">
+            <MDTypography variant="button" fontWeight="regular" color="dark">
+              We value your privacy. Check the box if you like to publish your advertisement details
+            </MDTypography>
+          </label>
+        </div>
       </Card>
       <MDButton color="primary" onClick={handleSubmit} style={{ marginTop: "10px" }}>
         Submit

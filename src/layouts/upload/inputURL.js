@@ -51,6 +51,7 @@ function InputURL() {
       })
       .catch((error) => {
         console.error("Error sending URL to backend:", error);
+        alert("Sorry. Server error from our side. Try Again in a few seconds");
       })
       .finally(() => {
         setLoading(false); // Set loading to false after fetch operation is complete
@@ -158,7 +159,10 @@ function InputURL() {
                 inputProps={{ "aria-label": "controlled" }}
               />
               <label style={{ fontSize: "15px" }} htmlFor="publish">
-                We value your privacy. Check the box if you like to publish your feedback
+                <MDTypography variant="button" fontWeight="regular" color="dark">
+                  We value your privacy. Check the box if you like to publish your advertisement
+                  details
+                </MDTypography>
               </label>
             </div>
             <MDBox mt={5} mb={3}>
