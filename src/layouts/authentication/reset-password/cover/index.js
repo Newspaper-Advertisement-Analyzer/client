@@ -1,36 +1,57 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// @mui material components
+import React, { useState } from "react";
 import Card from "@mui/material/Card";
-
-// Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
-
-// Authentication layout components
 import CoverLayout from "layouts/authentication/components/CoverLayout";
-
-// Images
 import bgImage from "assets/images/bg-reset-cover.jpeg";
+import baseURL from "config";
+import { useNavigate } from "react-router-dom";
+import MDAlert from "components/MDAlert";
+import VerificationDialog from "layouts/authentication/sign-up/VerificationDialog";
 
-function Cover() {
+function ResetPSW() {
+  const [email, setEmail] = useState("");
+  const [verificationOpen, setVerificationOpen] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSend = () => {
+    console.log(email);
+    if (email === "") {
+      alert("Please enter email");
+      return;
+    }
+
+    // Send the email to the backend
+    fetch(`${baseURL}/reset-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    })
+      .then((response) => {
+        response.json();
+      })
+
+      .then((data) => {
+        console.log("this is verification", data);
+        setVerificationOpen(true);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
   return (
     <CoverLayout coverHeight="50vh" image={bgImage}>
+      {showSuccessAlert && (
+        <MDAlert color="success" dismissible>
+          entered code is correct
+        </MDAlert>
+      )}
       <Card>
         <MDBox
           variant="gradient"
@@ -53,18 +74,40 @@ function Cover() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={4}>
-              <MDInput type="email" label="Email" variant="standard" fullWidth />
+              <MDInput
+                type="email"
+                label="Email"
+                variant="standard"
+                fullWidth
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </MDBox>
             <MDBox mt={6} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
-                reset
+              <MDButton variant="gradient" color="info" fullWidth onClick={handleSend}>
+                SEND CODE
               </MDButton>
             </MDBox>
           </MDBox>
         </MDBox>
       </Card>
+      {verificationOpen && (
+        <VerificationDialog
+          open={verificationOpen}
+          onClose={() => setVerificationOpen(false)}
+          email={email} // Pass the email to the dialog
+          onSuccess={() => {
+            // Handle successful verification if needed
+            setShowSuccessAlert(true);
+            setTimeout(() => {
+              setShowSuccessAlert(false);
+              navigate(`/authentication/new-password`);
+            }, 1000);
+          }}
+          address={"verify-email"}
+        />
+      )}
     </CoverLayout>
   );
 }
 
-export default Cover;
+export default ResetPSW;
