@@ -23,6 +23,7 @@ import AdvertisementForm from "layouts/admin/submitadvertisement/submitad";
 import UserView from "layouts/admin/manageuser/manageuser";
 import ManageFeedback from "layouts/admin/managefeedback/feedback";
 import ContentApprovalPage from "layouts/admin/contentapproval/contentApproval";
+import ManageReports from "layouts/admin/managereports/reportView";
 
 // ...
 
@@ -97,7 +98,7 @@ const adminRoutes = [
     key: "reportsview",
     icon: <Icon fontSize="small">report</Icon>,
     route: "/managereports",
-    component: <Wrapper component={TBH} />,
+    component: <Wrapper component={ManageReports} />,
   },
   {
     type: "collapse",
