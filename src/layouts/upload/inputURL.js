@@ -45,7 +45,7 @@ function InputURL() {
       .then((responseData) => {
         console.log("Response from backend:", responseData);
         setBackendResponse(responseData.results); // Assuming 'results' is the key holding the array
-        if (backendResponse[4] === "Couldn't found a category") {
+        if (responseData.results[4] === "Couldn't found a category") {
           handleOpenModal();
         }
       })

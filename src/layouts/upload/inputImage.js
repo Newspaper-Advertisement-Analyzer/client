@@ -164,9 +164,7 @@ const ImageUploader = () => {
                 <MDTypography variant="body1">Category: {responseItem[1]}</MDTypography>
               </Card>
               <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
-                <MDTypography variant="body1">
-                  Phone Numbers: {responseItem[2].join(", ")}
-                </MDTypography>
+                <MDTypography variant="body1">Phone Numbers: {responseItem[2]}</MDTypography>
               </Card>
               <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
                 <MDTypography variant="body1">Price: {responseItem[3]}</MDTypography>
