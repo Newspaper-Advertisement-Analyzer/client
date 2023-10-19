@@ -34,6 +34,7 @@ import colors from "assets/theme/base/colors";
 import typography from "assets/theme/base/typography";
 import UpdateInfoModal from "./updateInfo";
 import { useState } from "react";
+import MDAlert from "components/MDAlert";
 
 function ProfileInfoCard({ title, description, info, social, action, shadow }) {
   const labels = [];
@@ -88,6 +89,7 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
   ));
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPasswordChanged, setIsPasswordChanged] = useState(false);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -95,6 +97,7 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setIsPasswordChanged(true);
   };
 
   const handleSaveInfo = (updatedInformation) => {
@@ -105,6 +108,11 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
 
   return (
     <Card sx={{ height: "100%", boxShadow: !shadow && "none" }}>
+      {isPasswordChanged && (
+        <MDAlert color="warning" dismissible>
+          Your password have been changed
+        </MDAlert>
+      )}
       <MDBox display="flex" justifyContent="space-between" alignItems="center" pt={2} px={2}>
         <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize">
           {title}

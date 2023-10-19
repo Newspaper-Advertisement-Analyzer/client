@@ -107,7 +107,7 @@ function UpdateInfoModal({ open, onClose, onSave, initialValues }) {
                   value={formData.password}
                   onChange={handleInputChange}
                 />
-                <div style={{ marginBottom: "5%" }}></div>
+                <div style={{ marginBottom: "2%" }}></div>
               </form>
             </Grid>
             <Grid item xs={12} style={{ display: "flex", justifyContent: "flex-end" }}>
