@@ -5,7 +5,7 @@ import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
 import CoverLayout from "layouts/authentication/components/CoverLayout";
-import bgImage from "assets/images/bg-reset-cover.jpeg";
+import bgImage from "assets/images/newsback.jpg";
 import baseURL from "config";
 import { useNavigate } from "react-router-dom";
 import MDAlert from "components/MDAlert";
