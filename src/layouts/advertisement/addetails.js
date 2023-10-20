@@ -17,7 +17,7 @@ const Addetail = () => {
       try {
         const data = await getAdDetail(id);
         setADDetails(data);
-        console.log(adDetails);
+        console.log(adDetails.Source);
       } catch (error) {
         console.error("Error fetching data from the backend:", error);
       }
@@ -305,7 +305,7 @@ const Addetail = () => {
                     </MDBox>
                     <MDBox ml="auto">
                       <MDTypography variant="subtitle1" color="dark">
-                        {adDetails.source}
+                        {adDetails.Source}
                       </MDTypography>
                     </MDBox>
                   </MDBox>
@@ -562,7 +562,7 @@ const Addetail = () => {
                     </MDBox>
                     <MDBox ml="auto">
                       <MDTypography variant="subtitle1" color="dark">
-                        {adDetails.source}
+                        {adDetails.Source}
                       </MDTypography>
                     </MDBox>
                   </MDBox>
