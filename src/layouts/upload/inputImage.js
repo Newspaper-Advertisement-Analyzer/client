@@ -9,11 +9,13 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import { useAppState } from "utils/userContext";
 import { useState } from "react";
+import Loading from "react-loading";
 
 const ImageUploader = () => {
   // const [selectedFiles, setSelectedFiles] = useState([]);
   // const [imagePreviews, setImagePreviews] = useState([]);
   // const [backendResponse, setBackendResponse] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { state } = useAppState();
   const selectedFiles = state.selectedFiles;
   const setSelectedFiles = state.setSelectedFiles;
@@ -73,8 +75,10 @@ const ImageUploader = () => {
   const handleSubmit = async () => {
     if (selectedFiles.length > 0) {
       try {
+        setLoading(true);
         const response = await uploadImages(selectedFiles);
         console.log("Image upload response:", response);
+        setLoading(false);
         setBackendResponse(response.message);
         setSelectedFiles([]);
         setImagePreviews([]);
@@ -82,6 +86,8 @@ const ImageUploader = () => {
         console.error("Error uploading images:", error);
         alert("Sorry. Server error from our side. Try Again in a few seconds");
       }
+    } else {
+      alert("upload at least one image");
     }
   };
 
@@ -152,6 +158,15 @@ const ImageUploader = () => {
       <MDButton color="primary" onClick={handleSubmit} style={{ marginTop: "10px" }}>
         Submit
       </MDButton>
+      {loading && (
+        <div style={{ marginTop: "5px" }}>
+          <MDTypography variant="h4" fontWeight="regular" color="dark">
+            Analyzing...
+          </MDTypography>
+          {/* <LinearProgress /> */}
+          <Loading type="bars" color="#755BB4" />
+        </div>
+      )}
       {backendResponse.length > 0 && (
         <MDBox mt={5} mb={3} alignItems="center" fullWidth>
           {backendResponse.map((responseItem, index) => (

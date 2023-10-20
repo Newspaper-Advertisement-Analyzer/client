@@ -40,7 +40,7 @@ function RenderResults({ backendResponse }) {
         <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
           <MDTypography variant="body1">Contact Numbers: {backendResponse[6]}</MDTypography>
         </Card>
-        {backendResponse[8] > 0 && (
+        {backendResponse[8] && (
           <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
             <MDTypography variant="body1">
               Contact Emails: {backendResponse[8].join(", ")}

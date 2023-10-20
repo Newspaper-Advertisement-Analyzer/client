@@ -9,6 +9,7 @@ import MDTypography from "components/MDTypography";
 import { uploadPdfs } from "api/sendPdf"; // Replace with your API endpoint for PDF upload
 import { useAppState } from "utils/userContext";
 import { useState } from "react";
+import Loading from "react-loading";
 
 const PDFUploader = () => {
   // const [selectedFiles, setSelectedFiles] = useState([]);
@@ -23,6 +24,7 @@ const PDFUploader = () => {
   const imageScan = state.imageScan;
   const setImageScan = state.setImageScan;
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (event) => {
     const files = event.target.files;
@@ -42,14 +44,18 @@ const PDFUploader = () => {
   const handleSubmit = async () => {
     if (selectedFiles.length > 0) {
       try {
+        setLoading(true);
         const response = await uploadPdfs(selectedFiles, imageScan); // Replace with your API call to upload PDFs
         console.log("PDF upload response:", response);
+        setLoading(false);
         setBackendResponse(response.message);
         setSelectedFiles([]);
       } catch (error) {
         console.error("Error uploading PDFs:", error);
         alert("Sorry. Server error from our side. Try Again in a few seconds");
       }
+    } else {
+      alert("Please select atleast one PDF file to upload");
     }
   };
   const [publish, setPublish] = useState(false);
@@ -116,6 +122,15 @@ const PDFUploader = () => {
       <MDButton color="primary" onClick={handleSubmit} style={{ marginTop: "10px" }}>
         Submit
       </MDButton>
+      {loading && (
+        <div style={{ marginTop: "5px" }}>
+          <MDTypography variant="h4" fontWeight="regular" color="dark">
+            Analyzing...
+          </MDTypography>
+          {/* <LinearProgress /> */}
+          <Loading type="bars" color="#755BB4" />
+        </div>
+      )}
       {backendResponse.length > 0 && (
         <MDBox mt={5} mb={3} alignItems="center" fullWidth>
           {backendResponse.map((responseItem, index) => (
@@ -150,9 +165,7 @@ const PDFUploader = () => {
                 <MDTypography variant="body1">Category: {responseItem[1]}</MDTypography>
               </Card>
               <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
-                <MDTypography variant="body1">
-                  Phone Numbers: {responseItem[2].join(", ")}
-                </MDTypography>
+                <MDTypography variant="body1">Phone Numbers: {responseItem[2]}</MDTypography>
               </Card>
               <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
                 <MDTypography variant="body1">Price: {responseItem[3]}</MDTypography>

@@ -9,7 +9,7 @@ import MDInput from "components/MDInput";
 import Card from "@mui/material/Card";
 
 import { sendUrlToBackend } from "api/sendUrl";
-import Loading from "components/Loading";
+import Loading from "react-loading";
 import { CardContent, Checkbox, Grid, Modal } from "@mui/material";
 import emptyImage from "./empty.gif";
 import RenderResults from "./renderresults";
@@ -174,10 +174,12 @@ function InputURL() {
         </Card>
 
         {loading && (
-          <div>
-            <p>Analyzing...</p>
+          <div style={{ marginTop: "5px" }}>
+            <MDTypography variant="h4" fontWeight="regular" color="dark">
+              Analyzing...
+            </MDTypography>
             {/* <LinearProgress /> */}
-            <Loading />
+            <Loading type="bars" color="#755BB4" />
           </div>
         )}
 
