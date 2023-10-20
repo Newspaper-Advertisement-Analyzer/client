@@ -97,7 +97,6 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setIsPasswordChanged(true);
   };
 
   const handleSaveInfo = (updatedInformation) => {
@@ -127,6 +126,7 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
           onClose={handleCloseModal}
           onSave={handleSaveInfo}
           initialValues={updatedInfo} // Pass the current info data as initialValues
+          setChangePassword={setIsPasswordChanged}
         />
       </MDBox>
       <MDBox p={2}>

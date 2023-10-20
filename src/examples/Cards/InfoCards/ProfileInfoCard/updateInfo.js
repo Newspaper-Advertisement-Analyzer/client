@@ -11,9 +11,9 @@ import MDButton from "components/MDButton";
 import { updateUser } from "api/updateUser/updateUser";
 import { useUser } from "utils/userContext";
 
-function UpdateInfoModal({ open, onClose, onSave, initialValues }) {
+function UpdateInfoModal({ open, onClose, onSave, initialValues, setChangePassword }) {
   const [formData, setFormData] = useState(initialValues);
-  const [changePassword, setChangePassword] = useState(false); // State to hold the change password checkbox value
+  // const [changePassword, setChangePassword] = useState(false); // State to hold the change password checkbox value
   const { user } = useUser();
 
   const handleInputChange = (e) => {
@@ -25,7 +25,10 @@ function UpdateInfoModal({ open, onClose, onSave, initialValues }) {
   };
 
   const handleSave = async () => {
-    onSave(formData);
+    // eslint-disable-next-line no-unused-vars
+    const { password, ...formDataToSave } = formData;
+    onSave(formDataToSave);
+
     try {
       const userId = user.user_ID; // Extract the user ID from the form data
       const { fullName, mobile, profession, location, password } = formData;
@@ -37,7 +40,6 @@ function UpdateInfoModal({ open, onClose, onSave, initialValues }) {
       if (response && response.password_updated) {
         setChangePassword(true); // Reset the change password checkbox
         // You can use a state or a notification library here to show the message to the user
-        console.log("Password has been updated.", changePassword);
         console.log("Password has been updated.");
       }
 
@@ -140,6 +142,7 @@ UpdateInfoModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   initialValues: PropTypes.object.isRequired,
+  setChangePassword: PropTypes.func.isRequired,
 };
 
 export default UpdateInfoModal;
