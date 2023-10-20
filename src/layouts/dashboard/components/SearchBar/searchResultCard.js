@@ -7,6 +7,7 @@ import homeDecor2 from "assets/images/house (1).jpg";
 import homeDecor3 from "assets/images/wedding.jpg";
 
 const SearchResultCard = ({ ad }) => {
+  const { Image } = ad;
   // Extract the category from the Advertisement_ID
   const getCategoryFromId = (advertisementId) => {
     const idNumber = parseInt(advertisementId[2]);
@@ -33,7 +34,7 @@ const SearchResultCard = ({ ad }) => {
   return (
     <Card elevation={3} style={{ padding: "12px", marginBottom: "16px" }}>
       <DefaultProjectCard
-        image={categoryToImage[category] || homeDecor1}
+        image={Image || categoryToImage[category]}
         label={category}
         title={ad.Title}
         description={ad.Description}
@@ -54,6 +55,7 @@ SearchResultCard.propTypes = {
     Advertisement_ID: PropTypes.string.isRequired,
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
+    Image: PropTypes.string,
     // Add other expected prop types here
   }).isRequired,
 };

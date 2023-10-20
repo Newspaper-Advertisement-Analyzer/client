@@ -250,7 +250,7 @@ function AdvertisementForm() {
       }
     };
     fetchData();
-  }, [formData.nearestCity]);
+  }, [formData.nearestCity, formData.longitude, formData.lattitude]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -501,6 +501,30 @@ function AdvertisementForm() {
         </Box>
         <Box>
           <Typography variant="body1" gutterBottom>
+            Longitude
+          </Typography>
+          <TextField
+            margin="normal"
+            name="longitude"
+            value={formData.longitude}
+            onChange={handleChange}
+            required
+          />
+        </Box>
+        <Box>
+          <Typography variant="body1" gutterBottom>
+            Lattitude
+          </Typography>
+          <TextField
+            margin="normal"
+            name="lattitude"
+            value={formData.lattitude}
+            onChange={handleChange}
+            required
+          />
+        </Box>
+        <Box>
+          <Typography variant="body1" gutterBottom>
             Address
           </Typography>
           <TextField
@@ -647,6 +671,30 @@ function AdvertisementForm() {
             margin="normal"
             name="nearestCity"
             value={formData.nearestCity}
+            onChange={handleChange}
+            required
+          />
+        </Box>
+        <Box>
+          <Typography variant="body1" gutterBottom>
+            Longitude
+          </Typography>
+          <TextField
+            margin="normal"
+            name="longitude"
+            value={formData.longitude}
+            onChange={handleChange}
+            required
+          />
+        </Box>
+        <Box>
+          <Typography variant="body1" gutterBottom>
+            Lattitude
+          </Typography>
+          <TextField
+            margin="normal"
+            name="lattitude"
+            value={formData.lattitude}
             onChange={handleChange}
             required
           />
