@@ -12,7 +12,7 @@ import { Grid, Pagination, useMediaQuery } from "@mui/material";
 import { getAdbyFilter } from "api/searchBar/getAdbyFilter";
 import MDTypography from "components/MDTypography";
 import { Link } from "react-router-dom";
-import Loading from "components/Loading";
+import Loading from "react-loading";
 // import MDPagination from "components/MDPagination";
 
 const AdvertisementSearch = () => {
@@ -48,12 +48,14 @@ const AdvertisementSearch = () => {
 
   const [selectedData, setSelectedData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const [noresult, setNoresult] = useState(false);
   const adsPerPage = 20;
 
   const handleSearch = async () => {
     try {
       // Implement your search logic here, fetching data based on the selected option and query
       // For example, you can use the getRecentAd function from the API file
+      setNoresult(false);
       setCurrentPage(0);
       setLoading(true);
       const searchData = await getAdbyFilter(
@@ -64,6 +66,9 @@ const AdvertisementSearch = () => {
         category
       );
       setSelectedData(searchData);
+      if (searchData.length === 0) {
+        setNoresult(true);
+      }
       setLoading(false);
     } catch (error) {
       console.error("Error searching:", error);
@@ -267,9 +272,9 @@ const AdvertisementSearch = () => {
             </MDButton>
           </MDBox>
         </MDBox>
-        <Loading />
         <MDBox p={2}>
-          <MDBox mb={5}>{loading && <Loading />}</MDBox>
+          <MDBox mb={5}>{loading && <Loading type="bars" color="#755BB4" />}</MDBox>
+          <MDBox mb={5}>{noresult && <MDTypography>No Search results found</MDTypography>}</MDBox>
           <Grid container spacing={2}>
             {" "}
             {/* Use Grid container */}

@@ -1,8 +1,8 @@
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
 
-import Billing from "layouts/billing";
-import Notifications from "layouts/notifications";
+// import Billing from "layouts/billing";
+// import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
@@ -108,14 +108,14 @@ const adminRoutes = [
     route: "/managesupport",
     component: <Wrapper component={TBH} />,
   },
-  {
-    type: "collapse",
-    name: "Billing",
-    key: "billing",
-    icon: <Icon fontSize="small">receipt_long</Icon>,
-    route: "/billing",
-    component: <Billing />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Billing",
+  //   key: "billing",
+  //   icon: <Icon fontSize="small">receipt_long</Icon>,
+  //   route: "/billing",
+  //   component: <Billing />,
+  // },
   {
     route: "/advertisement/:id",
     component: <Wrapper component={AdvertisementDetail} />,
@@ -128,14 +128,14 @@ const adminRoutes = [
     route: "/reports/:title",
     component: <Wrapper component={GraphReport} />,
   },
-  {
-    type: "collapse",
-    name: "Notifications",
-    key: "notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/notifications",
-    component: <Notifications />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Notifications",
+  //   key: "notifications",
+  //   icon: <Icon fontSize="small">notifications</Icon>,
+  //   route: "/notifications",
+  //   component: <Notifications />,
+  // },
   {
     type: "collapse",
     name: "Profile",
@@ -145,18 +145,18 @@ const adminRoutes = [
     component: <Wrapper component={Profile} />,
   },
   {
-    type: "collapse",
-    name: "Sign In",
-    key: "sign-in",
-    icon: <Icon fontSize="small">login</Icon>,
+    // type: "collapse",
+    // name: "Sign In",
+    // key: "sign-in",
+    // icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
   },
   {
-    type: "collapse",
-    name: "Sign Up",
-    key: "sign-up",
-    icon: <Icon fontSize="small">assignment</Icon>,
+    // type: "collapse",
+    // name: "Sign Up",
+    // key: "sign-up",
+    // icon: <Icon fontSize="small">assignment</Icon>,
     route: "/authentication/sign-up",
     component: <SignUp />,
   },
