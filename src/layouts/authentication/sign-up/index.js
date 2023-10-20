@@ -94,21 +94,8 @@ function Cover() {
         } else {
           return response.json().then((data) => {
             console.log(data);
-            // Handle success, e.g., show a success message to the user
-            // alert(data.message);
             const userData = data.user;
-            console.log("error is here", userData);
-            // login({
-            //   name: userData.User_Name,
-            //   full_name: userData.Full_Name,
-            //   user_ID: userData.UserID,
-            //   role: userData.Role,
-            //   email: userData.email,
-            //   phone_Number: userData.Contact_Number,
-            //   profession: userData.Profession,
-            //   Profile_Picture: userData.Profile_Picture,
-            // });
-            // login();
+            console.log(userData);
             setVerificationOpen(true);
 
             // navigate("/dashboard");

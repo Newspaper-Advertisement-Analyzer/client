@@ -151,7 +151,7 @@
 
 // export default AdvertisementForm;
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -210,6 +210,47 @@ function AdvertisementForm() {
     };
     reader.readAsDataURL(file);
   };
+
+  // const [position, setPosition] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Split the locationsParam into individual city names
+        const cityName = formData.nearestCity;
+        // Initialize an array to store marker locations
+        const markerLocations = [];
+        // Use a geocoding service (like OpenStreetMap Nominatim) to get coordinates for each city
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/search?format=json&q=${cityName}`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        // Check if the response contains valid data
+        if (Array.isArray(data) && data.length > 0) {
+          const location = data[0]; // Take the first result
+          // const position = [parseFloat(location.lat), parseFloat(location.lon)];
+          // setPosition([parseFloat(location.lat), parseFloat(location.lon)]);
+          formData.longitude = parseFloat(location.lon);
+          formData.lattitude = parseFloat(location.lat);
+          markerLocations.push({
+            name: cityName,
+            Location: {
+              Latitude: parseFloat(location.lat),
+              Longitude: parseFloat(location.lon),
+            },
+          });
+        }
+
+        // Update the markers state with the retrieved locations
+      } catch (error) {
+        console.error("Error fetching marker data:", error);
+      }
+    };
+    fetchData();
+  }, [formData.nearestCity]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -314,6 +355,30 @@ function AdvertisementForm() {
             margin="normal"
             name="nearestCity"
             value={formData.nearestCity}
+            onChange={handleChange}
+            required
+          />
+        </Box>
+        <Box>
+          <Typography variant="body1" gutterBottom>
+            Longitude
+          </Typography>
+          <TextField
+            margin="normal"
+            name="longitude"
+            value={formData.longitude}
+            onChange={handleChange}
+            required
+          />
+        </Box>
+        <Box>
+          <Typography variant="body1" gutterBottom>
+            Lattitude
+          </Typography>
+          <TextField
+            margin="normal"
+            name="lattitude"
+            value={formData.lattitude}
             onChange={handleChange}
             required
           />

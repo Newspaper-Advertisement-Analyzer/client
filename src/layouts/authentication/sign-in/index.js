@@ -64,44 +64,6 @@ function Basic() {
     });
   };
 
-  // const handleLogin = () => {
-  //   if (!email || !password) {
-  //     alert("Please enter both email and password");
-  //     return;
-  //   }
-  //   fetch("/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       email: email,
-  //       password: password,
-  //     }),
-  //   })
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw response.status;
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       console.log(data);
-  //       // Display a success message if applicable
-  //       login({ name: email, role: "user" });
-  //       navigate("/dashboard");
-  //     })
-  //     .catch((status) => {
-  //       console.log(status, "error");
-  //       if (status === 400) {
-  //         alert("Email and password are required.");
-  //       } else if (status === 401) {
-  //         alert("Invalid User Name or Incorrect Password.");
-  //       } else {
-  //         alert("An error occurred during login.");
-  //       }
-  //     });
-  // };
   const handleLogin = () => {
     if (!email || !password) {
       alert("Please enter both email and password");
@@ -162,38 +124,6 @@ function Basic() {
   return (
     <BasicLayout image={bgImage}>
       <Card>
-        {/* <MDBox
-          variant="gradient"
-          bgColor="info"
-          borderRadius="lg"
-          coloredShadow="info"
-          mx={2}
-          mt={-3}
-          p={2}
-          mb={1}
-          textAlign="center"
-        >
-          <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-            Sign in
-          </MDTypography>
-          <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
-            <Grid item xs={2}>
-              <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                <FacebookIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-            <Grid item xs={2}>
-              <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                <GitHubIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-            <Grid item xs={2}>
-              <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                <GoogleIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-          </Grid>
-        </MDBox> */}
         <MDBox
           variant="gradient"
           bgColor="info"
