@@ -126,7 +126,7 @@ const FeedbackSection = () => {
         <Card key={index} elevation={3} style={{ marginBottom: "16px" }}>
           <div style={{ padding: "16px" }}>
             <MDTypography variant="h6" fontWeight="bold">
-              {feedback.user_name}
+              {feedback.user_name || feedback.Full_Name || "Anonymous"}
             </MDTypography>
             <MDTypography variant="h6" fontWeight="bold">
               {feedback.email}
