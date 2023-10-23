@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState } from "react";
 
 // react-router-dom components
@@ -20,7 +5,7 @@ import { Link } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
-import Switch from "@mui/material/Switch";
+// import Switch from "@mui/material/Switch";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -46,9 +31,9 @@ function Basic() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [rememberMe, setRememberMe] = useState(false);
+  // const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
+  // const handleSetRememberMe = () => setRememberMe(!rememberMe);
   const [value, setValue] = useState("");
   const navigate = useNavigate();
 
@@ -89,7 +74,6 @@ function Basic() {
         if (data && data.user) {
           // Display a success message if applicable
           const userData = data.user;
-          console.log(userData);
           login({
             name: userData.User_Name,
             full_name: userData.Full_Name,
@@ -101,16 +85,15 @@ function Basic() {
             Profile_Picture: userData.Profile_Picture,
             Last_Seen: userData.Last_Seen,
           });
-          // Now you can use userData as needed in your frontend
-          // For example, you can store it in state or context for later use
-          // login({ name: userData.User_Name, role: "user" });
+          // if (rememberMe) {
+          //   Cookies.set("user_id", userData.UserID, { expires: 365 }); // The cookie expires in 365 days
+          // }
           navigate("/dashboard");
         } else {
           alert("User data not found in the response.");
         }
       })
       .catch((status) => {
-        console.log(status, "error");
         if (status === 400) {
           alert("Email and password are required.");
         } else if (status === 401) {
@@ -163,7 +146,7 @@ function Basic() {
               />
             </MDBox>
             <MDBox display="flex" flexDirection="row" alignItems="center" ml={-1}>
-              <Switch checked={rememberMe} onChange={handleSetRememberMe} />
+              {/* <Switch checked={rememberMe} onChange={handleSetRememberMe} />
               <MDTypography
                 variant="button"
                 fontWeight="regular"
@@ -172,7 +155,7 @@ function Basic() {
                 sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
               >
                 &nbsp;&nbsp;Remember me
-              </MDTypography>
+              </MDTypography> */}
               <MDTypography
                 variant="button"
                 fontWeight="regular"

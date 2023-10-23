@@ -52,6 +52,7 @@ const PDFUploader = () => {
         setSelectedFiles([]);
       } catch (error) {
         console.error("Error uploading PDFs:", error);
+        setLoading(false);
         alert("Sorry. Server error from our side. Try Again in a few seconds");
       }
     } else {

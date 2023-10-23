@@ -54,16 +54,16 @@ const GraphDetails = () => {
           <MDBox mt={5} textAlign="center">
             <MDButton
               color="primary"
-              onClick={() => generateExcel(selectedData.rows, "uselessReport", user.user_ID)}
+              onClick={() => generateExcel(selectedData.rows, `${user.name}Report`, user.user_ID)}
             >
               Export to Excel
             </MDButton>
           </MDBox>
           <MDBox mt={5} textAlign="center">
-            <CSVLink data={selectedData.rows} filename={`uselessCSV.csv`}>
+            <CSVLink data={selectedData.rows} filename={`${user.name}CSV.csv`}>
               <MDButton
                 color="primary"
-                onClick={() => generateCSV(selectedData.rows, "uselessReport", user.user_ID)}
+                onClick={() => generateCSV(selectedData.rows, `${user.name}Report`, user.user_ID)}
               >
                 Export to CSV
               </MDButton>

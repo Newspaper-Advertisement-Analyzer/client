@@ -120,13 +120,19 @@ function DefaultProjectCard({ image, label, title, description, action, authors 
         <MDTypography variant="button" fontWeight="regular" color="text" textTransform="capitalize">
           {label}
         </MDTypography>
-        <MDBox mb={1}>
+        <MDBox mb={1} style={{ overflow: "hidden" }}>
           {action.type === "internal" ? (
             <MDTypography
               component={Link}
               to={action.route}
               variant="h5"
               textTransform="capitalize"
+              style={{
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+                maxWidth: "100%", // You can adjust this value as needed
+              }}
             >
               {title}
             </MDTypography>
@@ -138,13 +144,29 @@ function DefaultProjectCard({ image, label, title, description, action, authors 
               rel="noreferrer"
               variant="h5"
               textTransform="capitalize"
+              style={{
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+                maxWidth: "100%", // You can adjust this value as needed
+              }}
             >
               {title}
             </MDTypography>
           )}
         </MDBox>
-        <MDBox mb={3} lineHeight={0}>
-          <MDTypography variant="button" fontWeight="light" color="text">
+        <MDBox mb={3} lineHeight={0} style={{ overflow: "hidden" }}>
+          <MDTypography
+            variant="button"
+            fontWeight="light"
+            color="text"
+            style={{
+              whiteSpace: "nowrap",
+              textOverflow: "ellipsis",
+              overflow: "hidden",
+              maxWidth: "100%", // You can adjust this value as needed
+            }}
+          >
             {description}
           </MDTypography>
         </MDBox>

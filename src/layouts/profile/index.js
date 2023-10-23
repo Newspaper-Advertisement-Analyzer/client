@@ -69,7 +69,11 @@ function Overview() {
               <Divider orientation="vertical" sx={{ ml: -2, mr: 1 }} />
               <ProfileInfoCard
                 title="profile information"
-                description="Hi I’m ${}_____________, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term pain avoidance is creating an illusion of equality)."
+                description={
+                  "Hi I’m " +
+                  user.name +
+                  ", Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term pain avoidance is creating an illusion of equality."
+                }
                 info={{
                   // fullName: "Alec M. Thompson",
                   fullName: user.full_name,
