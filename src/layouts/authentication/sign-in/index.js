@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState } from "react";
 
 // react-router-dom components
@@ -20,7 +5,7 @@ import { Link } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
-import Switch from "@mui/material/Switch";
+// import Switch from "@mui/material/Switch";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -46,12 +31,15 @@ function Basic() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [rememberMe, setRememberMe] = useState(false);
+  // const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
-  const handleForgetPassword = () => {};
+  // const handleSetRememberMe = () => setRememberMe(!rememberMe);
   const [value, setValue] = useState("");
   const navigate = useNavigate();
+
+  const handleForgetPassword = () => {
+    navigate("/authentication/reset-password");
+  };
 
   const handleClick = () => {
     signInWithPopup(auth, provider).then((data) => {
@@ -61,44 +49,6 @@ function Basic() {
     });
   };
 
-  // const handleLogin = () => {
-  //   if (!email || !password) {
-  //     alert("Please enter both email and password");
-  //     return;
-  //   }
-  //   fetch("/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       email: email,
-  //       password: password,
-  //     }),
-  //   })
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw response.status;
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       console.log(data);
-  //       // Display a success message if applicable
-  //       login({ name: email, role: "user" });
-  //       navigate("/dashboard");
-  //     })
-  //     .catch((status) => {
-  //       console.log(status, "error");
-  //       if (status === 400) {
-  //         alert("Email and password are required.");
-  //       } else if (status === 401) {
-  //         alert("Invalid User Name or Incorrect Password.");
-  //       } else {
-  //         alert("An error occurred during login.");
-  //       }
-  //     });
-  // };
   const handleLogin = () => {
     if (!email || !password) {
       alert("Please enter both email and password");
@@ -124,7 +74,6 @@ function Basic() {
         if (data && data.user) {
           // Display a success message if applicable
           const userData = data.user;
-          console.log(userData);
           login({
             name: userData.User_Name,
             full_name: userData.Full_Name,
@@ -133,23 +82,24 @@ function Basic() {
             email: userData.email,
             phone_Number: userData.Contact_Number,
             profession: userData.Profession,
+            Profile_Picture: userData.Profile_Picture,
+            Last_Seen: userData.Last_Seen,
           });
-          // Now you can use userData as needed in your frontend
-          // For example, you can store it in state or context for later use
-          // login({ name: userData.User_Name, role: "user" });
+          // if (rememberMe) {
+          //   Cookies.set("user_id", userData.UserID, { expires: 365 }); // The cookie expires in 365 days
+          // }
           navigate("/dashboard");
         } else {
           alert("User data not found in the response.");
         }
       })
       .catch((status) => {
-        console.log(status, "error");
         if (status === 400) {
           alert("Email and password are required.");
         } else if (status === 401) {
           alert("Invalid User Name or Incorrect Password.");
         } else {
-          alert("An error occurred during login.");
+          alert("Check your Network Connection");
         }
       });
   };
@@ -157,38 +107,6 @@ function Basic() {
   return (
     <BasicLayout image={bgImage}>
       <Card>
-        {/* <MDBox
-          variant="gradient"
-          bgColor="info"
-          borderRadius="lg"
-          coloredShadow="info"
-          mx={2}
-          mt={-3}
-          p={2}
-          mb={1}
-          textAlign="center"
-        >
-          <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-            Sign in
-          </MDTypography>
-          <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
-            <Grid item xs={2}>
-              <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                <FacebookIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-            <Grid item xs={2}>
-              <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                <GitHubIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-            <Grid item xs={2}>
-              <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                <GoogleIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-          </Grid>
-        </MDBox> */}
         <MDBox
           variant="gradient"
           bgColor="info"
@@ -228,7 +146,7 @@ function Basic() {
               />
             </MDBox>
             <MDBox display="flex" flexDirection="row" alignItems="center" ml={-1}>
-              <Switch checked={rememberMe} onChange={handleSetRememberMe} />
+              {/* <Switch checked={rememberMe} onChange={handleSetRememberMe} />
               <MDTypography
                 variant="button"
                 fontWeight="regular"
@@ -237,7 +155,7 @@ function Basic() {
                 sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
               >
                 &nbsp;&nbsp;Remember me
-              </MDTypography>
+              </MDTypography> */}
               <MDTypography
                 variant="button"
                 fontWeight="regular"
@@ -246,16 +164,6 @@ function Basic() {
                 sx={{ cursor: "pointer", userSelect: "none", mr: 1, flex: 1, textAlign: "right" }}
               >
                 &nbsp;&nbsp;Forget Password ?
-              </MDTypography>
-            </MDBox>
-            <MDBox alignItems="center" display="flex" justifyContent="center" mt={3}>
-              <MDTypography
-                variant="button"
-                fontWeight="regular"
-                color="success"
-                textAlign="center"
-              >
-                Use &quot;test@advizor.com&quot; and &quot;test&quot; as demo-credentials
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>

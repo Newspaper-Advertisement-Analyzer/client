@@ -12,7 +12,7 @@ import { Grid, Pagination, useMediaQuery } from "@mui/material";
 import { getAdbyFilter } from "api/searchBar/getAdbyFilter";
 import MDTypography from "components/MDTypography";
 import { Link } from "react-router-dom";
-import Loading from "components/Loading";
+import Loading from "react-loading";
 // import MDPagination from "components/MDPagination";
 
 const AdvertisementSearch = () => {
@@ -48,12 +48,14 @@ const AdvertisementSearch = () => {
 
   const [selectedData, setSelectedData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const [noresult, setNoresult] = useState(false);
   const adsPerPage = 20;
 
   const handleSearch = async () => {
     try {
       // Implement your search logic here, fetching data based on the selected option and query
       // For example, you can use the getRecentAd function from the API file
+      setNoresult(false);
       setCurrentPage(0);
       setLoading(true);
       const searchData = await getAdbyFilter(
@@ -64,6 +66,9 @@ const AdvertisementSearch = () => {
         category
       );
       setSelectedData(searchData);
+      if (searchData.length === 0) {
+        setNoresult(true);
+      }
       setLoading(false);
     } catch (error) {
       console.error("Error searching:", error);
@@ -146,28 +151,6 @@ const AdvertisementSearch = () => {
   // Get ads for the current page
   const currentAds = selectedData.slice(startIndex, endIndex);
 
-  // const advertisementData = {
-  //   columns: [
-  //     { Header: "#", accessor: "index", width: "5%", align: "left" },
-  //     { Header: "Title", accessor: "title", width: "10%", align: "left" },
-  //     { Header: "Source", accessor: "source", align: "center" },
-  //     { Header: "Location", accessor: "city", align: "center" },
-  //     { Header: "Posted Date", accessor: "date", align: "center" },
-  //     //{ Header: "Address", accessor: "address", align: "center" },
-  //     { Header: "PhoneNumber", accessor: "phoneNumber", align: "center" },
-  //     { Header: "Description", accessor: "description", align: "center" },
-  //   ],
-  //   rows: selectedData.map((ad, index) => ({
-  //     index: index + 1,
-  //     title: ad.Title,
-  //     source: ad.Source, // You can choose an appropriate field for the source
-  //     city: ad.Location.City,
-  //     date: ad.Posted_Date,
-  //     phoneNumber: ad.Contact_Info.Phone_Number.join(", "), // Join multiple phone numbers if available
-  //     description: ad.Description,
-  //   })), // Add your data here
-  // };
-  // Customized page options starting from 1
   const isMobile = useMediaQuery("(max-width: 600px)");
   return (
     <MDBox p={2}>
@@ -267,57 +250,29 @@ const AdvertisementSearch = () => {
             </MDButton>
           </MDBox>
         </MDBox>
-        <Loading />
-        <MDBox p={2}>
-          <MDBox mb={5}>{loading && <Loading />}</MDBox>
-          <Grid container spacing={2}>
-            {" "}
-            {/* Use Grid container */}
-            {currentAds.map((ad, index) => (
-              <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
-                {" "}
-                {/* Use Grid item */}
-                <SearchResultCard ad={ad} />
-              </Grid>
-            ))}
-          </Grid>
-          {selectedData.length > adsPerPage && (
-            // <ReactPaginate
-            //   previousLabel={"Previous"}
-            //   nextLabel={"Next"}
-            //   breakLabel={"..."}
-            //   pageCount={Math.ceil(selectedData.length / adsPerPage)}
-            //   marginPagesDisplayed={2}
-            //   pageRangeDisplayed={5}
-            //   onPageChange={handlePageChange}
-            //   containerClassName={"pagination"}
-            //   activeClassName={"active"}
-            // />
-            // <MDPagination>
-            //   <MDPagination item>
-            //     <Icon>keyboard_arrow_left</Icon>
-            //   </MDPagination>
-            //   <MDPagination item active>
-            //     1
-            //   </MDPagination>
-            //   <MDPagination item>2</MDPagination>
-            //   <MDPagination item>3</MDPagination>
-            //   <MDPagination item>
-            //     <Icon>keyboard_arrow_right</Icon>
-            //   </MDPagination>
-            // </MDPagination>
-            <MDBox display="flex" justifyContent="flex-end">
-              <MDTypography color="dark">
-                <Pagination
-                  count={Math.ceil(selectedData.length / adsPerPage)}
-                  color="primary"
-                  onChange={(event, page) => handlePageChange(page)}
-                />
-              </MDTypography>
-            </MDBox>
-          )}
-        </MDBox>
       </Card>
+      <MDBox p={2}>
+        <MDBox mb={5}>{loading && <Loading type="bars" color="#755BB4" />}</MDBox>
+        <MDBox mb={5}>{noresult && <MDTypography>No Search results found</MDTypography>}</MDBox>
+        <Grid container spacing={2}>
+          {currentAds.map((ad, index) => (
+            <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
+              <SearchResultCard ad={ad} />
+            </Grid>
+          ))}
+        </Grid>
+        {selectedData.length > adsPerPage && (
+          <MDBox display="flex" justifyContent="flex-end">
+            <MDTypography color="dark">
+              <Pagination
+                count={Math.ceil(selectedData.length / adsPerPage)}
+                color="primary"
+                onChange={(event, page) => handlePageChange(page)}
+              />
+            </MDTypography>
+          </MDBox>
+        )}
+      </MDBox>
     </MDBox>
   );
 };

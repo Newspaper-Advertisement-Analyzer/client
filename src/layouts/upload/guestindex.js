@@ -40,7 +40,7 @@ function GuestExtractor() {
   useEffect(() => {
     const timer = setTimeout(() => {
       handleOpenModal();
-    }, 10000); // 5000 milliseconds (5 seconds)
+    }, 20000); // 5000 milliseconds (5 seconds)
 
     return () => {
       clearTimeout(timer);

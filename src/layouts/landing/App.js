@@ -9,7 +9,7 @@ import Action from "./Page/Action";
 import "./index.css";
 // import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 // import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-// import backgroundImage from "./Assets/images/background8.jpg";
+import backgroundImage from "./Assets/images/background11.png";
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import Configurator from "examples/Configurator";
 import { useMaterialUIController, setOpenConfigurator } from "context";
@@ -18,7 +18,7 @@ import MDBox from "components/MDBox";
 
 function App() {
   const containerStyle = {
-    // backgroundImage: `url(${backgroundImage})`,
+    backgroundImage: `url(${backgroundImage})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
   };

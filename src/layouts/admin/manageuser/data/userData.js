@@ -1,102 +1,102 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/function-component-definition */
-/**
- * =========================================================
- * Material Dashboard 2 React - v2.2.0
- * =========================================================
- *
- * Product Page: https://www.creative-tim.com/product/material-dashboard-react
- * Copyright 2023 Creative Tim (https://www.creative-tim.com)
- *
- * Coded by www.creative-tim.com
- *
- * =========================================================
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- */
-
-// Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDBadge from "components/MDBadge";
 import { useEffect, useState } from "react";
-import { getReportList } from "api/report/reportsdata";
+import { deleteUser, editUser, getUserList } from "api/ManageUser/users";
+import PropTypes from "prop-types";
 
 export default function Data() {
-  const Job = ({ title, description }) => (
+  const UserDetails = ({ name, email }) => (
     <MDBox lineHeight={1} textAlign="left">
       <MDTypography display="block" variant="caption" color="text" fontWeight="medium">
-        {title}
+        {name}
       </MDTypography>
-      <MDTypography variant="caption">{description}</MDTypography>
+      <MDTypography variant="caption">{email}</MDTypography>
     </MDBox>
   );
 
-  const [reportDetails, setReportsDetails] = useState([]);
+  UserDetails.propTypes = {
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  };
+  const [userDetails, setUserDetails] = useState([]);
 
   useEffect(() => {
-    // Fetch average price data from the Flask API endpoint
-    getReportList()
+    getUserList()
       .then((data) => {
-        setReportsDetails(data);
-        console.log(data); // Use 'data' instead of 'reportDetails'
+        setUserDetails(data);
+        console.log(data);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching user data:", error);
       });
   }, []);
 
-  const handleDownload = (pdf_Url) => {
-    if (pdf_Url) {
-      // Create an anchor element to trigger the download
-      const anchor = document.createElement("a");
-      anchor.href = pdf_Url;
-      anchor.target = "_blank"; // Open the link in a new tab
-      anchor.download = "your_file_name.ext"; // Replace with the desired file name
-
-      // Trigger the download
-      anchor.click();
+  const handleUserDelete = (userId) => {
+    if (userId) {
+      // Add code to delete the user using the user ID
+      deleteUser(userId);
     } else {
-      console.error("Download URL is not available.");
+      console.error("User ID is not available.");
+    }
+  };
+
+  const handleUserEdit = (userId) => {
+    if (userId) {
+      // Add code to edit the user using the user ID
+      editUser(userId);
+    } else {
+      console.error("User ID is not available.");
     }
   };
 
   return {
     columns: [
-      { Header: "User", accessor: "author", align: "left" },
-      { Header: "Profession", accessor: "function", align: "left" },
-      { Header: "Status", accessor: "status", align: "center" },
-      { Header: "Last Seen", accessor: "employed", align: "center" },
+      { Header: "Name", accessor: "name", align: "left" },
+      { Header: "Email", accessor: "email", align: "left" },
+      { Header: "Role", accessor: "role", align: "center" },
+      { Header: "Last Seen", accessor: "lastSeen", align: "center" },
       { Header: "Manage", accessor: "action", align: "center" },
     ],
-    rows: reportDetails.map((report) => ({
-      author: (
+    rows: userDetails.map((user) => ({
+      name: (
         <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-          {report.Title}
+          {user.Full_Name}
         </MDTypography>
       ),
-      function: <Job title={report.UserID} description="Organization" />,
-      status: (
-        <MDBox ml={-1}>
-          <MDBadge badgeContent="pdf" color="error" variant="gradient" size="sm" />
-        </MDBox>
-      ),
-      employed: (
+      email: <UserDetails name={user.Email} description="Organization" />,
+      role: (
         <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-          {report.timestamp}
+          {user.Profession}
+        </MDTypography>
+      ),
+      lastSeen: (
+        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+          {user.Last_Seen}
         </MDTypography>
       ),
       action: (
-        <MDTypography
-          component="a"
-          href="#"
-          variant="caption"
-          color="text"
-          fontWeight="medium"
-          onClick={() => handleDownload(report.PDF_URL)} // Use an arrow function
-        >
-          Download
-        </MDTypography>
+        <div>
+          <MDBadge
+            component="a"
+            href="#"
+            badgeContent="Delete"
+            color="error"
+            variant="gradient"
+            size="sm"
+            onClick={() => handleUserDelete(user._id)} // Use an arrow function
+          />
+          <MDBadge
+            component="a"
+            href="#"
+            variant="gradient"
+            color="warning"
+            badgeContent="View"
+            fontWeight="medium"
+            size="sm"
+            onClick={() => handleUserEdit(user._id)} // Use an arrow function
+          />
+        </div>
       ),
     })),
   };

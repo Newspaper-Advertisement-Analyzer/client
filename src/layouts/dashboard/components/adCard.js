@@ -132,7 +132,7 @@ export const AdCard = () => {
           <Grid item key={index} xs={12} md={6} xl={3}>
             <Card elevation={3} style={{ padding: "12px", marginBottom: "16px" }}>
               <DefaultProjectCard
-                image={categoryToImage[item.category] || "defaultImage.jpg"} // Use categoryToImage mapping
+                image={item.Image || categoryToImage[item.category]}
                 label={item.category}
                 title={item.Title}
                 description={item.Description}
@@ -142,7 +142,6 @@ export const AdCard = () => {
                   color: "info",
                   label: "view Ad",
                 }}
-                // authors={123}
               />
             </Card>
           </Grid>

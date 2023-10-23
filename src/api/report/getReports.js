@@ -1,25 +1,47 @@
 import axios from "axios";
 import baseURL from "config";
 
-// Function to fetch a saved PDF report from the backend
-export async function getReportPdf(reportId) {
+// Function to delete a user
+export async function deleteUser(userId) {
   try {
-    const response = await axios.get(`${baseURL}/view-pdf?ReportID=${reportId}`, {
-      responseType: "blob", // Specify the response type as a blob
-    });
-
+    const response = await axios.delete(`${baseURL}/users/${userId}`);
     if (response.status === 200) {
-      // Create a blob URL for the PDF data
-      const blob = new Blob([response.data], { type: "application/pdf" });
-      const url = window.URL.createObjectURL(blob);
-
-      // Open the PDF in a new tab
-      window.open(url, "_blank");
+      console.log(`User with ID ${userId} has been deleted`);
     } else {
-      console.error("Failed to fetch PDF report:", response.statusText);
+      console.error("Failed to delete user:", response.statusText);
     }
   } catch (error) {
-    console.error("Error fetching PDF report:", error);
+    console.error("Error deleting user:", error);
+    throw error;
+  }
+}
+
+// Function to edit user details
+export async function editUser(userId, updatedData) {
+  try {
+    const response = await axios.put(`${baseURL}/users/${userId}`, updatedData);
+    if (response.status === 200) {
+      console.log(`User with ID ${userId} has been updated`);
+    } else {
+      console.error("Failed to edit user:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Error editing user:", error);
+    throw error;
+  }
+}
+
+// Function to get the list of users
+export async function getUserList() {
+  try {
+    const response = await axios.get(`${baseURL}/users`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error("Failed to fetch user list:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Error fetching user list:", error);
     throw error;
   }
 }

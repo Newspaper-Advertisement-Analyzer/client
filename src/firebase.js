@@ -24,10 +24,21 @@ const firebaseConfig = {
   measurementId: measurementId,
 };
 
+// const firebaseConfig = {
+//   apiKey: "AIzaSyAjKWWDuBXnKH40Ik3GX_4MIDUcjFGfjX4",
+//   authDomain: "advizor-71682.firebaseapp.com",
+//   projectId: "advizor-71682",
+//   storageBucket: "advizor-71682.appspot.com",
+//   messagingSenderId: "436861904344",
+//   appId: "1:436861904344:web:52966dfa3937c3c9e9bead",
+//   measurementId: "G-4MSLN0VTVP",
+// };
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-export { auth, provider };
 
-export const storage = getStorage(app);
+const storage = getStorage(app);
+
+export { auth, provider, storage };

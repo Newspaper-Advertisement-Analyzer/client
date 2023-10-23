@@ -24,6 +24,8 @@ import PropTypes from "prop-types";
 import TBH from "layouts/TBI/tbi";
 import FeedbackSection from "layouts/feedback/index";
 import GuestExtractor from "layouts/upload/guestindex";
+import ResetPSW from "layouts/authentication/reset-password/cover";
+import NewPassword from "layouts/authentication/reset-password/cover/newpassword";
 
 // ...
 
@@ -153,6 +155,14 @@ const routes = [
   {
     route: "/extractor",
     component: <GuestExtractor />,
+  },
+  {
+    route: "/authentication/reset-password",
+    component: <ResetPSW />,
+  },
+  {
+    route: "/authentication/new-password",
+    component: <NewPassword />,
   },
   {
     route: "/reports/:title",

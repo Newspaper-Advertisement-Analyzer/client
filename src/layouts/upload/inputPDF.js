@@ -1,13 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Switch, Typography } from "@mui/material";
+import { Checkbox, Container, Switch, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import MDButton from "components/MDButton";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
-import { uploadPdfs } from "api/sendPdf"; // Replace with your API endpoint for PDF upload
+import { uploadPdfs } from "api/advertisementextract/sendPdf"; // Replace with your API endpoint for PDF upload
 import { useAppState } from "utils/userContext";
+import { useState } from "react";
+import Loading from "react-loading";
 
 const PDFUploader = () => {
   // const [selectedFiles, setSelectedFiles] = useState([]);
@@ -22,6 +24,7 @@ const PDFUploader = () => {
   const imageScan = state.imageScan;
   const setImageScan = state.setImageScan;
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (event) => {
     const files = event.target.files;
@@ -41,13 +44,24 @@ const PDFUploader = () => {
   const handleSubmit = async () => {
     if (selectedFiles.length > 0) {
       try {
+        setLoading(true);
         const response = await uploadPdfs(selectedFiles, imageScan); // Replace with your API call to upload PDFs
         console.log("PDF upload response:", response);
+        setLoading(false);
         setBackendResponse(response.message);
+        setSelectedFiles([]);
       } catch (error) {
         console.error("Error uploading PDFs:", error);
+        setLoading(false);
+        alert("Sorry. Server error from our side. Try Again in a few seconds");
       }
+    } else {
+      alert("Please select atleast one PDF file to upload");
     }
+  };
+  const [publish, setPublish] = useState(false);
+  const handlePublishChange = (e) => {
+    setPublish(e.target.checked);
   };
 
   return (
@@ -92,10 +106,39 @@ const PDFUploader = () => {
             <Switch checked={imageScan} onChange={() => setImageScan(!imageScan)} />
           </MDBox>
         </MDBox>
+        <div style={{ marginTop: "5px" }}>
+          <Checkbox
+            id="publish"
+            checked={publish}
+            onChange={handlePublishChange}
+            inputProps={{ "aria-label": "controlled" }}
+          />
+          <label style={{ fontSize: "15px" }} htmlFor="publish">
+            <MDTypography variant="button" fontWeight="regular" color="dark">
+              We value your privacy. Check the box if you like to publish your advertisement details
+            </MDTypography>
+          </label>
+        </div>
       </Card>
       <MDButton color="primary" onClick={handleSubmit} style={{ marginTop: "10px" }}>
         Submit
       </MDButton>
+      {loading && (
+        <div
+          style={{
+            marginTop: "5px",
+            display: "flex",
+            flexDirection: "column", // Stack children vertically
+            alignItems: "center", // Center horizontally
+            justifyContent: "center", // Center vertically
+          }}
+        >
+          <MDTypography variant="h4" fontWeight="regular" color="dark">
+            Analyzing...
+          </MDTypography>
+          <Loading type="bars" color="#755BB4" />
+        </div>
+      )}
       {backendResponse.length > 0 && (
         <MDBox mt={5} mb={3} alignItems="center" fullWidth>
           {backendResponse.map((responseItem, index) => (
@@ -113,12 +156,10 @@ const PDFUploader = () => {
                   <MDButton
                     color="primary"
                     onClick={() => {
-                      // Define the query parameter object with the locations
                       const queryParams = {
                         locations: responseItem[0].join(", "),
                       };
 
-                      // Navigate to the '/advertisement_map' route with query parameters
                       navigate(`/advertisement_map?locations=${queryParams.locations}`);
                     }}
                   >
@@ -130,9 +171,7 @@ const PDFUploader = () => {
                 <MDTypography variant="body1">Category: {responseItem[1]}</MDTypography>
               </Card>
               <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
-                <MDTypography variant="body1">
-                  Phone Numbers: {responseItem[2].join(", ")}
-                </MDTypography>
+                <MDTypography variant="body1">Phone Numbers: {responseItem[2]}</MDTypography>
               </Card>
               <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
                 <MDTypography variant="body1">Price: {responseItem[3]}</MDTypography>

@@ -50,16 +50,6 @@ function Report() {
             </Card>
           </Grid>
         </Grid>
-        {/* <MDBox mt={5} textAlign="center">
-          <MDButton color="primary" onClick={() => generateExcel(rawData, "uselessReport")}>
-            Export to Excel
-          </MDButton>
-        </MDBox>
-        <MDBox mt={5} textAlign="center">
-          <CSVLink data={rawData} filename={`uselessCSV.csv`}>
-            <MDButton color="primary">Export to CSV</MDButton>
-          </CSVLink>
-        </MDBox> */}
       </MDBox>
       <Footer />
     </DashboardLayout>

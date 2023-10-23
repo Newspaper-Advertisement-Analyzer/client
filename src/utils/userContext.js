@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import PropTypes from "prop-types";
+import { updateLastSeen } from "api/updateUser/updateUser";
 
 const UserContext = createContext();
 const StateContext = createContext();
@@ -21,9 +22,14 @@ export const UserProvider = ({ children }) => {
     setUser(userData);
   };
 
-  const logout = () => {
-    setIsAuthenticated(false);
-    setUser(null);
+  const logout = async () => {
+    try {
+      setIsAuthenticated(false);
+      setUser(null);
+      await updateLastSeen(user.user_ID); // Call the updateLastSeen function asynchronously
+    } catch (error) {
+      console.error("Error updating last seen status:", error);
+    }
   };
 
   const [inputUrl, setInputUrl] = useState("");

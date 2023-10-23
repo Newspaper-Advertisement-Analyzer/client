@@ -11,8 +11,9 @@ import MDButton from "components/MDButton";
 import { updateUser } from "api/updateUser/updateUser";
 import { useUser } from "utils/userContext";
 
-function UpdateInfoModal({ open, onClose, onSave, initialValues }) {
+function UpdateInfoModal({ open, onClose, onSave, initialValues, setChangePassword }) {
   const [formData, setFormData] = useState(initialValues);
+  // const [changePassword, setChangePassword] = useState(false); // State to hold the change password checkbox value
   const { user } = useUser();
 
   const handleInputChange = (e) => {
@@ -24,13 +25,23 @@ function UpdateInfoModal({ open, onClose, onSave, initialValues }) {
   };
 
   const handleSave = async () => {
-    onSave(formData);
+    // eslint-disable-next-line no-unused-vars
+    const { password, ...formDataToSave } = formData;
+    onSave(formDataToSave);
+
     try {
       const userId = user.user_ID; // Extract the user ID from the form data
-      const { fullName, mobile, profession, location } = formData;
+      const { fullName, mobile, profession, location, password } = formData;
       console.log(formData);
-      const userData = { fullName, mobile, profession, location, userId };
-      await updateUser(userData); // Call the updateUser API function
+      const userData = { fullName, mobile, profession, location, password, userId };
+      const response = await updateUser(userData); // Call the updateUser API function
+
+      // Check if the password was updated
+      if (response && response.password_updated) {
+        setChangePassword(true); // Reset the change password checkbox
+        // You can use a state or a notification library here to show the message to the user
+        console.log("Password has been updated.");
+      }
 
       onClose(); // Close the modal after the update is successful
     } catch (error) {
@@ -93,6 +104,23 @@ function UpdateInfoModal({ open, onClose, onSave, initialValues }) {
                 {/* Add more fields as needed */}
               </form>
             </Grid>
+            <Grid item xs={12}>
+              <MDTypography variant="h6" fontWeight="medium">
+                Change Account Password
+              </MDTypography>
+            </Grid>
+            <Grid item xs={12}>
+              <form>
+                <MDInput
+                  type="password"
+                  label="New Password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                />
+                <div style={{ marginBottom: "2%" }}></div>
+              </form>
+            </Grid>
             <Grid item xs={12} style={{ display: "flex", justifyContent: "flex-end" }}>
               <MDButton color="primary" onClick={handleSave}>
                 Save
@@ -114,6 +142,7 @@ UpdateInfoModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   initialValues: PropTypes.object.isRequired,
+  setChangePassword: PropTypes.func.isRequired,
 };
 
 export default UpdateInfoModal;
