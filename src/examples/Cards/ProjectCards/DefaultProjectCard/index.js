@@ -30,6 +30,7 @@ import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import MDAvatar from "components/MDAvatar";
 import { useRef, useState, useEffect } from "react";
+import { Box } from "@mui/material";
 
 function DefaultProjectCard({ image, label, title, description, action, authors }) {
   const renderAuthors = authors.map(({ image: media, name }) => (
@@ -94,19 +95,27 @@ function DefaultProjectCard({ image, label, title, description, action, authors 
       }}
     >
       <MDBox position="relative" width="100.25%" shadow="xl" borderRadius="xl">
-        <CardMedia
-          src={image}
-          component="img"
-          title={title}
-          sx={{
-            maxWidth: "100%",
-            margin: 0,
-            boxShadow: ({ boxShadows: { md } }) => md,
-            objectFit: "cover",
-            objectPosition: "center",
-          }}
-        />
+        <Box sx={{ position: "relative", paddingTop: "75%" }}>
+          <CardMedia
+            src={image}
+            component="img"
+            title={title}
+            sx={{
+              maxWidth: "100%",
+              margin: 0,
+              boxShadow: ({ boxShadows: { md } }) => md,
+              objectFit: "cover",
+              objectPosition: "center",
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+            }}
+          />
+        </Box>
       </MDBox>
+
       <MDBox mt={1} mx={0.5}>
         <MDTypography variant="button" fontWeight="regular" color="text" textTransform="capitalize">
           {label}
