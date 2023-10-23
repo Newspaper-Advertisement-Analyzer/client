@@ -94,8 +94,8 @@ function Cover() {
         } else {
           return response.json().then((data) => {
             console.log(data);
-            const userData = data.user;
-            console.log(userData);
+            // const userData = data.user;
+            // console.log(userData);
             setVerificationOpen(true);
 
             // navigate("/dashboard");
