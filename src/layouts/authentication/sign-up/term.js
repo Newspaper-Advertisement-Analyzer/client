@@ -9,10 +9,9 @@ import MDTypography from "components/MDTypography";
 
 function TermModal({ open, onClose }) {
   const cardContentStyle = {
-    // Add your desired width and height for the modal
-    width: "80%", // Adjust as needed
-    height: "80vh", // Adjust as needed
-    overflowY: "scroll", // Add a vertical scroll when the content exceeds the height
+    width: "80%",
+    height: "80vh",
+    overflowY: "scroll",
   };
   return (
     <Modal

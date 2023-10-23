@@ -4,7 +4,7 @@ import { Checkbox, Container, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import MDButton from "components/MDButton";
 
-import { uploadImages } from "api/sendImg";
+import { uploadImages } from "api/advertisementextract/sendImg";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import { useAppState } from "utils/userContext";

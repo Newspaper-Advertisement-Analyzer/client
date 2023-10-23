@@ -28,12 +28,10 @@ export default function VerificationDialog({ open, onClose, email, onSuccess, ad
         setTimeRemaining((prevTime) => prevTime - 1);
       }, 1000);
 
-      // Clear interval when component unmounts or dialog closes
       return () => {
         clearInterval(interval);
       };
     } else if (!open) {
-      // Reset timer when dialog closes
       setTimeRemaining(60);
     }
   }, [open, timeRemaining]);
@@ -48,7 +46,6 @@ export default function VerificationDialog({ open, onClose, email, onSuccess, ad
         .then(function (response) {
           console.log(response);
           if (response.data.success) {
-            // alert("Registration successful!");
             setAlertType("success");
             console.log(alertType);
             if (address === "verify") {
@@ -66,11 +63,6 @@ export default function VerificationDialog({ open, onClose, email, onSuccess, ad
               onSuccess();
               onClose();
             } else if (address === "verify-email") {
-              // alert(
-              //   "Your new password is " +
-              //     response.data.newpassword +
-              //     " Important: Please imeediately change your password after login"
-              // );
               setAlertPassword(true);
               sethideComponent(false);
               setNewPassword(response.data.newpassword);
@@ -96,12 +88,11 @@ export default function VerificationDialog({ open, onClose, email, onSuccess, ad
     axios
       .post(`${baseURL}/verify`, {
         email: email,
-        verificationCode: "", // Provide an empty code to indicate cancellation
-        cancel: true, // Add a flag to indicate cancellation
+        verificationCode: "",
+        cancel: true,
       })
       .then(function (response) {
         console.log(response);
-        //   setVerificationOpen(false);
         onClose();
       })
       .catch(function (error) {

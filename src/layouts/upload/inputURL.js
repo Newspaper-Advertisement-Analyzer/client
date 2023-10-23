@@ -8,7 +8,7 @@ import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import Card from "@mui/material/Card";
 
-import { sendUrlToBackend } from "api/sendUrl";
+import { sendUrlToBackend } from "api/advertisementextract/sendUrl";
 import Loading from "react-loading";
 import { CardContent, Checkbox, Grid, Modal } from "@mui/material";
 import emptyImage from "./empty.gif";

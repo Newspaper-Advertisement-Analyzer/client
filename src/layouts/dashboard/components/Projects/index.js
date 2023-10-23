@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useEffect, useState } from "react";
 
 // @mui material components
@@ -38,10 +23,7 @@ function Projects() {
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
   const closeMenu = () => setMenu(null);
   useEffect(() => {
-    // This code will run when the component is initially rendered.
-    console.log("Component is initially rendered.");
     setSelectedData(landSale);
-    // You can place your logic here.
   }, []);
   const handleMenuItemClick = (dataKey) => {
     setSelectedData(dataKey);

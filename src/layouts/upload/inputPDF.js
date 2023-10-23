@@ -6,7 +6,7 @@ import MDButton from "components/MDButton";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
-import { uploadPdfs } from "api/sendPdf"; // Replace with your API endpoint for PDF upload
+import { uploadPdfs } from "api/advertisementextract/sendPdf"; // Replace with your API endpoint for PDF upload
 import { useAppState } from "utils/userContext";
 import { useState } from "react";
 import Loading from "react-loading";

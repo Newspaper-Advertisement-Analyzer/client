@@ -23,7 +23,6 @@ import bgImage from "assets/images/newspaper2.jpg";
 
 import VerificationDialog from "./VerificationDialog";
 import { useNavigate } from "react-router-dom";
-// import { useUser } from "utils/userContext";
 import baseURL from "config";
 import TermModal from "./term";
 
@@ -33,7 +32,6 @@ function Cover() {
   const [name, setName] = useState("");
   const navigate = useNavigate();
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-  // const { login } = useUser();
 
   const [verificationOpen, setVerificationOpen] = useState(false);
 
@@ -94,11 +92,7 @@ function Cover() {
         } else {
           return response.json().then((data) => {
             console.log(data);
-            // const userData = data.user;
-            // console.log(userData);
             setVerificationOpen(true);
-
-            // navigate("/dashboard");
           });
         }
       })
@@ -189,8 +183,6 @@ function Cover() {
                 &nbsp;&nbsp;I agree the&nbsp;
               </MDTypography>
               <MDTypography
-                // component="a"
-                // href="#"
                 variant="button"
                 fontWeight="bold"
                 color="info"
@@ -234,9 +226,8 @@ function Cover() {
         <VerificationDialog
           open={verificationOpen}
           onClose={() => setVerificationOpen(false)}
-          email={email} // Pass the email to the dialog
+          email={email}
           onSuccess={() => {
-            // Handle successful verification if needed
             setShowSuccessAlert(true);
             setTimeout(() => {
               setShowSuccessAlert(false);
