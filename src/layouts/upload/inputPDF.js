@@ -124,11 +124,18 @@ const PDFUploader = () => {
         Submit
       </MDButton>
       {loading && (
-        <div style={{ marginTop: "5px" }}>
+        <div
+          style={{
+            marginTop: "5px",
+            display: "flex",
+            flexDirection: "column", // Stack children vertically
+            alignItems: "center", // Center horizontally
+            justifyContent: "center", // Center vertically
+          }}
+        >
           <MDTypography variant="h4" fontWeight="regular" color="dark">
             Analyzing...
           </MDTypography>
-          {/* <LinearProgress /> */}
           <Loading type="bars" color="#755BB4" />
         </div>
       )}
@@ -149,12 +156,10 @@ const PDFUploader = () => {
                   <MDButton
                     color="primary"
                     onClick={() => {
-                      // Define the query parameter object with the locations
                       const queryParams = {
                         locations: responseItem[0].join(", "),
                       };
 
-                      // Navigate to the '/advertisement_map' route with query parameters
                       navigate(`/advertisement_map?locations=${queryParams.locations}`);
                     }}
                   >

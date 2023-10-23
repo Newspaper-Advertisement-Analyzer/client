@@ -178,7 +178,6 @@ function InputURL() {
             <MDTypography variant="h4" fontWeight="regular" color="dark">
               Analyzing...
             </MDTypography>
-            {/* <LinearProgress /> */}
             <Loading type="bars" color="#755BB4" />
           </div>
         )}
@@ -186,52 +185,6 @@ function InputURL() {
         {backendResponse.length > 0 && (
           <MDBox mt={5} mb={3} alignItems="center" fullWidth>
             <RenderResults backendResponse={backendResponse} />
-            {/* <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
-              <MDTypography variant="body1">Title: {backendResponse[0]}</MDTypography>
-            </Card>
-            <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
-              <MDTypography variant="body1">Text: {backendResponse[1]}</MDTypography>
-            </Card>
-            <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
-              <MDTypography variant="body1">Summary: {backendResponse[2]}</MDTypography>
-            </Card>
-            <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
-              <MDTypography variant="body1">Keywords: {backendResponse[3].join(", ")}</MDTypography>
-            </Card>
-            <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
-              <MDTypography variant="body1">Category: {backendResponse[4]}</MDTypography>
-            </Card>
-            <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
-              <MDTypography variant="body1">Price: {backendResponse[5]}</MDTypography>
-            </Card>
-            <Card elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
-              <MDTypography variant="body1">Contact: {backendResponse[6]}</MDTypography>
-            </Card>
-            {backendResponse[7].length > 0 && (
-              <Card elevation={3} style={{ padding: "16px" }}>
-                <div
-                  style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
-                >
-                  <MDTypography variant="body1">
-                    Locations: {backendResponse[7].join(", ")}
-                  </MDTypography>
-                  <MDButton
-                    color="primary"
-                    onClick={() => {
-                      // Define the query parameter object with the locations
-                      const queryParams = {
-                        locations: backendResponse[7].join(", "),
-                      };
-
-                      // Navigate to the '/advertisement_map' route with query parameters
-                      navigate(`/advertisement_map?locations=${queryParams.locations}`);
-                    }}
-                  >
-                    View Locations
-                  </MDButton>
-                </div>
-              </Card>
-            )} */}
           </MDBox>
         )}
       </MDBox>

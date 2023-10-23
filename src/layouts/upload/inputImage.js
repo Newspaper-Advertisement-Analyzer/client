@@ -160,7 +160,15 @@ const ImageUploader = () => {
         Submit
       </MDButton>
       {loading && (
-        <div style={{ marginTop: "5px" }}>
+        <div
+          style={{
+            marginTop: "5px",
+            display: "flex",
+            flexDirection: "column", // Stack children vertically
+            alignItems: "center", // Center horizontally
+            justifyContent: "center", // Center vertically
+          }}
+        >
           <MDTypography variant="h4" fontWeight="regular" color="dark">
             Analyzing...
           </MDTypography>
