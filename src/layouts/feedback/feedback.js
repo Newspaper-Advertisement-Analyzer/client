@@ -139,7 +139,7 @@ const FeedbackSection = () => {
               {feedback.feedback}
             </MDTypography>
             <MDTypography variant="body1" mt={2}>
-              {feedback.timestamp && new Date(feedback.timestamp).toLocaleString()}
+              {new Date(feedback.timestamp.$date).toLocaleString() || feedback.timestamp.$date}
             </MDTypography>
             {/* You can add buttons or actions here for managing feedback */}
           </div>
